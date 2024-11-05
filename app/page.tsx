@@ -1,7 +1,10 @@
+import {Button} from "@/components/ui/button";
+
 export default function Home() {
     return (
-        <div>
-            Pasindu Lanka
+        <div className={'flex flex-col items-center justify-center h-screen w-screen'}>
+            <h1 className={'text-4xl font-bold'}>Hello world!</h1>
+            <Button>Click me</Button>
         </div>
     );
 }
