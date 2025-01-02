@@ -1,22 +1,17 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
-
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+import { Inter } from 'next/font/google';
 
 export const metadata: Metadata = {
   title: "Pasindu Lanka",
   description: "Welcome to the personal portfolio of Pasindu Lanka, showcasing expertise in web development, software engineering, and innovative digital solutions. Explore projects, skills, and professional experiences.",
 };
+
+const inter = Inter({
+    subsets: ['latin'], // Specify subsets (latin, latin-ext, etc.)
+    weight: ['400', '700'], // Optional: Specify weights
+    variable: '--font-inter', // Optional: Define a CSS variable
+});
 
 export default function RootLayout({
   children,
@@ -25,9 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={inter.className}>
         {children}
       </body>
     </html>

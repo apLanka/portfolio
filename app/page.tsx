@@ -1,10 +1,9 @@
-import {Button} from "@/components/ui/button";
+import LandingSection from "@/components/section/landing-section";
 
 export default function Home() {
     return (
-        <div className={'flex flex-col items-center justify-center h-screen w-screen'}>
-            <h1 className={'text-4xl font-bold'}>Hello world!</h1>
-            <Button>Click me</Button>
+        <div className={'bg-black'}>
+            <LandingSection/>
         </div>
     );
 }

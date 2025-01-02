@@ -50,13 +50,18 @@ const config: Config = {
 					'3': 'hsl(var(--chart-3))',
 					'4': 'hsl(var(--chart-4))',
 					'5': 'hsl(var(--chart-5))'
-				}
+				},
+				'white-transparent': 'rgb(255 255 255 / 0.03)',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
-			}
+			},
+			backgroundImage: {
+				'main-text-gradient': 'linear-gradient(90deg, #FFFFFF 0%, #999999 100%)',
+				'black-radial': 'radial-gradient(50% 50% at 50% 50%, rgba(0, 0, 0, 0) 7%, rgba(0, 0, 0, 0.435) 53%, #000000 100%)',
+			},
 		}
 	},
 	plugins: [tailwindcssAnimate],
