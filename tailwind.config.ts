@@ -51,7 +51,7 @@ const config: Config = {
 					'4': 'hsl(var(--chart-4))',
 					'5': 'hsl(var(--chart-5))'
 				},
-				'white-transparent': 'rgb(255 255 255 / 0.03)',
+				'white-transparent': 'rgb(255 255 255 / 0.1)',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
