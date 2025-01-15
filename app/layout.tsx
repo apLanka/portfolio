@@ -1,10 +1,11 @@
-import type { Metadata } from "next";
+import type {Metadata} from "next";
 import "./globals.css";
-import { Inter } from 'next/font/google';
+import {Inter} from 'next/font/google';
+import {NavBar} from "@/components/nav-bar";
 
 export const metadata: Metadata = {
-  title: "Pasindu Lanka",
-  description: "Welcome to the personal portfolio of Pasindu Lanka, showcasing expertise in web development, software engineering, and innovative digital solutions. Explore projects, skills, and professional experiences.",
+    title: "Pasindu Lanka",
+    description: "Welcome to the personal portfolio of Pasindu Lanka, showcasing expertise in web development, software engineering, and innovative digital solutions. Explore projects, skills, and professional experiences.",
 };
 
 const inter = Inter({
@@ -14,15 +15,16 @@ const inter = Inter({
 });
 
 export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
+                                       children,
+                                   }: Readonly<{
+    children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body className={inter.className}>
+    return (
+        <html lang="en">
+        <body className={inter.className}>
+        <NavBar/>
         {children}
-      </body>
-    </html>
-  );
+        </body>
+        </html>
+    );
 }
