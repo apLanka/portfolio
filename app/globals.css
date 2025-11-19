@@ -70,3 +70,18 @@ body {
     @apply dark bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  @keyframes blink-cursor {
+    0%, 50% {
+      opacity: 1;
+    }
+    51%, 100% {
+      opacity: 0;
+    }
+  }
+
+  .animate-blink-cursor {
+    animation: blink-cursor 1s infinite;
+  }
+}

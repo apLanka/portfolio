@@ -4,10 +4,18 @@ import BgEffect from '@/public/image/bg/bg-effect.png'
 import Image from "next/image";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { AnimatedGridPattern } from "@/components/ui/animated-grid-pattern";
+import { TypingAnimation } from "@/components/ui/typing-animation";
 
 export default function LandingSection() {
+    const handleViewWork = () => {
+        const element = document.querySelector('#projects')
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }
+    }
+
     return (
-        <div className={'relative flex items-center justify-center w-full h-screen overflow-hidden'}>
+        <div id="home" className={'relative flex items-center justify-center w-full h-screen overflow-hidden'}>
             {/* Animated Grid Background */}
             <div className={'absolute inset-0 z-10'}>
                 <AnimatedGridPattern
@@ -56,15 +64,27 @@ export default function LandingSection() {
                 
                 <BlurFade delay={0.2} duration={0.6} blur="8px" direction="up">
                     <div className={'text-center mt-2 text-base text-white/25'}>
-                        Passionate About Creating Exceptional User
-                        Experiences Across <span className={'text-[#6B4D9E]'}>Web</span> and <span
-                            className={'text-[#6B4D9E]'}>Mobile</span>.
+                        <TypingAnimation
+                            words={[
+                                "Passionate About Creating Exceptional User Experiences",
+                                "Full Stack Developer Specializing in Web & Mobile",
+                                "Building Scalable Solutions with Modern Technologies",
+                            ]}
+                            className="text-base text-white/25"
+                            loop={true}
+                            typeSpeed={50}
+                            deleteSpeed={30}
+                            pauseDelay={2000}
+                        />
                     </div>
                 </BlurFade>
                 
                 <BlurFade delay={0.3} duration={0.6} blur="8px" direction="up">
                     <div className={'flex justify-center mt-[25px]'}>
-                        <button className={'h-[44px] bg-[#0D0D0D] border border-[#6B4D9E] px-6 rounded-[8px] hover:bg-[#6B4D9E]/10 transition-colors'}>
+                        <button 
+                            onClick={handleViewWork}
+                            className={'h-[44px] bg-[#0D0D0D] border border-[#6B4D9E] px-6 rounded-[8px] hover:bg-[#6B4D9E]/10 transition-colors text-white'}
+                        >
                             View My Work
                         </button>
                     </div>

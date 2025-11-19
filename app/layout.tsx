@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Inter } from 'next/font/google';
+import Navigation from "@/components/layout/navigation";
 
 export const metadata: Metadata = {
   title: "Pasindu Lanka",
@@ -21,6 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <Navigation />
         {children}
       </body>
     </html>
