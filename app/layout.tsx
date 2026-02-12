@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
+import { DM_Sans } from "next/font/google";
 import "./globals.css";
-import { Inter } from 'next/font/google';
-import Navigation from "@/components/layout/navigation";
+import { ThemeProvider } from "./providers";
+
+const dmSans = DM_Sans({
+  variable: "--font-dm-sans",
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+});
 
 export const metadata: Metadata = {
   title: "Pasindu Lanka",
-  description: "Welcome to the personal portfolio of Pasindu Lanka, showcasing expertise in web development, software engineering, and innovative digital solutions. Explore projects, skills, and professional experiences.",
+  description: "Full Stack Developer — Building exceptional digital experiences with modern technologies.",
 };
-
-const inter = Inter({
-    subsets: ['latin'], // Specify subsets (latin, latin-ext, etc.)
-    weight: ['400', '700'], // Optional: Specify weights
-    variable: '--font-inter', // Optional: Define a CSS variable
-});
 
 export default function RootLayout({
   children,
@@ -20,10 +20,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <Navigation />
-        {children}
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${dmSans.variable} antialiased transition-colors duration-300`}
+      >
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
