@@ -11,7 +11,17 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   title: "Pasindu Lanka",
-  description: "Full Stack Developer — Building exceptional digital experiences with modern technologies.",
+  description: "Full-stack developer and product builder crafting seamless, user-centric experiences. Strategic problem solver bridging technical architecture with business outcomes. I build robust, scalable systems that align engineering decisions with long-term growth and success.",
+  openGraph: {
+    title: "Pasindu Lanka",
+    description: "Full-stack developer and product builder crafting seamless, user-centric experiences. Strategic problem solver bridging technical architecture with business outcomes. I build robust, scalable systems that align engineering decisions with long-term growth and success.",
+    url: "https://pasindulanka.com",
+  },
+  twitter: {
+    card: "summary",
+    title: "Pasindu Lanka",
+    description: "Full-stack developer and product builder crafting seamless, user-centric experiences. Strategic problem solver bridging technical architecture with business outcomes. I build robust, scalable systems that align engineering decisions with long-term growth and success.",
+  },
 };
 
 export default function RootLayout({

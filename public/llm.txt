@@ -1,5 +1,5 @@
-export const getMarkdownContent = (time: string) => `# Pasindu Lanka
-/pəˈsɪnduː ˈlɑːŋkə/ • noun • ${time || "00:00:00"} IST
+# Pasindu Lanka
+/pəˈsɪnduː ˈlɑːŋkə/ • noun • 00:00:00 IST
 
 ## About
 
@@ -60,4 +60,3 @@ Connect with me on [LinkedIn](https://linkedin.com) or shoot an [email](mailto:y
 - GitHub: [https://github.com](https://github.com)
 - LinkedIn: [https://linkedin.com](https://linkedin.com)
 - Twitter: [https://x.com](https://x.com)
-`;

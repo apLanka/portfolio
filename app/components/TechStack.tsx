@@ -20,7 +20,6 @@ const categories = [
             { name: "React", slug: "react" },
             { name: "Next.js", slug: "nextdotjs" },
             { name: "Tailwind CSS", slug: "tailwindcss" },
-            { name: "Framer Motion", slug: "framer" },
         ]
     },
     {

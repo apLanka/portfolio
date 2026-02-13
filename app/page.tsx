@@ -172,10 +172,10 @@ export default function Home() {
             {/* Bio */}
             <div className="w-full space-y-4 text-left text-base leading-relaxed text-gray-600 dark:text-gray-400 sm:text-lg md:text-xl">
               <p>
-                a full-stack developer and <a href="https://en.wikipedia.org/wiki/Product_design" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-black dark:hover:text-white transition-colors">product builder</a> passionate about creating exceptional user experiences and building scalable solutions with modern technologies.
+                A full-stack developer and <a href="https://en.wikipedia.org/wiki/Product_design" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-black dark:hover:text-white transition-colors">product builder</a> crafting seamless, user-centric experiences. I specialize in balancing technical precision with modern functionality to solve real-world problems.
               </p>
               <p>
-                a <a href="https://en.wikipedia.org/wiki/Problem_solving" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-black dark:hover:text-white transition-colors">problem solver</a> who bridges technical architecture with business outcomes to deliver impactful, scalable digital products.
+                A strategic <a href="https://en.wikipedia.org/wiki/Problem_solving" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-black dark:hover:text-white transition-colors">problem solver</a> bridging technical architecture with business outcomes. I build robust, scalable systems that align engineering decisions with long-term growth and success.
               </p>
             </div>
 
@@ -186,39 +186,17 @@ export default function Home() {
               </h2>
               <div className="space-y-12">
                 <ExperienceItem
-                  title="Tech Company"
-                  role="Senior Full Stack Developer, 2022 - Present"
+                  title="MetaruneLabs"
+                  role="Full-Stack Software Engineer, 2023 – Present"
                   collapsible={true}
                 >
                   <div className="space-y-2">
-                    <p>Led development of scalable web applications using React and Node.js, delivering features that serve thousands of daily active users.</p>
-                    <p>Architected microservices infrastructure improving performance by 40%, reducing server costs and enhancing reliability across the platform.</p>
-                    <p>Mentored junior developers and established coding best practices, fostering a culture of technical excellence and continuous improvement.</p>
+                    <p>Lead the development of scalable web and mobile applications using modern full-stack technologies, delivering high-performance features that prioritize user-centric design and seamless functionality.</p>
+                    <p>Architect robust digital infrastructures that bridge complex technical requirements with strategic business outcomes, optimizing system reliability and scalability for diverse platforms.</p>
+                    <p>Collaborate on product strategy and engineering best practices to foster a culture of technical excellence, ensuring impactful and sustainable results across the product lifecycle.</p>
                   </div>
                 </ExperienceItem>
 
-                <ExperienceItem
-                  title="Startup Inc"
-                  role="Full Stack Developer, 2020 - 2022"
-                  collapsible={true}
-                >
-                  <div className="space-y-2">
-                    <p>Built responsive web applications from scratch, taking projects from concept to production with a focus on clean architecture and maintainability.</p>
-                    <p>Collaborated with cross-functional teams to deliver features on tight deadlines, balancing technical quality with business requirements.</p>
-                    <p>Optimized application performance and user experience, achieving measurable improvements in load times and user engagement metrics.</p>
-                  </div>
-                </ExperienceItem>
-
-                <ExperienceItem
-                  title="Digital Agency"
-                  role="Frontend Developer, 2019 - 2020"
-                  collapsible={true}
-                >
-                  <div className="space-y-2">
-                    <p>Developed client-facing web applications with a focus on pixel-perfect implementation of modern UI/UX designs.</p>
-                    <p>Ensured cross-browser compatibility and accessibility standards, delivering consistent experiences across all platforms and devices.</p>
-                  </div>
-                </ExperienceItem>
               </div>
             </div>
 
@@ -234,11 +212,11 @@ export default function Home() {
                   collapsible={true}
                 >
                   <div className="space-y-4">
-                    <p>I&apos;ve been building and experimenting with products for a long time. Each project always feels naive in hindsight, but looking back, I can see they were incrementally better — each iteration teaching me something new about users, infrastructure, and what it takes to build something people actually want.</p>
+                    <p>I&apos;ve been building and experimenting with digital products across web and mobile platforms for a long time. Each project, from early tools to more complex full-stack applications, has been a lesson in balancing user-centric design with technical precision. These iterations taught me how to manage infrastructure and what it truly takes to build scalable solutions that solve real-world problems.</p>
 
-                    <p>From early side projects to full-scale applications, every product was a step forward. The journey taught me that the best way to learn is to ship, iterate, and stay curious.</p>
+                    <p>From small-scale side projects to architecting robust systems, the process has always been about continuous learning and staying curious. This journey has solidified my focus on bridging technical architecture with business value to create impactful, sustainable results.</p>
 
-                    <p className="font-medium text-black dark:text-white">Hard work and consistency pay off. Each product was a step forward, even when it didn&apos;t feel like it at the time.</p>
+                    <p className="font-medium text-black dark:text-white">Consistent iteration and a focus on architecture have turned every project into a stepping stone toward building better systems.</p>
                   </div>
                 </ExperienceItem>
               </div>
@@ -251,10 +229,10 @@ export default function Home() {
               </h2>
               <div className="space-y-12">
                 <ExperienceItem
-                  title="University"
-                  role="Computer Science"
+                  title="SLIIT University"
+                  role="BSc (Hons) in Software Engineering"
                 >
-                  <p>2015 - 2019</p>
+                  <p>2023 – 2027</p>
                 </ExperienceItem>
               </div>
             </div>
@@ -265,7 +243,7 @@ export default function Home() {
                 Tech Stack
               </h2>
               <p className="mb-8 text-lg text-gray-600 dark:text-gray-400">
-                I&apos;m a generalist at heart who can build with anything, but here&apos;s the core stack I&apos;ve spent the most time with:
+                I&apos;m a generalist who can build with anything, but here is the core stack I use to create scalable, user-centric systems:
               </p>
               <TechStack />
             </div>
