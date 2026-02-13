@@ -1,3 +1,5 @@
+import { links, mailto } from "../config/links";
+
 export const getMarkdownContent = (time: string) => `# Pasindu Lanka
 /pəˈsɪnduː ˈlɑːŋkə/ • noun • ${time || "00:00:00"} IST
 
@@ -58,12 +60,12 @@ I believe the most impactful solutions are those built with a long-term vision. 
 
 ## Get in Touch
 
-Connect with me on [LinkedIn](https://linkedin.com) or shoot an [email](mailto:your@email.com)
+Connect with me on [LinkedIn](${links.linkedin}) or shoot an [email](${mailto})
 
 ---
 
 **Links:**
-- GitHub: [https://github.com](https://github.com)
-- LinkedIn: [https://linkedin.com](https://linkedin.com)
-- Twitter: [https://x.com](https://x.com)
+- GitHub: [${links.github}](${links.github})
+- LinkedIn: [${links.linkedin}](${links.linkedin})
+- X: [${links.x}](${links.x})
 `;

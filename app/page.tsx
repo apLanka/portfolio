@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Github, Linkedin, Calendar, Bot, User, QrCode, X } from "lucide-react";
+import { Github, Linkedin, Bot, User, QrCode, X } from "lucide-react";
 import { FaXTwitter } from "react-icons/fa6";
 import { ExperienceItem } from "./components/ExperienceItem";
 import { TechStack } from "./components/TechStack";
@@ -11,6 +11,7 @@ import { QRCodeSVG } from "qrcode.react";
 import { ThemeToggle } from "./components/ThemeToggle";
 import { motion, AnimatePresence } from "framer-motion";
 import { getMarkdownContent } from "./data/content";
+import { links, mailto } from "./config/links";
 
 export default function Home() {
   const [time, setTime] = useState<string>("");
@@ -287,7 +288,7 @@ export default function Home() {
               <p className="w-full text-lg leading-relaxed text-gray-600 dark:text-gray-400">
                 I share my thoughts and technical insights on various platforms, focusing on web development, software architecture, and best practices. Check out my latest articles on{" "}
                 <a
-                  href="https://medium.com"
+                  href={links.medium}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-black dark:text-white underline underline-offset-4 transition-colors hover:text-gray-600 dark:hover:text-gray-300"
@@ -325,7 +326,7 @@ export default function Home() {
                 <p className="text-lg text-gray-600 dark:text-gray-400">
                   Connect with me on{" "}
                   <a
-                    href="https://linkedin.com"
+                    href={links.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-black dark:text-white underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-300"
@@ -334,7 +335,7 @@ export default function Home() {
                   </a>{" "}
                   or{" "} shoot an{" "}
                   <a
-                    href="mailto:your@email.com"
+                    href={mailto}
                     className="text-black dark:text-white underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-300"
                   >
                     email
@@ -379,7 +380,7 @@ export default function Home() {
         </button>
         <div className="h-6 w-px bg-gray-200 dark:bg-zinc-700" />
         <a
-          href="https://github.com"
+          href={links.github}
           target="_blank"
           rel="noopener noreferrer"
           className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110"
@@ -387,7 +388,7 @@ export default function Home() {
           <Github className="h-5 w-5" />
         </a>
         <a
-          href="https://linkedin.com"
+          href={links.linkedin}
           target="_blank"
           rel="noopener noreferrer"
           className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110"
@@ -395,20 +396,12 @@ export default function Home() {
           <Linkedin className="h-5 w-5" />
         </a>
         <a
-          href="https://x.com"
+          href={links.x}
           target="_blank"
           rel="noopener noreferrer"
           className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110"
         >
           <FaXTwitter className="h-5 w-5" />
-        </a>
-        <a
-          href="https://cal.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-gray-500 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors hover:scale-110"
-        >
-          <Calendar className="h-5 w-5" />
         </a>
       </nav>
 
@@ -432,7 +425,7 @@ export default function Home() {
               </button>
               <div className="rounded-lg bg-white p-2">
                 <QRCodeSVG
-                  value="https://pasindulanka.com/"
+                  value={`${links.website}/`}
                   size={200}
                   level="H"
                   includeMargin={false}

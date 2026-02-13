@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { links } from "./config/links";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "./providers";
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Pasindu Lanka",
     description: "Full-stack developer and product builder crafting seamless, user-centric experiences. Strategic problem solver bridging technical architecture with business outcomes. I build robust, scalable systems that align engineering decisions with long-term growth and success.",
-    url: "https://pasindulanka.com",
+    url: links.website,
   },
   twitter: {
     card: "summary",
