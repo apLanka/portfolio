@@ -20,11 +20,6 @@ const QRCodeModal = dynamic(
   { ssr: false }
 );
 
-const EasterEggEffects = dynamic(
-  () => import("./components/EasterEggEffects").then((m) => ({ default: m.EasterEggEffects })),
-  { ssr: false }
-);
-
 const AgentModeView = dynamic(
   () => import("./components/AgentModeView").then((m) => ({ default: m.AgentModeView })),
   { ssr: false }
@@ -33,16 +28,11 @@ const AgentModeView = dynamic(
 export default function Home() {
   const [showQR, setShowQR] = useState(false);
   const [mode, setMode] = useState<"human" | "agent">("human");
-  const [showEasterEgg, setShowEasterEgg] = useState(false);
 
-  const toggleEasterEgg = useCallback(() => setShowEasterEgg((prev) => !prev), []);
   const closeQR = useCallback(() => setShowQR(false), []);
 
   return (
     <div className={`relative flex min-h-screen flex-col items-center bg-white dark:bg-black px-3 pt-16 text-black dark:text-white selection:bg-black dark:selection:bg-white selection:text-white dark:selection:text-black pb-32 sm:px-4 sm:pt-24 sm:pb-40 overflow-x-hidden transition-colors duration-300`}>
-      {/* Easter Egg Effects - Lazy loaded */}
-      {showEasterEgg && <EasterEggEffects />}
-
       {/* Theme Toggle in Top Right */}
       <div className="fixed top-6 right-6 z-50">
         <ThemeToggle />
@@ -62,22 +52,17 @@ export default function Home() {
             transition={{ duration: 0.35, ease: "easeOut" }}
             className="flex w-full max-w-2xl flex-col items-center text-center"
           >
-            {/* Profile Image - Easter Egg Trigger */}
-            <button
-              onClick={toggleEasterEgg}
-              className="group relative mb-2 h-40 w-40 grayscale filter sm:h-56 sm:w-56 overflow-hidden cursor-pointer transition-all duration-500 hover:grayscale-0 active:scale-95"
-              aria-label="Toggle Aura Mode"
-            >
+            {/* Profile Image */}
+            <div className="group relative mb-2 h-40 w-40 grayscale filter sm:h-56 sm:w-56 overflow-hidden transition-all duration-500 hover:grayscale-0">
               <Image
                 src="/image/bg/me.webp"
                 alt="Profile"
                 fill
                 sizes="(max-width: 640px) 160px, 224px"
-                className={`object-contain transition-all duration-700 ${showEasterEgg ? 'grayscale-0 scale-105' : 'grayscale'}`}
+                className="object-contain transition-all duration-700"
                 priority
               />
-
-            </button>
+            </div>
 
             {/* Hero Text */}
             <h1 className="mb-4 text-5xl font-bold tracking-tight sm:text-7xl">
