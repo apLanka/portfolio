@@ -307,11 +307,11 @@ export default function Home() {
               </h2>
               <div className="space-y-6">
                 <p className="w-full text-lg leading-relaxed text-gray-600 dark:text-gray-400">
-                  Beyond code and systems, I find balance in the tactile and the thoughtful. Whether it&apos;s exploring new technologies or spending time in the real world, my approach to life is driven by curiosity and a desire to understand how things work at their core.
+                  My perspective is defined by a fascination with how individual components converge to form a cohesive, high-performance system. I find balance in the space where technical architecture meets creative problem-solving, always seeking to understand the underlying logic of the tools I build. For me, software is about the intentional design of systems that feel as seamless as they are robust.
                 </p>
 
                 <p className="w-full text-lg leading-relaxed text-gray-600 dark:text-gray-400">
-                  I believe that the best products are built by people who have a diverse range of interests. It&apos;s the unique combination of technical depth and human perspective that allows us to create technology that actually resonates.
+                  I believe the most impactful solutions are those built with a long-term vision. Architecture is the art of balancing immediate needs with the structural integrity required for future scalability. By viewing every product through the lens of system design, I focus on creating digital infrastructures that are not only efficient but are inherently built to evolve.
                 </p>
               </div>
             </div>
