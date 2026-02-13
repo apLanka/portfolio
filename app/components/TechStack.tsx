@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { memo, useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 
 const categories = [
     {
@@ -46,7 +46,7 @@ const categories = [
 
 const marqueeSkills = categories.flatMap(c => c.skills);
 
-export function TechStack() {
+function TechStackComponent() {
     const [isExpanded, setIsExpanded] = useState(false);
 
     return (
@@ -63,7 +63,7 @@ export function TechStack() {
 
             <AnimatePresence mode="wait">
                 {!isExpanded ? (
-                    <motion.div
+                    <m.div
                         key="marquee"
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -102,9 +102,9 @@ export function TechStack() {
                                 ))}
                             </div>
                         </div>
-                    </motion.div>
+                    </m.div>
                 ) : (
-                    <motion.div
+                    <m.div
                         key="grid"
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: "auto" }}
@@ -141,9 +141,11 @@ export function TechStack() {
                                 </div>
                             ))}
                         </div>
-                    </motion.div>
+                    </m.div>
                 )}
             </AnimatePresence>
         </div>
     );
 }
+
+export const TechStack = memo(TechStackComponent);

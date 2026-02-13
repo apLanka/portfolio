@@ -1,103 +1,47 @@
 "use client";
 
 import Image from "next/image";
-import { Github, Linkedin, Bot, User, QrCode, X } from "lucide-react";
+import dynamic from "next/dynamic";
+import { Github, Linkedin, Bot, User, QrCode } from "lucide-react";
 import { FaXTwitter } from "react-icons/fa6";
 import { ExperienceItem } from "./components/ExperienceItem";
-import { TechStack } from "./components/TechStack";
-import { useState, useEffect, useMemo } from "react";
-import { useTheme } from "next-themes";
-import { QRCodeSVG } from "qrcode.react";
+import { Clock } from "./components/Clock";
+import { useState, useCallback } from "react";
 import { ThemeToggle } from "./components/ThemeToggle";
-import { motion, AnimatePresence } from "framer-motion";
-import { getMarkdownContent } from "./data/content";
+import { m, AnimatePresence } from "framer-motion";
 import { links, mailto } from "./config/links";
 
+const TechStack = dynamic(() => import("./components/TechStack").then((m) => ({ default: m.TechStack })), {
+  ssr: true,
+});
+
+const QRCodeModal = dynamic(
+  () => import("./components/QRCodeModal").then((m) => ({ default: m.QRCodeModal })),
+  { ssr: false }
+);
+
+const EasterEggEffects = dynamic(
+  () => import("./components/EasterEggEffects").then((m) => ({ default: m.EasterEggEffects })),
+  { ssr: false }
+);
+
+const AgentModeView = dynamic(
+  () => import("./components/AgentModeView").then((m) => ({ default: m.AgentModeView })),
+  { ssr: false }
+);
+
 export default function Home() {
-  const [time, setTime] = useState<string>("");
   const [showQR, setShowQR] = useState(false);
   const [mode, setMode] = useState<"human" | "agent">("human");
-
-  const { resolvedTheme } = useTheme();
-
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date();
-      setTime(
-        now.toLocaleTimeString("en-IN", {
-          timeZone: "Asia/Kolkata",
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-          hour12: false,
-        })
-      );
-    };
-
-    updateTime();
-    const timer = setInterval(updateTime, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
-
-  const markdownContent = getMarkdownContent(time);
-
   const [showEasterEgg, setShowEasterEgg] = useState(false);
 
-
-  const starPositions = useMemo(() => {
-    return [...Array(50)].map(() => ({
-      top: `${Math.random() * 100}%`,
-      left: `${Math.random() * 100}%`,
-      duration: 2 + Math.random() * 3,
-      delay: Math.random() * 5,
-    }));
-  }, []);
+  const toggleEasterEgg = useCallback(() => setShowEasterEgg((prev) => !prev), []);
+  const closeQR = useCallback(() => setShowQR(false), []);
 
   return (
     <div className={`relative flex min-h-screen flex-col items-center bg-white dark:bg-black px-3 pt-16 text-black dark:text-white selection:bg-black dark:selection:bg-white selection:text-white dark:selection:text-black pb-32 sm:px-4 sm:pt-24 sm:pb-40 overflow-x-hidden transition-colors duration-300`}>
-      {/* Easter Egg Effects */}
-      <AnimatePresence>
-        {showEasterEgg && (
-          <>
-            {/* Bluish Aura Edge Effect */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[100] pointer-events-none shadow-[inset_0_0_150px_rgba(29,78,216,0.5)] dark:shadow-[inset_0_0_150px_rgba(59,130,246,0.4)] transition-opacity duration-1000"
-            />
-            {/* Twinkling Stars Background */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-0 pointer-events-none overflow-hidden"
-            >
-              {starPositions.map((pos, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute h-[2px] w-[2px] bg-blue-500 dark:bg-white rounded-full shadow-[0_0_4px_rgba(59,130,246,0.8)] dark:shadow-[0_0_3px_white]"
-                  style={{
-                    top: pos.top,
-                    left: pos.left,
-                  }}
-                  animate={{
-                    opacity: [0.2, 1, 0.2],
-                    scale: [0.8, 1.2, 0.8],
-                  }}
-                  transition={{
-                    duration: pos.duration,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: pos.delay,
-                  }}
-                />
-              ))}
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+      {/* Easter Egg Effects - Lazy loaded */}
+      {showEasterEgg && <EasterEggEffects />}
 
       {/* Theme Toggle in Top Right */}
       <div className="fixed top-6 right-6 z-50">
@@ -106,25 +50,11 @@ export default function Home() {
 
       <AnimatePresence mode="wait">
         {mode === "agent" ? (
-          /* Agent Mode - Markdown View */
-          <motion.main
-            key="agent"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.35, ease: "easeOut" }}
-            className="flex w-full max-w-2xl flex-col items-start text-left px-4 sm:px-0"
-          >
-            <pre
-              className="w-full whitespace-pre-wrap font-mono text-sm leading-relaxed text-black dark:text-gray-300 selection:bg-black dark:selection:bg-white selection:text-white dark:selection:text-black antialiased"
-              style={{ fontFamily: '"Courier New", Courier, "Lucida Sans Typewriter", "Lucida Console", monospace' }}
-            >
-              {markdownContent}
-            </pre>
-          </motion.main>
+          /* Agent Mode - Markdown View (Lazy loaded) */
+          <AgentModeView key="agent" />
         ) : (
           /* Human Mode - Original View */
-          <motion.main
+          <m.main
             key="human"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -134,13 +64,15 @@ export default function Home() {
           >
             {/* Profile Image - Easter Egg Trigger */}
             <button
+              onClick={toggleEasterEgg}
               className="group relative mb-2 h-40 w-40 grayscale filter sm:h-56 sm:w-56 overflow-hidden cursor-pointer transition-all duration-500 hover:grayscale-0 active:scale-95"
               aria-label="Toggle Aura Mode"
             >
               <Image
-                src="/image/bg/me.png"
+                src="/image/bg/me.webp"
                 alt="Profile"
                 fill
+                sizes="(max-width: 640px) 160px, 224px"
                 className={`object-contain transition-all duration-700 ${showEasterEgg ? 'grayscale-0 scale-105' : 'grayscale'}`}
                 priority
               />
@@ -158,12 +90,7 @@ export default function Home() {
               <span className="text-gray-300 dark:text-gray-700">•</span>
               <span>noun</span>
               <span className="text-gray-300 dark:text-gray-700">•</span>
-              <div className="flex items-center gap-2">
-                <div className="flex items-center gap-1.5">
-                  <span className="tabular-nums text-xs sm:text-sm">{time || "00:00:00"}</span>
-                  <span className="text-[10px] uppercase tracking-wider sm:text-xs">IST</span>
-                </div>
-              </div>
+              <Clock />
             </div>
 
             {/* Bio */}
@@ -340,7 +267,7 @@ export default function Home() {
               </div>
             </div>
 
-          </motion.main>
+          </m.main>
         )}
       </AnimatePresence>
 
@@ -401,36 +328,8 @@ export default function Home() {
         </a>
       </nav>
 
-      {/* QR Code Modal */}
-      {
-        showQR && (
-          <div
-            className="fixed inset-0 z-[60] flex items-center justify-center bg-black/20 dark:bg-white/5 backdrop-blur-sm"
-            onClick={() => setShowQR(false)}
-          >
-            <div
-              className="relative rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-black p-8 shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                onClick={() => setShowQR(false)}
-                className="absolute -right-3 -top-3 rounded-full bg-black dark:bg-white p-2 text-white dark:text-black transition-transform hover:scale-110"
-                aria-label="Close"
-              >
-                <X className="h-4 w-4" />
-              </button>
-              <div className="rounded-lg bg-white p-2">
-                <QRCodeSVG
-                  value={`${links.website}/`}
-                  size={200}
-                  level="H"
-                  includeMargin={false}
-                />
-              </div>
-            </div>
-          </div>
-        )
-      }
+      {/* QR Code Modal - Lazy loaded */}
+      {showQR && <QRCodeModal onClose={closeQR} />}
     </div>
   );
 }

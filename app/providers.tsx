@@ -1,6 +1,7 @@
 "use client";
 
 import { ThemeProvider as NextThemesProvider } from "next-themes";
+import { LazyMotion, domAnimation } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
@@ -15,8 +16,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     }
 
     return (
-        <NextThemesProvider attribute="class" defaultTheme="dark" enableSystem>
-            {children}
-        </NextThemesProvider>
+        <LazyMotion features={domAnimation} strict>
+            <NextThemesProvider attribute="class" defaultTheme="dark" enableSystem>
+                {children}
+            </NextThemesProvider>
+        </LazyMotion>
     );
 }

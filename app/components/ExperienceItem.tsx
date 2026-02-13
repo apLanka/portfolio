@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { memo, useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
 interface ExperienceItemProps {
@@ -12,7 +12,7 @@ interface ExperienceItemProps {
     collapsedHeight?: string;
 }
 
-export function ExperienceItem({ title, role, children, collapsible = false, link, collapsedHeight = "max-h-20" }: ExperienceItemProps) {
+function ExperienceItemComponent({ title, role, children, collapsible = false, link, collapsedHeight = "max-h-20" }: ExperienceItemProps) {
     const [isExpanded, setIsExpanded] = useState(false);
 
     return (
@@ -60,3 +60,5 @@ export function ExperienceItem({ title, role, children, collapsible = false, lin
         </div>
     );
 }
+
+export const ExperienceItem = memo(ExperienceItemComponent);
