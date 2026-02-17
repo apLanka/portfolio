@@ -10,6 +10,12 @@ import { useState, useCallback } from "react";
 import { ThemeToggle } from "./components/ThemeToggle";
 import { m, AnimatePresence } from "framer-motion";
 import { links, mailto } from "./config/links";
+import { projects } from "./config/projects";
+import { ProjectCard } from "./components/ProjectCard";
+import { caseStudies } from "./config/case-studies";
+import { CaseStudyCard } from "./components/CaseStudyCard";
+import { certifications } from "./config/certifications";
+import { articles } from "./config/writings";
 
 const TechStack = dynamic(() => import("./components/TechStack").then((m) => ({ default: m.TechStack })), {
   ssr: true,
@@ -45,6 +51,7 @@ export default function Home() {
         ) : (
           /* Human Mode - Original View */
           <m.main
+            id="main-content"
             key="human"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -81,10 +88,16 @@ export default function Home() {
             {/* Bio */}
             <div className="w-full space-y-4 text-left text-base leading-relaxed text-gray-600 dark:text-gray-400 sm:text-lg md:text-xl">
               <p>
-                A full-stack developer and <a href="https://en.wikipedia.org/wiki/Product_design" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-black dark:hover:text-white transition-colors">product builder</a> crafting seamless, user-centric experiences. I specialize in balancing technical precision with modern functionality to solve real-world problems.
+                A software engineer building toward{" "}
+                <a href="https://en.wikipedia.org/wiki/Solution_architecture" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-black dark:hover:text-white transition-colors">solution architecture</a>. I design and build full-stack systems with a focus on how components fit together at scale — from data flow and service boundaries to infrastructure and deployment.
               </p>
               <p>
-                A strategic <a href="https://en.wikipedia.org/wiki/Problem_solving" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-black dark:hover:text-white transition-colors">problem solver</a> bridging technical architecture with business outcomes. I build robust, scalable systems that align engineering decisions with long-term growth and success.
+                Currently engineering at{" "}
+                <span className="text-black dark:text-white font-medium">MetaruneLabs</span>{" "}
+                and studying Software Engineering at{" "}
+                <span className="text-black dark:text-white font-medium">SLIIT</span>. I care about making{" "}
+                <a href="https://en.wikipedia.org/wiki/Architectural_pattern" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-black dark:hover:text-white transition-colors">architectural decisions</a>{" "}
+                that hold up under real-world pressure.
               </p>
             </div>
 
@@ -99,35 +112,14 @@ export default function Home() {
                   role="Full-Stack Software Engineer, 2023 – Present"
                   collapsible={true}
                 >
-                  <div className="space-y-2">
-                    <p>Lead the development of scalable web and mobile applications using modern full-stack technologies, delivering high-performance features that prioritize user-centric design and seamless functionality.</p>
-                    <p>Architect robust digital infrastructures that bridge complex technical requirements with strategic business outcomes, optimizing system reliability and scalability for diverse platforms.</p>
-                    <p>Collaborate on product strategy and engineering best practices to foster a culture of technical excellence, ensuring impactful and sustainable results across the product lifecycle.</p>
+                  <div className="space-y-3">
+                    <p>Designed and built the core platform architecture — a multi-tenant web application serving multiple client products from a shared infrastructure using Next.js, Node.js, and PostgreSQL.</p>
+                    <p>Owned end-to-end feature delivery from database schema design through API layer to frontend, making key decisions on data modeling, caching strategy with Redis, and service decomposition.</p>
+                    <p>Set up CI/CD pipelines with Docker and AWS, reducing deployment friction and improving release confidence across the team.</p>
+                    <p>Introduced structured code review practices and architectural documentation, establishing patterns that the team continues to follow.</p>
                   </div>
                 </ExperienceItem>
 
-              </div>
-            </div>
-
-            {/* In Between These Experiences Section */}
-            <div className="mb-16 w-full text-left">
-              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
-                In Between These Experiences
-              </h2>
-              <div className="rounded-xl border border-gray-200 dark:border-gray-800 p-6 sm:p-8">
-                <ExperienceItem
-                  title="The Building Journey"
-                  role=""
-                  collapsible={true}
-                >
-                  <div className="space-y-4">
-                    <p>I&apos;ve been building and experimenting with digital products across web and mobile platforms for a long time. Each project, from early tools to more complex full-stack applications, has been a lesson in balancing user-centric design with technical precision. These iterations taught me how to manage infrastructure and what it truly takes to build scalable solutions that solve real-world problems.</p>
-
-                    <p>From small-scale side projects to architecting robust systems, the process has always been about continuous learning and staying curious. This journey has solidified my focus on bridging technical architecture with business value to create impactful, sustainable results.</p>
-
-                    <p className="font-medium text-black dark:text-white">Consistent iteration and a focus on architecture have turned every project into a stepping stone toward building better systems.</p>
-                  </div>
-                </ExperienceItem>
               </div>
             </div>
 
@@ -152,9 +144,82 @@ export default function Home() {
                 Tech Stack
               </h2>
               <p className="mb-8 text-lg text-gray-600 dark:text-gray-400">
-                I&apos;m a generalist who can build with anything, but here is the core stack I use to create scalable, user-centric systems:
+                The tools I use to design, build, and operate systems — from frontend delivery through backend services to cloud infrastructure:
               </p>
               <TechStack />
+            </div>
+
+            {/* Projects Section */}
+            <div className="mb-16 w-full text-left">
+              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                Projects
+              </h2>
+              <p className="mb-8 text-lg text-gray-600 dark:text-gray-400">
+                Systems I&apos;ve designed and built. Each one taught me something about architecture, tradeoffs, and shipping real software.
+              </p>
+              <div className="space-y-6">
+                {projects.map((project) => (
+                  <ProjectCard key={project.name} project={project} />
+                ))}
+              </div>
+            </div>
+
+            {/* Architecture Case Studies Section */}
+            <div id="case-studies" className="mb-16 w-full text-left">
+              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                Architecture Case Studies
+              </h2>
+              <p className="mb-8 text-lg text-gray-600 dark:text-gray-400">
+                Deep dives into how I thought about specific systems — context, constraints, alternatives rejected, and lessons learned.
+              </p>
+              <div className="divide-y divide-gray-100 dark:divide-gray-800">
+                {caseStudies.map((caseStudy) => (
+                  <CaseStudyCard key={caseStudy.slug} caseStudy={caseStudy} />
+                ))}
+              </div>
+            </div>
+
+            {/* Certifications & Learning Section */}
+            <div className="mb-16 w-full text-left">
+              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                Certifications & Learning
+              </h2>
+              <p className="mb-8 text-lg text-gray-600 dark:text-gray-400">
+                Actively pursuing certifications to formalize my architecture knowledge and deepen cloud expertise.
+              </p>
+              <div className="space-y-4">
+                {certifications.map((cert) => (
+                  <div
+                    key={cert.name}
+                    className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1"
+                  >
+                    <div className="flex items-center gap-2">
+                      {cert.url ? (
+                        <a
+                          href={cert.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-medium text-black dark:text-white underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                        >
+                          {cert.name}
+                        </a>
+                      ) : (
+                        <span className="font-medium text-black dark:text-white">
+                          {cert.name}
+                        </span>
+                      )}
+                      {cert.status === "in-progress" && (
+                        <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-gray-400 dark:text-gray-500 border border-gray-200 dark:border-gray-800 rounded-full px-2.5 py-0.5">
+                          In Progress
+                        </span>
+                      )}
+                    </div>
+                    <span className="text-sm text-gray-400 dark:text-gray-500">
+                      {cert.issuer}, {cert.year}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
 
             {/* Recommendations Section - Hidden for now, uncomment when ready
@@ -188,13 +253,13 @@ export default function Home() {
             </div>
             */}
 
-            {/* Writings & Blogs Section */}
+            {/* Writings Section */}
             <div className="mb-16 w-full text-left">
               <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
-                Writings & Blogs
+                Writings
               </h2>
-              <p className="w-full text-lg leading-relaxed text-gray-600 dark:text-gray-400">
-                I share my thoughts and technical insights on various platforms, focusing on web development, software architecture, and best practices. Check out my latest articles on{" "}
+              <p className="mb-8 text-lg text-gray-600 dark:text-gray-400">
+                I write about system design, architecture patterns, and lessons from building real software. Featured articles below, more on{" "}
                 <a
                   href={links.medium}
                   target="_blank"
@@ -205,23 +270,28 @@ export default function Home() {
                 </a>
                 .
               </p>
-            </div>
-
-
-
-            {/* Thing about me Section */}
-            <div className="mb-16 w-full text-left">
-              <h2 className="mb-6 text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
-                Thing about me
-              </h2>
-              <div className="space-y-6">
-                <p className="w-full text-lg leading-relaxed text-gray-600 dark:text-gray-400">
-                  My perspective is defined by a fascination with how individual components converge to form a cohesive, high-performance system. I find balance in the space where technical architecture meets creative problem-solving, always seeking to understand the underlying logic of the tools I build. For me, software is about the intentional design of systems that feel as seamless as they are robust.
-                </p>
-
-                <p className="w-full text-lg leading-relaxed text-gray-600 dark:text-gray-400">
-                  I believe the most impactful solutions are those built with a long-term vision. Architecture is the art of balancing immediate needs with the structural integrity required for future scalability. By viewing every product through the lens of system design, I focus on creating digital infrastructures that are not only efficient but are inherently built to evolve.
-                </p>
+              <div className="space-y-4">
+                {articles.map((article) => (
+                  <a
+                    key={article.title}
+                    href={article.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group block rounded-xl border border-gray-200 dark:border-gray-800 p-5 sm:p-6 transition-all duration-300 hover:border-black dark:hover:border-white"
+                  >
+                    <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-2">
+                      <span className="font-medium text-black dark:text-white">
+                        {article.title}
+                      </span>
+                      <span className="text-xs text-gray-400 dark:text-gray-500 shrink-0">
+                        {article.platform} &middot; {article.date}
+                      </span>
+                    </div>
+                    <p className="text-sm leading-relaxed text-gray-500 dark:text-gray-400">
+                      {article.description}
+                    </p>
+                  </a>
+                ))}
               </div>
             </div>
 
@@ -257,7 +327,7 @@ export default function Home() {
       </AnimatePresence>
 
       {/* Glass Island Navbar */}
-      <nav className="fixed bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-3 rounded-full border border-gray-200 dark:border-zinc-700 bg-white/70 dark:bg-zinc-900/80 px-4 py-3 shadow-sm backdrop-blur-md transition-all hover:bg-white/90 dark:hover:bg-zinc-900 sm:gap-6 sm:px-6 z-50">
+      <nav role="navigation" aria-label="Social links" className="fixed bottom-6 left-1/2 flex -translate-x-1/2 items-center gap-3 rounded-full border border-gray-200 dark:border-zinc-700 bg-white/70 dark:bg-zinc-900/80 px-4 py-3 shadow-sm backdrop-blur-md transition-all hover:bg-white/90 dark:hover:bg-zinc-900 sm:gap-6 sm:px-6 z-50">
         {/* Mode Toggle Switch */}
         <div className="flex items-center">
           <button

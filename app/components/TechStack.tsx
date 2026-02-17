@@ -33,13 +33,31 @@ const categories = [
         ]
     },
     {
-        name: "Infra & Tools",
+        name: "Cloud & Infra",
         skills: [
-            { name: "Docker", slug: "docker" },
             { name: "AWS", slug: "amazonaws" },
+            { name: "Docker", slug: "docker" },
             { name: "Vercel", slug: "vercel" },
+            { name: "Terraform", slug: "terraform" },
+            { name: "Nginx", slug: "nginx" },
+        ]
+    },
+    {
+        name: "Architecture",
+        skills: [
+            { name: "REST APIs", slug: "openapiinitiative" },
+            { name: "GraphQL", slug: "graphql" },
+            { name: "RabbitMQ", slug: "rabbitmq" },
+            { name: "Apache Kafka", slug: "apachekafka" },
+        ]
+    },
+    {
+        name: "DevOps & Observability",
+        skills: [
+            { name: "GitHub Actions", slug: "githubactions" },
             { name: "Git", slug: "git" },
-            { name: "GitHub", slug: "github" },
+            { name: "Grafana", slug: "grafana" },
+            { name: "Prometheus", slug: "prometheus" },
         ]
     },
 ];
