@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import dynamic from "next/dynamic";
-import { Github, Linkedin, Bot, User, QrCode } from "lucide-react";
+import { Github, Linkedin, Bot, User, QrCode, ChevronRight } from "lucide-react";
 import { FaXTwitter } from "react-icons/fa6";
 import { ExperienceItem } from "./components/ExperienceItem";
 import { Clock } from "./components/Clock";
@@ -88,16 +89,14 @@ export default function Home() {
             {/* Bio */}
             <div className="w-full space-y-4 text-left text-base leading-relaxed text-gray-600 dark:text-gray-400 sm:text-lg md:text-xl">
               <p>
-                A software engineer building toward{" "}
-                <a href="https://en.wikipedia.org/wiki/Solution_architecture" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-black dark:hover:text-white transition-colors">solution architecture</a>. I design and build full-stack systems with a focus on how components fit together at scale — from data flow and service boundaries to infrastructure and deployment.
+                A software engineer focused on{" "}
+                <a href="https://en.wikipedia.org/wiki/Solution_architecture" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-black dark:hover:text-white transition-colors">system design and architecture</a>. I build full-stack platforms and make the structural decisions that determine how they scale, fail, and evolve — data modeling, service boundaries, caching strategy, deployment pipelines.
               </p>
               <p>
                 Currently engineering at{" "}
                 <span className="text-black dark:text-white font-medium">MetaruneLabs</span>{" "}
                 and studying Software Engineering at{" "}
-                <span className="text-black dark:text-white font-medium">SLIIT</span>. I care about making{" "}
-                <a href="https://en.wikipedia.org/wiki/Architectural_pattern" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-black dark:hover:text-white transition-colors">architectural decisions</a>{" "}
-                that hold up under real-world pressure.
+                <span className="text-black dark:text-white font-medium">SLIIT</span>. In a world where AI writes the straightforward code, I focus on the decisions it can&apos;t make: what to build, how to structure it, and what tradeoffs to accept.
               </p>
             </div>
 
@@ -173,10 +172,17 @@ export default function Home() {
                 Deep dives into how I thought about specific systems — context, constraints, alternatives rejected, and lessons learned.
               </p>
               <div className="divide-y divide-gray-100 dark:divide-gray-800">
-                {caseStudies.map((caseStudy) => (
+                {caseStudies.slice(0, 2).map((caseStudy) => (
                   <CaseStudyCard key={caseStudy.slug} caseStudy={caseStudy} />
                 ))}
               </div>
+              <Link
+                href="/case-studies"
+                className="mt-6 flex items-center gap-1 text-xs font-medium text-gray-400 dark:text-gray-500 hover:text-black dark:hover:text-white transition-colors"
+              >
+                View more
+                <ChevronRight className="h-3 w-3" />
+              </Link>
             </div>
 
             {/* Certifications & Learning Section */}
