@@ -43,6 +43,13 @@ const categories = [
         ]
     },
     {
+        name: "AI & Integration",
+        skills: [
+            { name: "OpenAI", slug: "openai" },
+            { name: "LangChain", slug: "langchain" },
+        ]
+    },
+    {
         name: "Architecture",
         skills: [
             { name: "REST APIs", slug: "openapiinitiative" },
