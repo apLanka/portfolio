@@ -19,6 +19,37 @@ export interface CaseStudy {
 
 export const caseStudies: CaseStudy[] = [
   {
+    slug: "llm-integration-without-owning-architecture",
+    title: "Integrating an LLM Without Letting It Own Your Architecture",
+    summary: "Adding an LLM-powered feature while keeping it a swappable component — API abstraction, timeout handling, output validation, and prompt versioning.",
+    context:
+      "We wanted to add an AI-powered summarization feature to our platform. The product team was excited; the engineering question was how to integrate an LLM without making it a load-bearing dependency. LLM APIs are slow, occasionally return garbage, and providers change. We needed the feature to work reliably while staying flexible enough to swap providers or models without rewriting the app.",
+    constraints: [
+      "LLM APIs have variable latency — we couldn't block the main request path for 5+ seconds",
+      "Output is non-deterministic — we needed validation and fallbacks when the model returned invalid or off-brand content",
+      "Provider lock-in was a risk — we wanted to be able to switch or A/B test models without touching every call site",
+    ],
+    architecture:
+      "We introduced an abstraction layer: a single LLM service interface that our feature code calls. The implementation talks to the provider (OpenAI, Anthropic, etc.) behind that interface. We added timeouts — if the LLM doesn't respond within 3 seconds, we return a fallback (e.g. a truncated version of the source text) instead of blocking. Output validation runs before we surface anything to the user: we check length, format, and basic content rules. Prompts live in versioned config files so we can iterate without code deploys. The key was treating the LLM as one of many data sources, not the center of the system.",
+    alternatives: [
+      {
+        name: "Call the LLM inline in the request path",
+        rejected: "Would have added 2–5 seconds to every request. Users would have seen spinners; we'd have had no fallback when the API was slow or down.",
+      },
+      {
+        name: "Fine-tune our own model for the task",
+        rejected: "Operational overhead, cost, and complexity we didn't need. A well-prompted general model was sufficient for our use case.",
+      },
+    ],
+    lessons: [
+      "Abstract the LLM behind an interface. When we switched providers for cost reasons, we changed one implementation, not dozens of call sites.",
+      "Timeouts and fallbacks are non-negotiable. Users prefer a slightly worse result over an infinite wait.",
+      "Version your prompts. It makes debugging and rollback possible when a prompt change causes regressions.",
+    ],
+    diagram: undefined,
+    tags: ["Node.js", "TypeScript", "Redis"],
+  },
+  {
     slug: "multi-tenancy-without-framework",
     title: "One Database, Five Products: Designing Multi-Tenancy Without a Framework",
     summary: "How we isolated five client products in a single PostgreSQL database using row-level tenant_id and shared schema — and why we skipped off-the-shelf multi-tenant frameworks.",
@@ -50,6 +81,37 @@ export const caseStudies: CaseStudy[] = [
     tags: ["PostgreSQL", "Next.js", "Node.js"],
   },
   {
+    slug: "cost-control-ai-backed-features",
+    title: "Cost Control for AI-Backed Features: Token Budgets and Semantic Caching",
+    summary: "Reducing LLM API spend without degrading UX — semantic caching, per-tenant token budgets, and model selection by task complexity.",
+    context:
+      "After we shipped the LLM-powered summarization feature, API costs spiked. Some tenants were heavy users; others barely touched it. We had no visibility into who was spending what, and identical or near-identical requests were hitting the API repeatedly. We needed to bring costs under control without making the feature feel worse for users.",
+    constraints: [
+      "Multi-tenant — we needed per-tenant visibility and limits, not just a global cap",
+      "Semantic similarity — two slightly different prompts might deserve the same cached response",
+      "We couldn't degrade quality — the fallback to a cheaper/smaller model had to be acceptable for the use case",
+    ],
+    architecture:
+      "We implemented semantic caching in Redis: before calling the LLM, we hash the normalized input (trimmed, lowercased, key fields extracted) and check for a cached response. If we find one within a similarity threshold, we return it. We added a tenants.llm_token_budget column and track usage per tenant per month; when a tenant hits their budget, we serve cached or fallback responses and notify them. For simple tasks (short summaries, classification), we route to a smaller, cheaper model; for complex ones, we use the larger model. We batch non-urgent requests where possible to reduce round trips. The key was measuring first — we added cost tracking before we optimized, so we knew where the spend was.",
+    alternatives: [
+      {
+        name: "Hard rate limits per user",
+        rejected: "Would have frustrated power users and didn't address the root cause — duplicate or near-duplicate requests.",
+      },
+      {
+        name: "Self-host a smaller open-source model",
+        rejected: "Operational overhead, GPU costs, and quality tradeoffs. For our scale, managed APIs with caching were the right balance.",
+      },
+    ],
+    lessons: [
+      "Measure before you optimize. We added cost-per-tenant tracking and only then saw that 20% of requests were cacheable duplicates.",
+      "Semantic caching has limits — we use exact-match hashing for now; true embedding-based similarity would add complexity we didn't need yet.",
+      "Per-tenant budgets create the right incentives. Tenants self-regulate when they see usage; we avoid surprise bills.",
+    ],
+    diagram: undefined,
+    tags: ["Redis", "PostgreSQL", "Node.js"],
+  },
+  {
     slug: "cache-vs-query-redis-postgresql",
     title: "When to Cache and When to Query: Drawing the Line with Redis and PostgreSQL",
     summary: "Defining a caching strategy for a multi-tenant platform — what to cache, when to invalidate, and when to always hit the database.",
@@ -79,6 +141,37 @@ export const caseStudies: CaseStudy[] = [
     ],
     diagram: undefined,
     tags: ["Redis", "PostgreSQL", "Node.js"],
+  },
+  {
+    slug: "human-in-the-loop-review-pipeline",
+    title: "Designing a Human-in-the-Loop Review Pipeline",
+    summary: "Building a pipeline where AI generates first drafts and humans review before content reaches users — job queues, confidence thresholds, and feedback loops.",
+    context:
+      "We added an AI feature that generated draft content (summaries, categorizations) for user review. The AI wasn't accurate enough to ship directly; humans had to approve or edit before anything went live. The challenge was designing a pipeline that handled the queue, routed work to reviewers, supported confidence-based auto-approval for high-confidence outputs, and fed corrections back so we could improve the model over time.",
+    constraints: [
+      "Reviewers are a bottleneck — we needed to auto-approve when confidence was high enough",
+      "Feedback loop — rejections and edits had to be captured for future model improvement",
+      "Multi-tenant — each tenant might have different review workflows and thresholds",
+    ],
+    architecture:
+      "We built a job queue (PostgreSQL-backed, with a simple polling worker) where each AI-generated item has a state: pending_review, approved, rejected, needs_edit. The AI service writes to the queue with a confidence score. A configurable threshold per tenant determines auto-approval — above 0.9 we auto-approve, below that it goes to the review queue. Reviewers get a dashboard that shows pending items, lets them approve/reject/edit, and captures the delta when they make changes. We store (original_output, human_edit) pairs for later analysis and potential fine-tuning. The key was making the threshold configurable — some tenants wanted stricter review; others were comfortable with higher auto-approval.",
+    alternatives: [
+      {
+        name: "Fully automated — ship AI output directly",
+        rejected: "Quality wasn't good enough. One bad summary in front of a client would have damaged trust.",
+      },
+      {
+        name: "Fully manual — no auto-approval",
+        rejected: "Would have created a backlog. Most outputs were fine; we only needed human review for the edge cases.",
+      },
+    ],
+    lessons: [
+      "Confidence thresholds are a product decision, not just engineering. We let tenants tune theirs based on their risk tolerance.",
+      "Capture feedback even when you're not sure how you'll use it. The (original, edited) pairs became valuable for prompt iteration.",
+      "The review UI matters. A clunky dashboard would have made reviewers avoid the queue; we invested in making it fast and clear.",
+    ],
+    diagram: undefined,
+    tags: ["Node.js", "PostgreSQL", "TypeScript"],
   },
   {
     slug: "manual-deploys-to-cicd",
@@ -143,6 +236,37 @@ export const caseStudies: CaseStudy[] = [
     tags: ["Node.js", "PostgreSQL", "Next.js"],
   },
   {
+    slug: "securing-multi-tenant-auth-data-isolation",
+    title: "Securing a Multi-Tenant Platform: Where Auth Meets Data Isolation",
+    summary: "Enforcing tenant boundaries at every layer — JWT with tenant claims, middleware validation, audit logging, and defense in depth.",
+    context:
+      "Our multi-tenant platform had row-level isolation in the database, but we needed to ensure auth and API access enforced tenant boundaries at every layer. A bug in one place — a missing tenant check, an error message that leaked data — could expose one client's data to another. We needed defense in depth: validate tenant context on every request, audit cross-tenant access attempts, and never trust the client to pass the correct tenant.",
+    constraints: [
+      "JWT or session must carry tenant context — but we couldn't trust the client to set it correctly",
+      "Error messages and logs must not leak cross-tenant data",
+      "We needed an audit trail for compliance — who accessed what, when",
+    ],
+    architecture:
+      "We issue JWTs with tenant_id in the payload, but we derive the tenant from the authenticated user's membership — never from a client-supplied header. Middleware on every API route validates that the request's tenant matches the user's tenant; a mismatch returns 403. We added audit logging for sensitive operations: who, what, when, and which tenant. Error messages are generic ('Resource not found') rather than revealing whether a resource exists in another tenant. We considered RLS as a backstop but kept application-level enforcement as the primary control — RLS would have been a safety net, but we wanted the main logic explicit in code.",
+    alternatives: [
+      {
+        name: "Separate auth service per tenant",
+        rejected: "Doesn't scale. We'd have N auth deployments for N tenants; shared auth with tenant claims is simpler.",
+      },
+      {
+        name: "Trust the frontend to pass tenant context in headers",
+        rejected: "Never trust the client. A malicious or buggy client could send any tenant_id; we derive it from the authenticated user.",
+      },
+    ],
+    lessons: [
+      "Derive tenant from identity, never from request params. The user's tenant is a fact of their account, not something they tell us.",
+      "Audit logging is cheap to add and expensive to retrofit. We log at the service layer so we don't miss anything.",
+      "Generic error messages protect against enumeration. 'Not found' is safer than 'not found in your tenant.'",
+    ],
+    diagram: undefined,
+    tags: ["Node.js", "PostgreSQL", "Next.js"],
+  },
+  {
     slug: "designing-for-failure-api-layer",
     title: "Designing for Failure: What Happens When Your API Layer Goes Down",
     summary: "Adding resilience to a client app that depended on a flaky third-party API — circuit breakers, retries, and graceful degradation.",
@@ -172,6 +296,37 @@ export const caseStudies: CaseStudy[] = [
     ],
     diagram: undefined,
     tags: ["Node.js", "TypeScript"],
+  },
+  {
+    slug: "background-jobs-dont-bring-down-app",
+    title: "Background Jobs That Don't Bring Down the Main App",
+    summary: "Extracting heavy work to a worker process — job queues, priority levels, dead letter handling, and resource isolation.",
+    context:
+      "Our platform had background work: report generation, bulk data exports, notification batching. Initially it ran in the same Node.js process as the API. When a large report ran, it consumed CPU and memory; API latency spiked and users noticed. We needed to isolate background work so a runaway job couldn't starve the main app.",
+    constraints: [
+      "Jobs had different priorities — some were user-facing and urgent; others could wait",
+      "Failed jobs needed retry and eventually dead-letter handling — we couldn't lose work",
+      "We had one small team — the solution had to be simple to operate, not a full job orchestration platform",
+    ],
+    architecture:
+      "We extracted a separate worker process that polls a jobs table in PostgreSQL. The API enqueues jobs with a priority field; the worker processes high-priority jobs first. Each job has retry_count and max_retries; on failure we increment and re-queue with exponential backoff. After max_retries we move to a dead_letter table and alert. The worker runs in a separate container with its own resource limits — if a job goes haywire, it doesn't affect the API. We use a simple advisory lock to prevent duplicate processing when we scale to multiple workers. The key was starting with a table and polling — no Redis, no RabbitMQ — and only adding complexity when we hit limits.",
+    alternatives: [
+      {
+        name: "Run jobs on a cron schedule",
+        rejected: "Too coarse. We needed per-request job creation, retries, and priority — cron can't express that.",
+      },
+      {
+        name: "Use Lambda for each job type",
+        rejected: "Cold starts and connection pooling with PostgreSQL were concerns. A long-running worker with a connection pool was simpler for our workload.",
+      },
+    ],
+    lessons: [
+      "Resource isolation matters. A separate process with its own memory and CPU prevents one bad job from taking down the API.",
+      "Dead letter handling is part of the design, not an afterthought. We built the dead_letter table and alerting from day one.",
+      "Start simple. A jobs table and polling got us 90% of the way; we didn't need a message broker until we had multiple consumers.",
+    ],
+    diagram: undefined,
+    tags: ["Node.js", "PostgreSQL", "Docker"],
   },
   {
     slug: "why-i-chose-monolith",
@@ -234,6 +389,37 @@ export const caseStudies: CaseStudy[] = [
     ],
     diagram: undefined,
     tags: ["PostgreSQL", "Node.js", "TypeScript"],
+  },
+  {
+    slug: "multi-region-low-latency",
+    title: "Multi-Region, Single Brain: Designing for Low Latency Across Geographies",
+    summary: "Serving users globally without splitting the source of truth — CDN, read replicas, edge caching, and write-path routing.",
+    context:
+      "Our users spread across multiple regions. Those far from our primary data center experienced high latency — 200–400ms for API calls. We couldn't afford full multi-region active-active; we needed a simpler approach that brought latency down without duplicating our entire stack. The question was: what can we replicate at the edge, and what must stay centralized?",
+    constraints: [
+      "Single source of truth — we weren't ready for distributed writes and conflict resolution",
+      "Budget — we couldn't spin up full replicas in every region",
+      "Static and dynamic content mixed — some responses were cacheable; others had to be fresh",
+    ],
+    architecture:
+      "We layered improvements: (1) CDN for static assets — images, JS, CSS — so they're served from the edge. (2) Read replicas for PostgreSQL in one secondary region — we route read queries from that region to the replica; writes still go to the primary. (3) Redis at the edge for cacheable API responses — tenant config, reference data — with short TTLs. (4) Write path always hits the primary region; we accept that writes have higher latency but reads are fast. We used geographic routing (or client-side region detection) to send users to the nearest read replica when possible. The key was identifying what was safe to replicate — reads, cached data — and what wasn't — writes, auth, anything that had to be strongly consistent.",
+    alternatives: [
+      {
+        name: "Full multi-region active-active",
+        rejected: "Conflict resolution, distributed transactions, and operational complexity we didn't need. Our write volume was low; read replicas were enough.",
+      },
+      {
+        name: "Bigger instances in the primary region",
+        rejected: "Doesn't fix physics. A user in Asia hitting a US-East server will always have 150ms+ RTT. Replication is the answer.",
+      },
+    ],
+    lessons: [
+      "Read replicas are the low-hanging fruit. Most traffic is reads; replicating reads gives you most of the benefit with minimal complexity.",
+      "CDN for static assets is table stakes. We did that first; it was cheap and had immediate impact.",
+      "Document what's replicated and what isn't. When debugging, you need to know whether you're looking at primary or replica data.",
+    ],
+    diagram: undefined,
+    tags: ["AWS", "PostgreSQL", "Redis", "Nginx"],
   },
   {
     slug: "zero-to-observable-monitoring",
