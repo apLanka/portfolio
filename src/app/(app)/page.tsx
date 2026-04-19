@@ -5,6 +5,7 @@ import { About } from "@/features/portfolio/components/about"
 import { Blog } from "@/features/portfolio/components/blog"
 import { CaseStudies } from "@/features/portfolio/components/case-studies"
 import { Certifications } from "@/features/portfolio/components/certifications"
+import { Education } from "@/features/portfolio/components/education"
 import { Experiences } from "@/features/portfolio/components/experiences"
 import { GitHubContributions } from "@/features/portfolio/components/github-contributions"
 import { Overview } from "@/features/portfolio/components/overview"
@@ -55,6 +56,9 @@ export default function Page() {
         <Separator />
 
         <Experiences />
+        <Separator />
+
+        <Education />
         <Separator />
 
         <Projects />

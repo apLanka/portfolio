@@ -8,6 +8,7 @@ import {
   BoxIcon,
   BriefcaseBusinessIcon,
   CircleCheckBigIcon,
+  GraduationCapIcon,
   CornerDownLeftIcon,
   DownloadIcon,
   FileTextIcon,
@@ -103,6 +104,11 @@ const PORTFOLIO_LINKS: CommandLinkItem[] = [
     title: "Experience",
     href: "/#experience",
     icon: <BriefcaseBusinessIcon />,
+  },
+  {
+    title: "Education",
+    href: "/#education",
+    icon: <GraduationCapIcon />,
   },
   {
     title: "Projects",

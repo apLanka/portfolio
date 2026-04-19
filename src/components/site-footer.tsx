@@ -1,6 +1,6 @@
 import { Icons } from "@/components/icons"
 import { SiteFooterInteractiveLogotype } from "@/components/site-footer-brand"
-import { SITE_INFO } from "@/config/site"
+import { SHOW_SITE_FOOTER_LOGOTYPE, SITE_INFO } from "@/config/site"
 import { cn } from "@/lib/utils"
 
 export function SiteFooter() {
@@ -62,7 +62,7 @@ export function SiteFooter() {
         </div>
       </div>
 
-      <SiteFooterInteractiveLogotype />
+      {SHOW_SITE_FOOTER_LOGOTYPE ? <SiteFooterInteractiveLogotype /> : null}
 
       <div className="pb-[env(safe-area-inset-bottom,0px)]">
         <div className="flex h-16 sm:h-2" />

@@ -46,3 +46,6 @@ export const UTM_PARAMS = {
 
 /** Set to true to show the Certifications panel on the homepage again. */
 export const SHOW_CERTIFICATIONS = false
+
+/** Set to true to show the large interactive footer wordmark (chanhdai/ncdai SVG strip). */
+export const SHOW_SITE_FOOTER_LOGOTYPE = false
