@@ -27,6 +27,16 @@ const nextConfig: NextConfig = {
         hostname: "pasindulanka.com",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "www.pasindulanka.me",
+        port: "",
+      },
+      {
+        protocol: "https",
+        hostname: "pasindulanka.me",
+        port: "",
+      },
     ],
     qualities: [75, 100],
   },
