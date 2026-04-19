@@ -28,8 +28,9 @@ export function PostItem({
       )}
     >
       {post.metadata.image && (
-        <div className="relative select-none [&_img]:aspect-1200/630 [&_img]:rounded-xl">
+        <div className="relative select-none overflow-hidden rounded-xl [&_img]:aspect-1200/630 [&_img]:rounded-xl">
           <Image
+            className="object-cover grayscale contrast-[1.03] transition-[filter] duration-300 ease-out group-hover:grayscale-0 group-hover:contrast-100"
             src={post.metadata.image}
             alt={post.metadata.title}
             width={1200}
