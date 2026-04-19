@@ -12,9 +12,13 @@ export const dynamicParams = false
 export async function GET() {
   const card = new VCard()
 
+  card.addName(USER.lastName, USER.firstName)
+
+  if (USER.phoneNumber) {
+    card.addPhoneNumber(decodePhoneNumber(USER.phoneNumber))
+  }
+
   card
-    .addName(USER.lastName, USER.firstName)
-    .addPhoneNumber(decodePhoneNumber(USER.phoneNumber))
     .addAddress(USER.address)
     .addEmail(decodeEmail(USER.email))
     .addURL(USER.website)
