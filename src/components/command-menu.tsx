@@ -34,6 +34,7 @@ import {
   CommandList,
   CommandShortcut,
 } from "@/components/ui/command"
+import { SHOW_CERTIFICATIONS } from "@/config/site"
 import type { DocPreview } from "@/features/doc/types/document"
 import { SOCIAL_LINKS } from "@/features/portfolio/data/social-links"
 import { useSound } from "@/hooks/soundcn/use-sound"
@@ -44,7 +45,7 @@ import { copyToClipboardWithEvent } from "@/utils/copy"
 
 import { getLankaMarkSVG, LankaMark } from "./lanka-mark"
 import { getWordmarkSVG } from "./chanhdai-wordmark"
-import { ComponentIcon, Icons } from "./icons"
+import { Icons } from "./icons"
 import { Button } from "./ui/button"
 import { Kbd, KbdGroup } from "./ui/kbd"
 import { Separator } from "./ui/separator"
@@ -66,18 +67,6 @@ const MENU_LINKS: CommandLinkItem[] = [
     href: "/",
     icon: <LankaMark className="size-4" />,
     shortcut: "GH",
-  },
-  {
-    title: "Components",
-    href: "/components",
-    icon: <Icons.react />,
-    shortcut: "GC",
-  },
-  {
-    title: "Blocks",
-    href: "/blocks",
-    icon: <Icons.gridView />,
-    shortcut: "GB",
   },
   {
     title: "Blog",
@@ -164,19 +153,11 @@ const OTHER_LINK_ITEMS: CommandLinkItem[] = [
   },
 ]
 
-type BlockItem = {
-  name: string
-  description: string
-  categories: string[]
-}
-
 export function CommandMenu({
   docs,
-  blocks,
   enabledHotkeys = false,
 }: {
   docs: DocPreview[]
-  blocks: BlockItem[]
   enabledHotkeys?: boolean
 }) {
   const router = useRouter()
@@ -274,31 +255,12 @@ export function CommandMenu({
     })
   }, [setIsDuckFollowerVisible])
 
-  const { componentLinks, blogLinks } = useMemo(
-    () => ({
-      componentLinks: docs
-        .filter((doc) => doc.category === "components")
-        .sort((a, b) =>
-          a.title.localeCompare(b.title, "en", {
-            sensitivity: "base",
-          })
-        )
-        .map(docToCommandLinkItem),
-      blogLinks: docs
+  const blogLinks = useMemo(
+    () =>
+      docs
         .filter((doc) => doc.category !== "components")
         .map(docToCommandLinkItem),
-    }),
     [docs]
-  )
-
-  const blockLinks = useMemo(
-    () =>
-      blocks.map((block) => ({
-        title: block.name,
-        href: `/blocks/${block.categories[0]}/${block.name}`,
-        keywords: ["block"],
-      })),
-    [blocks]
   )
 
   return (
@@ -329,21 +291,9 @@ export function CommandMenu({
 
           <CommandLinkGroup
             heading="Portfolio"
-            links={PORTFOLIO_LINKS}
-            onLinkSelect={handleOpenLink}
-          />
-
-          <CommandLinkGroup
-            heading="Components"
-            links={componentLinks}
-            fallbackIcon={<Icons.react />}
-            onLinkSelect={handleOpenLink}
-          />
-
-          <CommandLinkGroup
-            heading="Blocks"
-            links={blockLinks}
-            fallbackIcon={<Icons.gridView />}
+            links={PORTFOLIO_LINKS.filter(
+              (link) => SHOW_CERTIFICATIONS || link.href !== "/#certs"
+            )}
             onLinkSelect={handleOpenLink}
           />
 
@@ -621,12 +571,8 @@ function CommandMenuFooter() {
 }
 
 function docToCommandLinkItem(doc: DocPreview): CommandLinkItem {
-  const isComponent = doc.category === "components"
-
   return {
     title: doc.title,
-    href: isComponent ? `/components/${doc.slug}` : `/blog/${doc.slug}`,
-    keywords: isComponent ? ["component"] : undefined,
-    icon: isComponent ? <ComponentIcon variant={doc.slug} /> : undefined,
+    href: `/blog/${doc.slug}`,
   }
 }
