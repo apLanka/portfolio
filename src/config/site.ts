@@ -20,14 +20,6 @@ export const MAIN_NAV: NavItem[] = [
     href: "/case-studies",
   },
   {
-    title: "Components",
-    href: "/components",
-  },
-  {
-    title: "Blocks",
-    href: "/blocks",
-  },
-  {
     title: "Blog",
     href: "/blog",
   },
@@ -51,3 +43,6 @@ export const SPONSORSHIP_URL = "https://github.com/sponsors/apLanka"
 export const UTM_PARAMS = {
   utm_source: "pasindulanka.com",
 }
+
+/** Set to true to show the Certifications panel on the homepage again. */
+export const SHOW_CERTIFICATIONS = false

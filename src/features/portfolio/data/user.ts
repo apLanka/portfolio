@@ -14,7 +14,6 @@ export const USER: User = {
     "Studying Software Engineering at SLIIT.",
   ],
   address: "Sri Lanka",
-  phoneNumber: "Kzk0NzAwMDAwMDAw", // +94700000000 placeholder — replace with your E.164 (base64)
   email: "cGFzaW5kdWxhbmthYUBnbWFpbC5jb20=", // pasindulankaa@gmail.com
   website: "https://pasindulanka.com",
   jobTitle: "Software Engineer",
