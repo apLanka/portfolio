@@ -6,10 +6,17 @@ import { addQueryParams } from "@/utils/url"
 import type { Experience } from "../../types/experiences"
 import { ExperiencePositionItem } from "./experience-position-item"
 
-export function ExperienceItem({ experience }: { experience: Experience }) {
+export function ExperienceItem({
+  experience,
+  section = "experience",
+}: {
+  experience: Experience
+  /** Use \`education\` for the Education panel so anchor ids stay unique (\`#education-sliit\`). */
+  section?: "experience" | "education"
+}) {
   return (
     <div
-      id={`experience-${experience.id}`}
+      id={`${section}-${experience.id}`}
       className="screen-line-bottom scroll-mt-14 space-y-4 py-4"
     >
       <div className="flex items-center gap-3">

@@ -34,6 +34,9 @@ export const EXPERIENCES: Experience[] = [
     ],
     isCurrentEmployer: true,
   },
+]
+
+export const EDUCATION: Experience[] = [
   {
     id: "sliit",
     companyName: "SLIIT",
