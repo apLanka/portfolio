@@ -1,35 +1,52 @@
-import { CodeXmlIcon, GraduationCapIcon } from "lucide-react"
+import {
+  BriefcaseBusinessIcon,
+  CodeXmlIcon,
+  GraduationCapIcon,
+} from "lucide-react"
 
 import type { Experience } from "../types/experiences"
 
 export const EXPERIENCES: Experience[] = [
   {
     id: "metarunelabs",
-    companyName: "MetaruneLabs",
+    companyName: "Metarune Labs",
     companyWebsite: "https://metarunelabs.com",
     positions: [
       {
         id: "1",
-        title: "Full-Stack Software Engineer",
+        title: "Software Engineer",
         employmentPeriod: {
-          start: "2023",
+          start: "04.2023",
         },
         employmentType: "Full-time",
         icon: <CodeXmlIcon />,
         isExpanded: true,
-        description: `- Designed and built the core platform architecture — a multi-tenant web application serving multiple client products from shared infrastructure using Next.js, Node.js, and PostgreSQL.
-- Owned end-to-end feature delivery from database schema through API to frontend, including data modeling, Redis caching, and service boundaries.
-- Set up CI/CD with Docker and AWS, improving release confidence across the team.
-- Introduced structured code review and architectural documentation.`,
+        description: `- Design and deliver features on a multi-tenant web platform — data modeling, APIs, and UI — using Next.js, Node.js, PostgreSQL, and Redis.
+- Work across service boundaries with a focus on caching strategy, reliability, and maintainable release cadence.
+- Help operate deployment pipelines (Docker, cloud infrastructure) and raise the bar on code review and lightweight architecture notes.`,
         skills: [
           "Next.js",
           "Node.js",
+          "TypeScript",
           "PostgreSQL",
           "Redis",
           "Docker",
           "AWS",
-          "TypeScript",
         ],
+      },
+      {
+        id: "2",
+        title: "Trainee Software Engineer",
+        employmentPeriod: {
+          start: "02.2023",
+          end: "04.2023",
+        },
+        employmentType: "Traineeship",
+        icon: <BriefcaseBusinessIcon />,
+        isExpanded: false,
+        description: `- Onboarded to the product codebase and delivery process; contributed to small features and fixes alongside the engineering team.
+- Built familiarity with the full path from database and API layers through to frontend and deployment.`,
+        skills: ["Next.js", "TypeScript", "PostgreSQL"],
       },
     ],
     isCurrentEmployer: true,
@@ -47,11 +64,12 @@ export const EDUCATION: Experience[] = [
         title: "BSc (Hons) in Software Engineering",
         employmentPeriod: {
           start: "2023",
+          end: "2027",
         },
         employmentType: "Undergraduate",
         icon: <GraduationCapIcon />,
         description:
-          "Studying software engineering with a focus on systems, architecture, and full-stack development.",
+          "Sri Lanka Institute of Information Technology (SLIIT). Coursework spans data structures & algorithms, software engineering, databases, networking, and object-oriented design — **expected graduation 2027**.",
         skills: ["Software Engineering", "Computer Science"],
       },
     ],

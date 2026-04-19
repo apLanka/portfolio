@@ -6,17 +6,18 @@ export function getMarkdownContent(time: string) {
 
 ## About
 
-Software engineer focused on system design and architecture. I build full-stack platforms and care about data modeling, service boundaries, caching strategy, and deployment pipelines.
+Software engineer based in Colombo, focused on full-stack delivery and system design — APIs, data modeling, caching, and shipping reliably.
 
-Currently engineering at **MetaruneLabs** and studying Software Engineering at **SLIIT**.
+At **Metarune Labs**: Software Engineer (Apr 2023 – present), previously Trainee Software Engineer (Feb – Apr 2023). Undergraduate at **SLIIT**, B.Sc. (Hons) in Software Engineering, expected **2027**.
 
 ## Experience
 
-### MetaruneLabs
-**Full-Stack Software Engineer** — 2023 – Present
+### Metarune Labs
+**Software Engineer** — 04.2023 – Present  
+**Trainee Software Engineer** — 02.2023 – 04.2023
 
 ### SLIIT
-**BSc (Hons) in Software Engineering**
+**BSc (Hons) in Software Engineering** — 2023 – 2027 (expected)
 
 ## Tech stack
 

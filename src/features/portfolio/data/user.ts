@@ -7,30 +7,32 @@ export const USER: User = {
   username: "aplanka",
   gender: "male",
   pronouns: "he/him",
-  bio: "Software engineer focused on system design, full-stack platforms, and the structural decisions that determine how systems scale, fail, and evolve.",
+  bio: "Software engineer focused on full-stack delivery, system design, and the infrastructure choices that make products reliable at scale. Based in Colombo.",
   flipSentences: [
-    "Software engineer focused on system design.",
-    "Building full-stack platforms at MetaruneLabs.",
-    "Studying Software Engineering at SLIIT.",
+    "Software engineer focused on full-stack and architecture.",
+    "Building products at Metarune Labs.",
+    "B.Sc. Software Engineering at SLIIT — expected 2027.",
   ],
-  address: "Sri Lanka",
+  address: "Colombo, Sri Lanka",
   email: "cGFzaW5kdWxhbmthYUBnbWFpbC5jb20=", // pasindulankaa@gmail.com
-  website: "https://pasindulanka.com",
+  phoneNumber: "Kzk0NzA1NzQ3NTQ5", // +94705747549 — included in downloadable vCard
+  website: "https://www.pasindulanka.me",
   jobTitle: "Software Engineer",
   jobs: [
     {
-      title: "Full-Stack Software Engineer",
-      company: "MetaruneLabs",
+      title: "Software Engineer",
+      company: "Metarune Labs",
       website: "https://metarunelabs.com",
       experienceId: "metarunelabs",
     },
   ],
   about: `
-- Software engineer focused on [system design and architecture](https://en.wikipedia.org/wiki/Solution_architecture): data modeling, service boundaries, caching strategy, and deployment pipelines.
-- Currently engineering at **MetaruneLabs** and studying Software Engineering at **SLIIT**. I care about what to build, how to structure it, and which tradeoffs to accept.
+- Software engineer with experience across the stack: APIs, data modeling, caching, and frontend delivery — with attention to observability, deployment, and long-term maintainability.
+- Currently at **Metarune Labs** (from a trainee role through to software engineer) and pursuing a **B.Sc. (Hons) in Software Engineering** at **SLIIT**, expected **2027**.
 `,
   avatar: "/image/bg/me.webp",
-  ogImage: "https://pasindulanka.com/og/simple?title=Pasindu%20Lanka&description=Software%20engineer%20focused%20on%20system%20design",
+  ogImage:
+    "https://www.pasindulanka.me/og/simple?title=Pasindu%20Lanka&description=Software%20engineer%20focused%20on%20full-stack%20delivery%20and%20system%20design",
   namePronunciationUrl: "",
   keywords: [
     "pasindu lanka",
@@ -39,8 +41,9 @@ export const USER: User = {
     "full-stack",
     "system design",
     "next.js",
+    "colombo",
     "sri lanka",
-    "metarunelabs",
+    "metarune labs",
     "sliit",
   ],
   timeZone: "Asia/Colombo",
