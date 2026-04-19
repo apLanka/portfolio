@@ -37,6 +37,11 @@ const nextConfig: NextConfig = {
         hostname: "pasindulanka.me",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "cdn-images-1.medium.com",
+        port: "",
+      },
     ],
     qualities: [75, 100],
   },

@@ -1,7 +1,7 @@
 import { format } from "date-fns"
 
 import { SITE_INFO } from "@/config/site"
-import { getAllDocs } from "@/features/doc/data/documents"
+import { getBlogPosts } from "@/features/doc/data/documents"
 import { getLLMText } from "@/features/doc/lib/get-llm-text"
 import { AWARDS } from "@/features/portfolio/data/awards"
 import { CERTIFICATIONS } from "@/features/portfolio/data/certifications"
@@ -11,7 +11,7 @@ import { SOCIAL_LINKS } from "@/features/portfolio/data/social-links"
 import { TECH_STACK } from "@/features/portfolio/data/tech-stack"
 import { USER } from "@/features/portfolio/data/user"
 
-const allPosts = getAllDocs()
+const allPosts = getBlogPosts()
 
 const aboutText = `## About
 
@@ -74,10 +74,14 @@ ${CERTIFICATIONS.map((item) => `- [${item.title}](${item.credentialURL})`).join(
 
 async function getBlogContent() {
   const text = await Promise.all(
-    allPosts.map(
-      async (item) =>
-        `---\ntitle: "${item.metadata.title}"\ndescription: "${item.metadata.description}"\nlast_updated: "${format(new Date(item.metadata.updatedAt), "MMMM d, yyyy")}"\nsource: "${SITE_INFO.url}/blog/${item.slug}"\n---\n\n${await getLLMText(item)}`
-    )
+    allPosts.map(async (item) => {
+      const source =
+        item.metadata.externalUrl ?? `${SITE_INFO.url}/blog/${item.slug}`
+      if (item.metadata.externalUrl) {
+        return `### ${item.metadata.title}\n\n${item.metadata.description}\n\nRead on Medium: ${item.metadata.externalUrl}\n\nSource: ${source}`
+      }
+      return `---\ntitle: "${item.metadata.title}"\ndescription: "${item.metadata.description}"\nlast_updated: "${format(new Date(item.metadata.updatedAt), "MMMM d, yyyy")}"\nsource: "${source}"\n---\n\n${await getLLMText(item)}`
+    })
   )
   return text.join("\n\n")
 }

@@ -1,18 +1,18 @@
 import { SITE_INFO } from "@/config/site"
-import { getAllDocs } from "@/features/doc/data/documents"
+import { getBlogPosts } from "@/features/doc/data/documents"
 
 export const revalidate = false
 export const dynamic = "force-static"
 
 export function GET() {
-  const allPosts = getAllDocs()
+  const allPosts = getBlogPosts()
 
   const itemsXml = allPosts
     .map(
       (post) =>
         `<item>
           <title>${post.metadata.title}</title>
-          <link>${SITE_INFO.url}/blog/${post.slug}</link>
+          <link>${post.metadata.externalUrl ?? `${SITE_INFO.url}/blog/${post.slug}`}</link>
           <description>${post.metadata.description || ""}</description>
           <pubDate>${new Date(post.metadata.createdAt).toISOString()}</pubDate>
         </item>`

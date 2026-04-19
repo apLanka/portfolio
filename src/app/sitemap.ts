@@ -2,10 +2,10 @@ import type { MetadataRoute } from "next"
 
 import { caseStudies } from "@/config/pasindu/case-studies"
 import { SITE_INFO } from "@/config/site"
-import { getAllDocs } from "@/features/doc/data/documents"
+import { getBlogPosts } from "@/features/doc/data/documents"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const posts = getAllDocs().map((post) => ({
+  const posts = getBlogPosts().map((post) => ({
     url: `${SITE_INFO.url}/blog/${post.slug}`,
     lastModified: new Date(post.metadata.updatedAt).toISOString(),
   }))
