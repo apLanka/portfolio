@@ -5,7 +5,7 @@ import { getAllDocs } from "@/features/doc/data/documents"
 import { getLLMText } from "@/features/doc/lib/get-llm-text"
 import { AWARDS } from "@/features/portfolio/data/awards"
 import { CERTIFICATIONS } from "@/features/portfolio/data/certifications"
-import { EXPERIENCES } from "@/features/portfolio/data/experiences"
+import { EDUCATION, EXPERIENCES } from "@/features/portfolio/data/experiences"
 import { PROJECTS } from "@/features/portfolio/data/projects"
 import { SOCIAL_LINKS } from "@/features/portfolio/data/social-links"
 import { TECH_STACK } from "@/features/portfolio/data/tech-stack"
@@ -33,16 +33,25 @@ ${SOCIAL_LINKS.map((item) => `- [${item.title}](${item.href})`).join("\n")}
 
 ${TECH_STACK.map((item) => `- [${item.title}](${item.href})`).join("\n")}\n`
 
-const experienceText = `## Experience
+const formatExperienceBlock = (
+  items: typeof EXPERIENCES,
+  title: string
+) => `## ${title}
 
-${EXPERIENCES.map((item) =>
-  item.positions
-    .map((position) => {
-      const skills = position.skills?.map((skill) => skill).join(", ") || "N/A"
-      return `### ${position.title} | ${item.companyName}\n\nDuration: ${position.employmentPeriod.start} - ${position.employmentPeriod.end || "Present"}\n\nSkills: ${skills}\n\n${position.description?.trim()}`
-    })
-    .join("\n\n")
-).join("\n\n")}
+${items
+  .map((item) =>
+    item.positions
+      .map((position) => {
+        const skills = position.skills?.map((skill) => skill).join(", ") || "N/A"
+        return `### ${position.title} | ${item.companyName}\n\nDuration: ${position.employmentPeriod.start} - ${position.employmentPeriod.end || "Present"}\n\nSkills: ${skills}\n\n${position.description?.trim()}`
+      })
+      .join("\n\n")
+  )
+  .join("\n\n")}`
+
+const experienceText = `${formatExperienceBlock(EXPERIENCES, "Experience")}
+
+${formatExperienceBlock(EDUCATION, "Education")}
 `
 
 const projectsText = `## Projects
