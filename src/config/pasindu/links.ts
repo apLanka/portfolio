@@ -9,7 +9,7 @@ export const links = {
   x: "https://x.com/lankaaDev",
   medium: "https://medium.com/@pasindulanka",
   email: "pasindulankaa@gmail.com",
-  website: "https://pasindulanka.com",
+  website: "https://www.pasindulanka.me",
 } as const;
 
 export const mailto = `mailto:${links.email}`;

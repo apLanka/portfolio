@@ -54,7 +54,7 @@ export const caseStudies: CaseStudy[] = [
     title: "One Database, Five Products: Designing Multi-Tenancy Without a Framework",
     summary: "How we isolated five client products in a single PostgreSQL database using row-level tenant_id and shared schema — and why we skipped off-the-shelf multi-tenant frameworks.",
     context:
-      "At MetaruneLabs, we needed to serve multiple client products from one platform. Each client has their own users, data, and configuration, but the core product logic is identical. The business needed fast onboarding of new clients without spinning up new infrastructure. We had one small engineering team and a tight timeline to ship the first three tenants.",
+      "At Metarune Labs, we needed to serve multiple client products from one platform. Each client has their own users, data, and configuration, but the core product logic is identical. The business needed fast onboarding of new clients without spinning up new infrastructure. We had one small engineering team and a tight timeline to ship the first three tenants.",
     constraints: [
       "Single small team — no bandwidth to evaluate and integrate a heavy multi-tenant framework",
       "Existing PostgreSQL database with schema already in use by the first product",

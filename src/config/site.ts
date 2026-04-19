@@ -3,7 +3,7 @@ import type { NavItem } from "@/types/nav"
 
 export const SITE_INFO = {
   name: USER.displayName,
-  url: process.env.APP_URL || "https://pasindulanka.com",
+  url: process.env.APP_URL || "https://www.pasindulanka.me",
   ogImage: USER.ogImage,
   description: USER.bio,
   keywords: USER.keywords,
@@ -41,7 +41,7 @@ export const SOURCE_CODE_GITHUB_URL = "https://github.com/apLanka/portfolio"
 export const SPONSORSHIP_URL = "https://github.com/sponsors/apLanka"
 
 export const UTM_PARAMS = {
-  utm_source: "pasindulanka.com",
+  utm_source: "www.pasindulanka.me",
 }
 
 /** Set to true to show the Certifications panel on the homepage again. */
