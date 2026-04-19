@@ -1,21 +1,19 @@
+import type { IconName } from "tech-stack-icons"
+
 /**
- * A technology item displayed in the Tech Stack section.
- *
- * Icon file resolution:
- * - Default: /public/tech-stack-icons/[key].svg
- * - Themed (when `theme === true`):
- *   - Dark:  /public/tech-stack-icons/[key]-dark.svg
- *   - Light: /public/tech-stack-icons/[key]-light.svg
+ * One tool row in the Stack panel. Icons come from [`tech-stack-icons`](https://www.tech-stack-icons.com/).
  */
 export type TechStack = {
-  /** Unique identifier used to resolve icon files. */
-  key: string
-  /** Display name of the technology. */
+  /** Key matching `tech-stack-icons` (autocomplete via `IconName`). */
+  icon: IconName
   title: string
-  /** Official website URL. */
   href: string
-  /** Category tags used for grouping/filtering. */
+  /** For LLM / legacy exports. */
   categories: string[]
-  /** If true, use theme-specific icons for dark/light mode. */
-  theme?: boolean
+}
+
+export type TechStackSection = {
+  id: string
+  heading: string
+  items: TechStack[]
 }
