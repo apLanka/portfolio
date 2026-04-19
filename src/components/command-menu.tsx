@@ -18,7 +18,6 @@ import {
   RssIcon,
   SunMediumIcon,
   TextInitialIcon,
-  TriangleDashedIcon,
   TypeIcon,
 } from "lucide-react"
 import { useTheme } from "next-themes"
@@ -160,10 +159,10 @@ const OTHER_LINK_ITEMS: CommandLinkItem[] = [
 ]
 
 export function CommandMenu({
-  docs,
+  blogPosts,
   enabledHotkeys = false,
 }: {
-  docs: DocPreview[]
+  blogPosts: DocPreview[]
   enabledHotkeys?: boolean
 }) {
   const router = useRouter()
@@ -262,11 +261,8 @@ export function CommandMenu({
   }, [setIsDuckFollowerVisible])
 
   const blogLinks = useMemo(
-    () =>
-      docs
-        .filter((doc) => doc.category !== "components")
-        .map(docToCommandLinkItem),
-    [docs]
+    () => blogPosts.map(docToCommandLinkItem),
+    [blogPosts]
   )
 
   return (
@@ -343,19 +339,6 @@ export function CommandMenu({
               Copy Logotype as SVG
             </CommandItem>
 
-            <CommandItem
-              onSelect={() => handleOpenLink("/blog/chanhdai-brand")}
-            >
-              <TriangleDashedIcon />
-              Brand Guidelines
-            </CommandItem>
-
-            <CommandItem asChild>
-              <a href="https://assets.chanhdai.com/chanhdai-brand.zip" download>
-                <DownloadIcon />
-                Download Brand Assets
-              </a>
-            </CommandItem>
           </CommandGroup>
 
           <CommandGroup heading="Theme">
@@ -526,9 +509,6 @@ function buildCommandMetaMap() {
   commandMetaMap.set("Copy Logotype as SVG", {
     commandKind: "command",
   })
-  commandMetaMap.set("Download Brand Assets", {
-    commandKind: "command",
-  })
 
   SOCIAL_LINK_ITEMS.forEach((item) => {
     commandMetaMap.set(item.title, {
@@ -579,6 +559,7 @@ function CommandMenuFooter() {
 function docToCommandLinkItem(doc: DocPreview): CommandLinkItem {
   return {
     title: doc.title,
-    href: `/blog/${doc.slug}`,
+    href: doc.externalUrl ?? `/blog/${doc.slug}`,
+    openInNewTab: Boolean(doc.externalUrl),
   }
 }

@@ -7,7 +7,7 @@ import { SiteHeaderMark } from "@/components/site-header-mark"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { Separator } from "@/components/ui/separator"
 import { MAIN_NAV, MOBILE_NAV } from "@/config/site"
-import { getAllDocs } from "@/features/doc/data/documents"
+import { getBlogPosts } from "@/features/doc/data/documents"
 import type { DocPreview } from "@/features/doc/types/document"
 import { cn } from "@/lib/utils"
 
@@ -24,13 +24,12 @@ const NavMobile = dynamic(() =>
 )
 
 export function SiteHeader() {
-  const docs = getAllDocs()
+  const blogPosts = getBlogPosts()
 
-  // Minimize data serialized to client component - only send necessary fields
-  const docPreviews: DocPreview[] = docs.map((doc) => ({
+  const blogPreviews: DocPreview[] = blogPosts.map((doc) => ({
     slug: doc.slug,
     title: doc.metadata.title,
-    category: doc.metadata.category,
+    externalUrl: doc.metadata.externalUrl,
   }))
 
   return (
@@ -52,7 +51,7 @@ export function SiteHeader() {
           <NavDesktop items={MAIN_NAV} />
 
           <div className="flex items-center *:first:mr-2 max-sm:*:data-[slot=command-menu-trigger]:hidden">
-            <CommandMenu docs={docPreviews} enabledHotkeys />
+            <CommandMenu blogPosts={blogPreviews} enabledHotkeys />
             <NavItemGitHub />
             <Separator
               orientation="vertical"
@@ -74,7 +73,7 @@ export function SiteHeader() {
           "*:data-[slot=command-menu-trigger]:min-w-20 *:data-[slot=command-menu-trigger]:gap-2 *:data-[slot=command-menu-trigger]:rounded-none *:data-[slot=command-menu-trigger]:border-none *:data-[slot=command-menu-trigger]:bg-transparent *:data-[slot=command-menu-trigger]:px-0 *:data-[slot=command-menu-trigger]:hover:bg-transparent *:data-[slot=command-menu-trigger]:active:scale-none"
         )}
       >
-        <CommandMenu docs={docPreviews} />
+        <CommandMenu blogPosts={blogPreviews} />
         <Separator
           orientation="vertical"
           className="mr-1 ml-2.5 data-vertical:h-6 data-vertical:self-center"
