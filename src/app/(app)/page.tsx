@@ -46,15 +46,6 @@ export default function Page() {
         <About />
         <div className="flex h-2 w-full border-x border-line" />
 
-        <GitHubContributions />
-        <Separator />
-
-        <TechStack />
-        <Separator />
-
-        <Blog />
-        <Separator />
-
         <Experiences />
         <Separator />
 
@@ -62,6 +53,15 @@ export default function Page() {
         <Separator />
 
         <Projects />
+        <Separator />
+
+        <GitHubContributions />
+        <Separator />
+
+        <TechStack />
+        <Separator />
+
+        <Blog />
         <Separator />
 
         <CaseStudies />

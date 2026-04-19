@@ -27,8 +27,11 @@ export const USER: User = {
     },
   ],
   about: `
-- Software engineer with experience across the stack: APIs, data modeling, caching, and frontend delivery — with attention to observability, deployment, and long-term maintainability.
-- Currently at **Metarune Labs** (from a trainee role through to software engineer) and pursuing a **B.Sc. (Hons) in Software Engineering** at **SLIIT**, expected **2027**.
+- Full-stack software engineer: **APIs**, relational **data modeling**, **caching**, and UI delivery — with an eye on deployment, observability, and maintainability as systems grow.
+- **Metarune Labs** (from 2023): started as a **trainee software engineer**, now **software engineer** — building and operating features on a **multi-tenant** web platform.
+- Core tools: **TypeScript**, **Next.js**, **Node.js**, **PostgreSQL**, **Redis**, **Docker**, and **AWS**-style cloud workflows.
+- **SLIIT** — **B.Sc. (Hons) in Software Engineering**, expected **2027**; coursework includes algorithms, software engineering, databases, and computer networks.
+- Based in **Colombo, Sri Lanka**.
 `,
   avatar: "/image/bg/me.webp",
   ogImage:
