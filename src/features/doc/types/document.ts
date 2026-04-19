@@ -27,6 +27,11 @@ export type DocMetadata = {
    * Last updated date as an ISO date string (e.g. YYYY-MM-DD).
    */
   updatedAt: string
+  /**
+   * If set, this post is hosted elsewhere (e.g. Medium). The listing links to this URL;
+   * `/blog/[slug]` can redirect there.
+   */
+  externalUrl?: string
 }
 
 export type Doc = {
@@ -46,4 +51,5 @@ export type DocPreview = {
   slug: string
   title: string
   category?: string
+  externalUrl?: string
 }

@@ -3,6 +3,7 @@ import matter from "gray-matter"
 import path from "path"
 import { cache } from "react"
 
+import { EXTERNAL_BLOG_POSTS } from "@/config/pasindu/blog-posts"
 import type { Doc, DocMetadata } from "@/features/doc/types/document"
 
 function parseFrontmatter(fileContent: string) {
@@ -53,8 +54,41 @@ export const getAllDocs = cache(() => {
   )
 })
 
+function externalBlogToDoc(
+  post: (typeof EXTERNAL_BLOG_POSTS)[number]
+): Doc {
+  return {
+    slug: post.slug,
+    content: "",
+    metadata: {
+      title: post.title,
+      description: post.description,
+      createdAt: post.createdAt,
+      updatedAt: post.updatedAt,
+      externalUrl: post.url,
+      image: post.image,
+    },
+  }
+}
+
+/** Blog articles for /blog (MDX “blog” files removed; posts live on Medium). */
+export const getBlogPosts = cache(() => {
+  return [...EXTERNAL_BLOG_POSTS.map(externalBlogToDoc)].sort((a, b) => {
+    if (a.metadata.pinned && !b.metadata.pinned) return -1
+    if (!a.metadata.pinned && b.metadata.pinned) return 1
+
+    return (
+      new Date(b.metadata.createdAt).getTime() -
+      new Date(a.metadata.createdAt).getTime()
+    )
+  })
+})
+
 export function getDocBySlug(slug: string) {
-  return getAllDocs().find((doc) => doc.slug === slug)
+  return (
+    getAllDocs().find((doc) => doc.slug === slug) ??
+    getBlogPosts().find((doc) => doc.slug === slug)
+  )
 }
 
 export function getDocsByCategory(category: string) {
