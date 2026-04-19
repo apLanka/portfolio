@@ -2,21 +2,13 @@ import dynamic from "next/dynamic"
 import Link from "next/link"
 
 import { NavDesktop } from "@/components/nav-desktop"
-import { NavItemGitHub } from "@/components/nav-item-github"
 import { SiteHeaderMark } from "@/components/site-header-mark"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { Separator } from "@/components/ui/separator"
 import { MAIN_NAV, MOBILE_NAV } from "@/config/site"
-import { getBlogPosts } from "@/features/doc/data/documents"
-import type { DocPreview } from "@/features/doc/types/document"
 import { cn } from "@/lib/utils"
 
 const BrandContextMenu = dynamic(() =>
   import("@/components/brand-context-menu").then((mod) => mod.BrandContextMenu)
-)
-
-const CommandMenu = dynamic(() =>
-  import("@/components/command-menu").then((mod) => mod.CommandMenu)
 )
 
 const NavMobile = dynamic(() =>
@@ -24,14 +16,6 @@ const NavMobile = dynamic(() =>
 )
 
 export function SiteHeader() {
-  const blogPosts = getBlogPosts()
-
-  const blogPreviews: DocPreview[] = blogPosts.map((doc) => ({
-    slug: doc.slug,
-    title: doc.metadata.title,
-    externalUrl: doc.metadata.externalUrl,
-  }))
-
   return (
     <>
       <header className="sticky top-0 z-50 max-w-screen overflow-x-hidden bg-background px-2 pt-2">
@@ -50,13 +34,7 @@ export function SiteHeader() {
 
           <NavDesktop items={MAIN_NAV} />
 
-          <div className="flex items-center *:first:mr-2 max-sm:*:data-[slot=command-menu-trigger]:hidden">
-            <CommandMenu blogPosts={blogPreviews} enabledHotkeys />
-            <NavItemGitHub />
-            <Separator
-              orientation="vertical"
-              className="mx-2 data-vertical:h-4 data-vertical:self-center"
-            />
+          <div className="flex items-center">
             <ThemeToggle />
           </div>
 
@@ -69,15 +47,9 @@ export function SiteHeader() {
       <div className="pointer-events-none fixed inset-x-0 bottom-0 z-50 h-[calc(--spacing(24)+env(safe-area-inset-bottom,0px))] bg-linear-to-b from-transparent from-[calc(env(safe-area-inset-bottom,0%))] to-background mask-linear-[to_top,var(--background)_25%,transparent] backdrop-blur-[1px] sm:hidden" />
       <div
         className={cn(
-          "fixed bottom-[calc(--spacing(2)+env(safe-area-inset-bottom,0px))] left-1/2 z-50 flex w-fit -translate-x-1/2 items-center rounded-xl bg-popover py-1 pr-1 pl-2.5 shadow-md ring ring-foreground/10 sm:hidden dark:ring-foreground/20",
-          "*:data-[slot=command-menu-trigger]:min-w-20 *:data-[slot=command-menu-trigger]:gap-2 *:data-[slot=command-menu-trigger]:rounded-none *:data-[slot=command-menu-trigger]:border-none *:data-[slot=command-menu-trigger]:bg-transparent *:data-[slot=command-menu-trigger]:px-0 *:data-[slot=command-menu-trigger]:hover:bg-transparent *:data-[slot=command-menu-trigger]:active:scale-none"
+          "fixed bottom-[calc(--spacing(2)+env(safe-area-inset-bottom,0px))] left-1/2 z-50 flex w-fit -translate-x-1/2 items-center rounded-xl bg-popover py-1 pr-1 pl-2.5 shadow-md ring ring-foreground/10 sm:hidden dark:ring-foreground/20"
         )}
       >
-        <CommandMenu blogPosts={blogPreviews} />
-        <Separator
-          orientation="vertical"
-          className="mr-1 ml-2.5 data-vertical:h-6 data-vertical:self-center"
-        />
         <NavMobile items={MOBILE_NAV} />
       </div>
     </>

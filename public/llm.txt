@@ -3,18 +3,24 @@
 
 ## About
 
-Software engineer based in Colombo, focused on full-stack delivery and system design — APIs, data modeling, caching, and reliable releases.
+Software engineer with 3+ years of experience designing and scaling distributed systems powering real-time applications at 100K+ user scale and $10M+ revenue impact. Specialized in event-driven architectures, serverless systems, and real-time communication platforms using AWS and modern full-stack technologies. Proven ability to lead teams, drive architectural decisions, and deliver high-performance systems under production constraints. Based in Colombo, Sri Lanka.
 
-At Metarune Labs: Software Engineer from Apr 2023; Trainee Software Engineer Feb – Apr 2023. Undergraduate B.Sc. (Hons) Software Engineering at SLIIT, expected graduation 2027.
+At Metarune Labs: Software Engineer from Apr 2023; Trainee Software Engineer Feb – Apr 2023. Undergraduate B.Sc. in Software Engineering at SLIIT, expected 2027.
 
 ## Experience
 
 ### Metarune Labs
 **Software Engineer** — 04.2023 – Present
 
+- Architected and delivered full-stack features for a real-time chat platform serving 100K+ users, contributing to $10M+ revenue impact.
+- Designed and implemented event-driven serverless workflows (AWS Lambda, SQS) to improve scalability and reliability under high load.
+- Led a frontend team of 7+ engineers, establishing PR standards, improving code quality, and mentoring junior developers.
+- Developed cross-platform mobile applications using React Native and engineered gameplay and backend systems using Unity (C#) and Node.js.
+- Improved product quality by implementing automated testing workflows including unit testing (Jest, Vitest) and end-to-end testing (Playwright) across frontend and backend systems.
+
 **Trainee Software Engineer** — 02.2023 – 04.2023
 
-Building and operating a multi-tenant web platform — end-to-end features from schema and APIs through to the UI, with PostgreSQL, Redis, Docker, and cloud deployment practices.
+- Supported full-stack development across web, backend, and mobile projects while onboarding to team workflows and engineering standards.
 
 ## In Between These Experiences
 
@@ -28,15 +34,26 @@ Consistent iteration and a focus on architecture have turned every project into 
 
 ## Education
 
-### SLIIT
-**BSc (Hons) in Software Engineering**
-2023 – 2027 (expected)
+### Sri Lanka Institute of Information Technology (SLIIT)
+**B.Sc. in Software Engineering** — expected 2027
+
+Relevant coursework: Distributed Systems, Software Architecture, Application Frameworks, Data Structures & Algorithms
 
 ## Tech Stack
 
-I'm a generalist who can build with anything, but here is the core stack I use to create scalable, user-centric systems:
+Languages: JavaScript, TypeScript, Python, Java, C#
 
-React, TypeScript, Next.js, Node.js, Python, PostgreSQL, MongoDB, Docker, AWS, Git, Redis, Tailwind CSS
+Frontend/Mobile: React, Next.js, React Native, Tailwind CSS
+
+Backend: Node.js, Express, NestJS, Spring Boot, .NET
+
+Databases: PostgreSQL, MySQL, MongoDB, Redis, Pinecone
+
+Cloud & DevOps: AWS (Lambda, SQS, S3), Docker, Kubernetes, Nginx, GitHub Actions
+
+Testing & Observability: Jest, Vitest, Prometheus, Grafana, Playwright
+
+AI Integration: LangChain, LangGraph, LangSmith, RAG
 
 ## Recommendations
 

@@ -4529,6 +4529,11 @@ fs-extra@^11.3.1:
     jsonfile "^6.0.1"
     universalify "^2.0.0"
 
+fsevents@~2.3.3:
+  version "2.3.3"
+  resolved "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz"
+  integrity sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==
+
 fumadb@^0.1.2:
   version "0.1.2"
   resolved "https://registry.npmjs.org/fumadb/-/fumadb-0.1.2.tgz"
@@ -8490,6 +8495,11 @@ tar-stream@^3.1.5:
     bare-fs "^4.5.5"
     fast-fifo "^1.2.0"
     streamx "^2.15.0"
+
+tech-stack-icons@^3.7.1:
+  version "3.7.1"
+  resolved "https://registry.npmjs.org/tech-stack-icons/-/tech-stack-icons-3.7.1.tgz"
+  integrity sha512-5BAWrYxK75zFVVS2ZQZCttQn0EW5dw8CtvMLYYYHIV1Mqhiog8pxWZtUF8uxXHp3b7l9g+YTkTyv6jQUzrCTMA==
 
 teex@^1.0.1:
   version "1.0.1"
