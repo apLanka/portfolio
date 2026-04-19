@@ -4,7 +4,7 @@
  */
 import { writeFileSync } from "fs";
 import { join } from "path";
-import { getMarkdownContent } from "../app/data/content";
+import { getMarkdownContent } from "../src/data/content";
 
 const content = getMarkdownContent("00:00:00");
 const outputPath = join(process.cwd(), "public", "llm.txt");
