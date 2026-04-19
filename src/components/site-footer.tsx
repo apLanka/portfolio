@@ -1,40 +1,12 @@
-import { RssIcon } from "lucide-react"
-
 import { Icons } from "@/components/icons"
 import { SiteFooterInteractiveLogotype } from "@/components/site-footer-brand"
-import { SITE_INFO, SOURCE_CODE_GITHUB_URL } from "@/config/site"
+import { SITE_INFO } from "@/config/site"
 import { cn } from "@/lib/utils"
 
 export function SiteFooter() {
   return (
     <footer className="max-w-screen overflow-x-hidden px-2">
       <div className="screen-line-top mx-auto border-x border-line pt-4 group-has-data-[slot=layout-wide]/layout:container md:max-w-3xl">
-        <p className="mb-1 px-4 text-center font-mono text-sm text-balance text-muted-foreground">
-          Inspired by tailwindcss.com / ui.shadcn.com / vercel.com
-        </p>
-
-        <p className="mb-4 px-4 text-center font-mono text-sm text-balance text-muted-foreground">
-          Built by{" "}
-          <a
-            className="font-medium link-underline"
-            href="https://x.com/iamncdai"
-            target="_blank"
-            rel="noopener"
-          >
-            ncdai
-          </a>
-          . The source code is available on{" "}
-          <a
-            className="font-medium link-underline"
-            href={SOURCE_CODE_GITHUB_URL}
-            target="_blank"
-            rel="noopener"
-          >
-            GitHub
-          </a>
-          .
-        </p>
-
         <div className="screen-line-top screen-line-bottom flex w-full before:z-1 after:z-1">
           <div className="mx-auto flex items-center justify-center gap-3 border-x border-line bg-background px-4">
             <a
@@ -80,33 +52,6 @@ export function SiteFooter() {
               aria-label="LinkedIn"
             >
               <Icons.linkedin className="size-4" />
-            </a>
-
-            <Separator />
-
-            <a
-              className="flex items-center text-muted-foreground transition-[color] hover:text-foreground"
-              href={`${SITE_INFO.url}/rss`}
-              target="_blank"
-              rel="noopener"
-              aria-label="RSS"
-            >
-              <RssIcon className="size-4" />
-            </a>
-
-            <Separator />
-
-            <a
-              className="flex text-muted-foreground transition-[color] hover:text-foreground"
-              href={
-                process.env.NEXT_PUBLIC_DMCA_URL ||
-                "https://www.dmca.com/ProtectionPro.aspx"
-              }
-              target="_blank"
-              rel="noopener"
-              aria-label="DMCA.com Protection Status"
-            >
-              <Icons.dmca className="h-4.5 w-auto" />
             </a>
           </div>
         </div>
