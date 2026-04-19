@@ -3,21 +3,18 @@
 
 ## About
 
-A full-stack developer and product builder crafting seamless, user-centric experiences. I specialize in balancing technical precision with modern functionality to solve real-world problems.
+Software engineer based in Colombo, focused on full-stack delivery and system design — APIs, data modeling, caching, and reliable releases.
 
-A strategic problem solver bridging technical architecture with business outcomes. I build robust, scalable systems that align engineering decisions with long-term growth and success.
+At Metarune Labs: Software Engineer from Apr 2023; Trainee Software Engineer Feb – Apr 2023. Undergraduate B.Sc. (Hons) Software Engineering at SLIIT, expected graduation 2027.
 
 ## Experience
 
-### MetaruneLabs
-**Full-Stack Software Engineer**
-2023 – Present
+### Metarune Labs
+**Software Engineer** — 04.2023 – Present
 
-Lead the development of scalable web and mobile applications using modern full-stack technologies, delivering high-performance features that prioritize user-centric design and seamless functionality.
+**Trainee Software Engineer** — 02.2023 – 04.2023
 
-Architect robust digital infrastructures that bridge complex technical requirements with strategic business outcomes, optimizing system reliability and scalability for diverse platforms.
-
-Collaborate on product strategy and engineering best practices to foster a culture of technical excellence, ensuring impactful and sustainable results across the product lifecycle.
+Building and operating a multi-tenant web platform — end-to-end features from schema and APIs through to the UI, with PostgreSQL, Redis, Docker, and cloud deployment practices.
 
 ## In Between These Experiences
 
@@ -31,9 +28,9 @@ Consistent iteration and a focus on architecture have turned every project into 
 
 ## Education
 
-### SLIIT University
+### SLIIT
 **BSc (Hons) in Software Engineering**
-2023 – 2027
+2023 – 2027 (expected)
 
 ## Tech Stack
 
