@@ -1,18 +1,94 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from "next"
 
 const nextConfig: NextConfig = {
-  compress: true,
+  reactStrictMode: true,
+  transpilePackages: ["next-mdx-remote"],
+  allowedDevOrigins: ["localhost"],
+  devIndicators: false,
   images: {
     remotePatterns: [
       {
         protocol: "https",
+        hostname: "assets.chanhdai.com",
+        port: "",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        port: "",
+      },
+      {
+        protocol: "https",
         hostname: "cdn.simpleicons.org",
+        port: "",
+      },
+      {
+        protocol: "https",
+        hostname: "pasindulanka.com",
+        port: "",
       },
     ],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256],
-    formats: ["image/avif", "image/webp"],
+    qualities: [75, 100],
   },
-};
+  compiler:
+    process.env.NODE_ENV === "production"
+      ? {
+          removeConsole: {
+            exclude: ["error"],
+          },
+        }
+      : undefined,
+  async redirects() {
+    return [
+      {
+        source: "/:section(blog|components)/writing-effect-inspired-by-apple",
+        destination: "/:section/apple-hello-effect",
+        permanent: true,
+      },
+      {
+        source: "/:section(blog|components)/work-experience",
+        destination: "/:section/work-experience-component",
+        permanent: true,
+      },
+      {
+        source: "/:section(blog|components)/theme-switcher-component",
+        destination: "/:section/theme-switcher",
+        permanent: true,
+      },
+      {
+        source: "/wall-of-love",
+        destination: "/testimonials",
+        permanent: true,
+      },
+    ]
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/:section(blog|components)/:slug.mdx",
+        destination: "/doc.mdx/:slug",
+      },
+      {
+        source: "/:section(blog|components)/:slug",
+        destination: "/doc.mdx/:slug",
+        has: [
+          {
+            type: "header",
+            key: "accept",
+            value: "(?<accept>.*text/markdown.*)",
+          },
+        ],
+      },
+      {
+        source: "/rss",
+        destination: "/blog/rss",
+      },
+      {
+        source: "/registry/rss",
+        destination: "/components/rss",
+      },
+    ]
+  },
+}
 
-export default nextConfig;
+export default nextConfig
