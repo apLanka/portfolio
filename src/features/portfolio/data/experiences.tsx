@@ -21,17 +21,25 @@ export const EXPERIENCES: Experience[] = [
         employmentType: "Full-time",
         icon: <CodeXmlIcon />,
         isExpanded: true,
-        description: `- Design and deliver features on a multi-tenant web platform — data modeling, APIs, and UI — using Next.js, Node.js, PostgreSQL, and Redis.
-- Work across service boundaries with a focus on caching strategy, reliability, and maintainable release cadence.
-- Help operate deployment pipelines (Docker, cloud infrastructure) and raise the bar on code review and lightweight architecture notes.`,
+        description: `- Architected and delivered full-stack features for a **real-time chat** platform serving **100K+** users, contributing to **$10M+** revenue impact.
+- Designed and implemented **event-driven serverless** workflows (**AWS Lambda**, **SQS**) to improve scalability and reliability under high load.
+- **Led a frontend team of 7+** engineers — PR standards, code quality, and mentoring junior developers.
+- **React Native** cross-platform mobile apps; **Unity (C#)** and **Node.js** for gameplay and backend systems.
+- **Jest**, **Vitest**, and **Playwright** for unit and end-to-end testing across frontend and backend.`,
         skills: [
+          "AWS",
+          "React",
+          "React Native",
           "Next.js",
           "Node.js",
           "TypeScript",
+          "Unity",
+          "C#",
           "PostgreSQL",
           "Redis",
-          "Docker",
-          "AWS",
+          "Jest",
+          "Vitest",
+          "Playwright",
         ],
       },
       {
@@ -44,9 +52,8 @@ export const EXPERIENCES: Experience[] = [
         employmentType: "Traineeship",
         icon: <BriefcaseBusinessIcon />,
         isExpanded: false,
-        description: `- Onboarded to the product codebase and delivery process; contributed to small features and fixes alongside the engineering team.
-- Built familiarity with the full path from database and API layers through to frontend and deployment.`,
-        skills: ["Next.js", "TypeScript", "PostgreSQL"],
+        description: `- Supported **full-stack** development across **web**, **backend**, and **mobile** projects while onboarding to team workflows and engineering standards.`,
+        skills: ["Next.js", "TypeScript", "Node.js", "React Native"],
       },
     ],
     isCurrentEmployer: true,
@@ -61,16 +68,21 @@ export const EDUCATION: Experience[] = [
     positions: [
       {
         id: "1",
-        title: "BSc (Hons) in Software Engineering",
+        title: "B.Sc. in Software Engineering",
         employmentPeriod: {
           start: "2023",
           end: "2027",
         },
-        employmentType: "Undergraduate",
+        employmentType: "Undergraduate (expected 2027)",
         icon: <GraduationCapIcon />,
         description:
-          "Sri Lanka Institute of Information Technology (SLIIT). Coursework spans data structures & algorithms, software engineering, databases, networking, and object-oriented design — **expected graduation 2027**.",
-        skills: ["Software Engineering", "Computer Science"],
+          "**Sri Lanka Institute of Information Technology (SLIIT).** Relevant coursework: Distributed Systems, Software Architecture, Application Frameworks, Data Structures & Algorithms.",
+        skills: [
+          "Distributed Systems",
+          "Software Architecture",
+          "Algorithms",
+          "Software Engineering",
+        ],
       },
     ],
   },

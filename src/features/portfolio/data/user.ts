@@ -7,11 +7,11 @@ export const USER: User = {
   username: "aplanka",
   gender: "male",
   pronouns: "he/him",
-  bio: "Software engineer focused on full-stack delivery, system design, and the infrastructure choices that make products reliable at scale. Based in Colombo.",
+  bio: "Software engineer @ Metarune — real-time & distributed systems on AWS. Colombo.",
   flipSentences: [
-    "Software engineer focused on full-stack and architecture.",
-    "Building products at Metarune Labs.",
-    "B.Sc. Software Engineering at SLIIT — expected 2027.",
+    "100K+ scale · real-time · event-driven · AWS.",
+    "SWE @ Metarune · AWS · mobile · Unity.",
+    "SLIIT · B.Sc. Software Engineering · 2027.",
   ],
   address: "Colombo, Sri Lanka",
   email: "cGFzaW5kdWxhbmthYUBnbWFpbC5jb20=", // pasindulankaa@gmail.com
@@ -27,21 +27,25 @@ export const USER: User = {
     },
   ],
   about: `
-- Full-stack software engineer: **APIs**, relational **data modeling**, **caching**, and UI delivery — with an eye on deployment, observability, and maintainability as systems grow.
-- **Metarune Labs** (from 2023): started as a **trainee software engineer**, now **software engineer** — building and operating features on a **multi-tenant** web platform.
-- Core tools: **TypeScript**, **Next.js**, **Node.js**, **PostgreSQL**, **Redis**, **Docker**, and **AWS**-style cloud workflows.
-- **SLIIT** — **B.Sc. (Hons) in Software Engineering**, expected **2027**; coursework includes algorithms, software engineering, databases, and computer networks.
+- **3+ years** designing and scaling **distributed systems** for **real-time** applications at **100K+** user scale and **$10M+** revenue impact. Specialized in **event-driven** architectures, **serverless** systems, and **real-time communication** using **AWS** and modern full-stack technologies — leading teams, owning architecture, and shipping under production constraints.
+- **Metarune Labs** — **Software Engineer** (Apr 2023 – present); **Trainee Software Engineer** (Feb – Apr 2023): architected full-stack features for a **real-time chat** platform; **event-driven serverless** workflows (**AWS Lambda**, **SQS**); **led a frontend team of 7+** engineers (PR standards, quality, mentoring); **React Native** mobile apps; **Unity (C#)** and **Node.js** for gameplay and backend; **Jest**, **Vitest**, and **Playwright** across frontend and backend.
+- **SLIIT** — **B.Sc. in Software Engineering**, expected **2027**. Relevant coursework: Distributed Systems, Software Architecture, Application Frameworks, Data Structures & Algorithms.
 - Based in **Colombo, Sri Lanka**.
 `,
   avatar: "/image/bg/me.webp",
   ogImage:
-    "https://www.pasindulanka.me/og/simple?title=Pasindu%20Lanka&description=Software%20engineer%20focused%20on%20full-stack%20delivery%20and%20system%20design",
+    "https://www.pasindulanka.me/og/simple?title=Pasindu%20Lanka&description=Software%20engineer%20%E2%80%94%20Metarune%20%C2%B7%20AWS%20%C2%B7%20real-time%20systems",
   namePronunciationUrl: "",
   keywords: [
     "pasindu lanka",
     "aplanka",
     "software engineer",
     "full-stack",
+    "distributed systems",
+    "event-driven",
+    "aws",
+    "serverless",
+    "react native",
     "system design",
     "next.js",
     "colombo",
