@@ -2,7 +2,7 @@ import { getTableOfContents } from "fumadocs-core/content/toc"
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react"
 import type { Metadata } from "next"
 import Link from "next/link"
-import { notFound } from "next/navigation"
+import { notFound, redirect } from "next/navigation"
 import type { BlogPosting as PageSchema, WithContext } from "schema-dts"
 
 import {
@@ -30,7 +30,7 @@ import {
 import { DocPageRoot } from "@/features/doc/components/doc-page-root"
 import {
   findNeighbour,
-  getAllDocs,
+  getBlogPosts,
   getDocBySlug,
 } from "@/features/doc/data/documents"
 import type { Doc } from "@/features/doc/types/document"
@@ -42,7 +42,7 @@ export const dynamic = "force-static"
 export const dynamicParams = false
 
 export async function generateStaticParams() {
-  const docs = getAllDocs()
+  const docs = getBlogPosts()
   return docs.map((doc) => ({ slug: doc.slug }))
 }
 
@@ -54,6 +54,28 @@ export async function generateMetadata({
 
   if (!doc) {
     return notFound()
+  }
+
+  if (doc.metadata.externalUrl) {
+    const { title, description, image } = doc.metadata
+    const og = image
+      ? [{ url: image, width: 1200, height: 630, alt: title }]
+      : undefined
+    return {
+      title,
+      description,
+      openGraph: {
+        title,
+        description,
+        images: og,
+      },
+      twitter: {
+        card: "summary_large_image",
+        site: X_HANDLE,
+        creator: X_HANDLE,
+        images: image ? [image] : undefined,
+      },
+    }
   }
 
   const { title, description, image, createdAt, updatedAt } = doc.metadata
@@ -119,10 +141,14 @@ export default async function Page({ params }: PageProps<"/blog/[slug]">) {
     notFound()
   }
 
+  if (doc.metadata.externalUrl) {
+    redirect(doc.metadata.externalUrl)
+  }
+
   const toc = getTableOfContents(doc.content)
 
-  const allDocs = getAllDocs()
-  const { previous, next } = findNeighbour(allDocs, slug)
+  const blogPosts = getBlogPosts()
+  const { previous, next } = findNeighbour(blogPosts, slug)
 
   return (
     <>

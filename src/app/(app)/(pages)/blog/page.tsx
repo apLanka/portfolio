@@ -10,10 +10,11 @@ import { X_HANDLE } from "@/config/site"
 import { PostList } from "@/features/blog/components/post-list"
 import { PostListWithSearch } from "@/features/blog/components/post-list-with-search"
 import { PostSearchInput } from "@/features/blog/components/post-search-input"
-import { getAllDocs } from "@/features/doc/data/documents"
+import { getBlogPosts } from "@/features/doc/data/documents"
 
 const title = "Blog"
-const description = "Writing about code, design, and everything in between."
+const description =
+  "Articles on Medium — APIs, caching, and production backend tradeoffs."
 
 const ogImage = `/og/simple?title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}`
 
@@ -42,14 +43,14 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
-  const allPosts = getAllDocs()
+  const allPosts = getBlogPosts()
 
   return (
     <div className="min-h-svh">
       <PageHeading>
         <PageHeadingTagline>Blog</PageHeadingTagline>
         <PageHeadingTitle>
-          Writing about code, design, and everything in between.
+          Selected writing on Medium — APIs, caching, and production systems.
         </PageHeadingTitle>
       </PageHeading>
 

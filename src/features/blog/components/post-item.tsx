@@ -1,4 +1,3 @@
-import { format } from "date-fns"
 import type { ImageProps } from "next/image"
 import Image from "next/image"
 import Link from "next/link"
@@ -13,9 +12,15 @@ export function PostItem({
   post: Doc
   imageLoading?: ImageProps["loading"]
 }) {
+  const href = post.metadata.externalUrl ?? `/blog/${post.slug}`
+  const isExternal = Boolean(post.metadata.externalUrl)
+
   return (
     <Link
-      href={`/blog/${post.slug}`}
+      href={href}
+      {...(isExternal
+        ? { target: "_blank", rel: "noopener noreferrer" }
+        : {})}
       className={cn(
         "group flex flex-col gap-2 p-2 transition-[background-color] ease-out hover:bg-accent-muted",
         "max-sm:screen-line-top max-sm:screen-line-bottom",
@@ -48,15 +53,6 @@ export function PostItem({
             />
           )}
         </h3>
-
-        <dl>
-          <dt className="sr-only">Published on</dt>
-          <dd className="text-sm text-muted-foreground">
-            <time dateTime={new Date(post.metadata.createdAt).toISOString()}>
-              {format(new Date(post.metadata.createdAt), "dd.MM.yyyy")}
-            </time>
-          </dd>
-        </dl>
       </div>
     </Link>
   )
