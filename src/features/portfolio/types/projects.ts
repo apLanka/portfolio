@@ -12,14 +12,18 @@ export type Project = {
     /** End date; leave undefined for "Present". */
     end?: string
   }
-  /** Public URL (site, repository, demo, or video). */
-  link: string
+  /** Optional public URL (repo, demo). Omit when not public yet. */
+  link?: string
+  /** When set, `/projects/[slug]` shows a detail page on the site. */
+  slug?: string
   /** Tags/technologies for chips or filtering. */
   skills: string[]
   /** Optional rich description; Markdown and line breaks supported. */
   description?: string
-  /** Logo image URL (absolute or path under /public). */
+  /** Small list icon (optional). Omit to use the default box icon like Portfolio. */
   logo?: string
+  /** Hero image on `/projects/[slug]` only; does not appear in the home list. */
+  coverImage?: string
   /** Whether the project card is expanded by default in the UI. */
   isExpanded?: boolean
 }
