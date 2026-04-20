@@ -23,7 +23,7 @@ Real-time chat platform at scale; AWS Lambda & SQS; frontend team leadership (7+
 
 ## Tech stack
 
-Languages: JavaScript, TypeScript, Python, Java, C# · Frontend: React, Next.js, React Native, Tailwind CSS · Backend: Node.js, Express, NestJS, Spring Boot, .NET · Databases: PostgreSQL, MySQL, MongoDB, Redis, Pinecone · Cloud: AWS (Lambda, SQS, S3), Docker, Kubernetes, Nginx, GitHub Actions · Testing: Jest, Vitest, Prometheus, Grafana, Playwright · AI: LangChain, LangGraph, LangSmith, RAG
+Languages: JavaScript, TypeScript, Python, Java, C# · Frontend: React, Next.js, React Native, Tailwind CSS · Backend: Node.js, Express, NestJS, Spring Boot, .NET · Databases: PostgreSQL, MySQL, MongoDB, Redis · Cloud: AWS (Lambda, SQS, S3), Docker, Kubernetes, Nginx, GitHub Actions · Testing: Jest, Vitest, Prometheus, Grafana, Playwright · AI: LangChain, LangGraph, LangSmith, RAG
 
 ## Get in touch
 

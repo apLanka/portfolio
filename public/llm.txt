@@ -47,7 +47,7 @@ Frontend/Mobile: React, Next.js, React Native, Tailwind CSS
 
 Backend: Node.js, Express, NestJS, Spring Boot, .NET
 
-Databases: PostgreSQL, MySQL, MongoDB, Redis, Pinecone
+Databases: PostgreSQL, MySQL, MongoDB, Redis
 
 Cloud & DevOps: AWS (Lambda, SQS, S3), Docker, Kubernetes, Nginx, GitHub Actions
 

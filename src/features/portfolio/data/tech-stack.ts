@@ -2,7 +2,6 @@ import type { TechStack, TechStackSection } from "../types/tech-stack"
 
 /**
  * Full stack from CV. Icons: [`tech-stack-icons`](https://www.tech-stack-icons.com/).
- * Pinecone has no icon in the set — using `openai` as a neutral “AI / vectors” visual.
  * GitHub Actions uses the `github` icon.
  * “RAG” uses `langchain` (closest generic).
  */
@@ -136,12 +135,6 @@ export const TECH_STACK_SECTIONS: TechStackSection[] = [
         title: "Redis",
         href: "https://redis.io/",
         categories: ["Database", "Cache"],
-      },
-      {
-        icon: "openai",
-        title: "Pinecone (vector DB)",
-        href: "https://www.pinecone.io/",
-        categories: ["Database", "Vector"],
       },
     ],
   },
