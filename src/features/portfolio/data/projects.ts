@@ -21,7 +21,7 @@ export const PROJECTS: Project[] = [
       "Cloudinary",
     ],
     description:
-      "Full-stack app for construction project lifecycle, real-time sustainability metrics, document compliance, and resource management — **SE3040** coursework aligned with **SDG 9**.",
+      "Full-stack app for construction project lifecycle, real-time sustainability metrics, document compliance, and resource management.",
     isExpanded: true,
   },
   {
@@ -52,6 +52,7 @@ export const PROJECTS: Project[] = [
     id: "wallflox",
     slug: "wallflox",
     title: "Wallflox",
+    link: "https://wallflox-2opr.vercel.app/",
     period: {
       start: "08.2025",
     },
@@ -73,20 +74,47 @@ export const PROJECTS: Project[] = [
     isExpanded: false,
   },
   {
-    id: "portfolio",
-    title: "Portfolio",
+    id: "shiftgain",
+    slug: "shiftgain",
+    title: "ShiftGain",
     period: {
-      start: "04.2025",
+      start: "09.2025",
     },
-    link: "https://github.com/apLanka/portfolio",
+    coverImage: "/projects-image/shiftgain.png",
     skills: [
       "Next.js",
-      "TypeScript",
+      "React",
       "Tailwind CSS",
-      "Design systems",
+      "Radix UI",
+      "Zustand",
+      "pdf-lib",
+      "WebAssembly",
+      "Web Workers",
+      "TypeScript",
     ],
     description:
-      "Personal site and resume — structured as architecture case studies, projects, and an agent-readable profile.",
+      "**Privacy-first** image & PDF tooling — compress, convert, and optimize **entirely in the browser** with **Zustand**, **Web Workers**, **WASM**, and **pdf-lib**; Next.js 15, Tailwind v4, zero uploads.",
+    isExpanded: false,
+  },
+  {
+    id: "reliable-queue",
+    slug: "reliable-queue",
+    title: "Reliable Queue",
+    link: "https://reliable-queue-web.vercel.app/",
+    period: {
+      start: "10.2025",
+    },
+    skills: [
+      "TypeScript",
+      "JavaScript",
+      "React",
+      "NPM",
+      "Task queue",
+      "Retry logic",
+      "Browser APIs",
+    ],
+    description:
+      "Open-source **`@aplanka/reliable-queue`** — task queue for JS/TS with **retries**, **concurrency**, **priority**, **persistence**, events, and **React** hooks; zero-dependency, production-focused. **MIT**.",
     isExpanded: false,
   },
 ]
