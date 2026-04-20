@@ -2,6 +2,7 @@
 
 import StackIcon, { type IconName } from "tech-stack-icons"
 import { useTheme } from "next-themes"
+import { useEffect, useState } from "react"
 
 import { TECH_STACK_SECTIONS } from "../data/tech-stack"
 import { Panel, PanelContent, PanelHeader, PanelTitle } from "./panel"
@@ -22,7 +23,19 @@ function TechStackIcon({
 
 export function TechStack() {
   const { resolvedTheme } = useTheme()
-  const variant = resolvedTheme === "dark" ? "dark" : "light"
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  // Match SSR and first client paint: `resolvedTheme` often differs from server vs
+  // post-hydration client, which changes `tech-stack-icons` SVG output and breaks hydration.
+  const variant: "light" | "dark" = !mounted
+    ? "light"
+    : resolvedTheme === "dark"
+      ? "dark"
+      : "light"
 
   return (
     <Panel id="stack">

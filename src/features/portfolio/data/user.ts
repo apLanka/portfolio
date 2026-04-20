@@ -32,7 +32,7 @@ export const USER: User = {
 - **SLIIT** — **B.Sc. in Software Engineering**, expected **2027**. Relevant coursework: Distributed Systems, Software Architecture, Application Frameworks, Data Structures & Algorithms.
 - Based in **Colombo, Sri Lanka**.
 `,
-  avatar: "/image/bg/me.webp",
+  avatar: "/brand/avatar.png",
   ogImage:
     "https://www.pasindulanka.me/og/simple?title=Pasindu%20Lanka&description=Software%20engineer%20%E2%80%94%20Metarune%20%C2%B7%20AWS%20%C2%B7%20real-time%20systems",
   namePronunciationUrl: "",

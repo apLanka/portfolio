@@ -1,4 +1,4 @@
-import { BoxIcon, InfinityIcon, LinkIcon } from "lucide-react"
+import { BoxIcon, LinkIcon } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -23,39 +23,6 @@ import { addQueryParams } from "@/utils/url"
 
 import type { Project } from "../../types/projects"
 
-function PeriodLine({
-  start,
-  end,
-  isSinglePeriod,
-}: {
-  start: string
-  end?: string
-  isSinglePeriod: boolean
-}) {
-  const isOngoing = !end
-  return (
-    <dl className="text-sm text-muted-foreground">
-      <dt className="sr-only">Period</dt>
-      <dd className="flex items-center gap-0.5">
-        <span>{start}</span>
-        {!isSinglePeriod && (
-          <>
-            <span className="font-mono">—</span>
-            {isOngoing ? (
-              <InfinityIcon
-                className="size-4.5 translate-y-[0.5px]"
-                aria-label="Present"
-              />
-            ) : (
-              <span>{end}</span>
-            )}
-          </>
-        )}
-      </dd>
-    </dl>
-  )
-}
-
 export function ProjectItem({
   className,
   project,
@@ -63,8 +30,6 @@ export function ProjectItem({
   className?: string
   project: Project
 }) {
-  const { start, end } = project.period
-  const isSinglePeriod = end === start
   const hasSlug = Boolean(project.slug)
 
   const logoClassName =
@@ -141,16 +106,7 @@ export function ProjectItem({
     ) : null
 
   const titleBlock = (
-    <>
-      <h3 className="mb-1 leading-snug font-medium text-balance">
-        {project.title}
-      </h3>
-      <PeriodLine
-        start={start}
-        end={end}
-        isSinglePeriod={isSinglePeriod}
-      />
-    </>
+    <h3 className="leading-snug font-medium text-balance">{project.title}</h3>
   )
 
   return (
