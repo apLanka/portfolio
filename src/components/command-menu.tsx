@@ -36,6 +36,7 @@ import {
 } from "@/components/ui/command"
 import { SHOW_CERTIFICATIONS } from "@/config/site"
 import type { DocPreview } from "@/features/doc/types/document"
+import { SocialBrandIcon } from "@/components/social-brand-icon"
 import { SOCIAL_LINKS } from "@/features/portfolio/data/social-links"
 import { useSound } from "@/hooks/soundcn/use-sound"
 import { useDuckFollowerVisibility } from "@/hooks/use-duck-follower-visibility"
@@ -139,7 +140,7 @@ const PORTFOLIO_LINKS: CommandLinkItem[] = [
 const SOCIAL_LINK_ITEMS: CommandLinkItem[] = SOCIAL_LINKS.map((item) => ({
   title: item.title,
   href: item.href,
-  iconImage: item.icon,
+  icon: <SocialBrandIcon brand={item.brand} className="size-4" />,
   openInNewTab: true,
 }))
 
