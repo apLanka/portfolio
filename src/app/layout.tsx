@@ -1,18 +1,24 @@
 import "./globals.css"
 
 import type { Metadata, Viewport } from "next"
-import { GeistMono } from "geist/font/mono"
-import { GeistSans } from "geist/font/sans"
-import { Instrument_Serif } from "next/font/google"
+import { Archivo, JetBrains_Mono } from "next/font/google"
 
-import { RevealObserver } from "@/components/ui/reveal-observer"
+import { RevealObserver } from "@/components/motion/reveal-observer"
+import { PageTransitionProvider } from "@/components/motion/page-transition"
+import { SiteFooter } from "@/components/nav/site-footer"
+import { SiteHeader } from "@/components/nav/site-header"
 import { profile } from "@/content/profile"
 
-const instrument = Instrument_Serif({
+const archivo = Archivo({
   subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
-  variable: "--font-instrument",
+  axes: ["wdth"],
+  variable: "--font-archivo",
+  display: "swap",
+})
+
+const jetbrains = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains",
   display: "swap",
 })
 
@@ -54,27 +60,32 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ecebe4" },
-    { media: "(prefers-color-scheme: dark)", color: "#0f0f0d" },
-  ],
+  themeColor: "#0a0b0a",
+  colorScheme: "dark",
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${GeistSans.variable} ${GeistMono.variable} ${instrument.variable}`}
-    >
-      <body className="grain">
+    <html lang="en" className={`${archivo.variable} ${jetbrains.variable}`}>
+      <body>
         <a
           href="#main"
-          className="eyebrow fixed left-4 top-4 z-[70] -translate-y-24 bg-ink px-3 py-2 text-paper focus:translate-y-0"
+          className="mono-label fixed left-4 top-4 z-[100] -translate-y-24 bg-hi px-3 py-2 text-hi-ink focus:translate-y-0"
         >
           Skip to content
         </a>
-        <div className="progress" aria-hidden />
-        {children}
+        <div className="grid-lines" aria-hidden>
+          <div className="shell h-full">
+            <div className="gl" />
+          </div>
+        </div>
+        <PageTransitionProvider>
+          <SiteHeader />
+          <div className="page">
+            <main id="main">{children}</main>
+            <SiteFooter />
+          </div>
+        </PageTransitionProvider>
         <RevealObserver />
       </body>
     </html>

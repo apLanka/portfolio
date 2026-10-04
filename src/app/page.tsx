@@ -1,9 +1,9 @@
-import { SiteFooter } from "@/components/site-footer"
-import { SiteHeader } from "@/components/site-header"
-import { About } from "@/components/sections/about"
+import { SectionRail } from "@/components/nav/section-rail"
+import { Capabilities } from "@/components/sections/capabilities"
 import { Contact } from "@/components/sections/contact"
 import { Experience } from "@/components/sections/experience"
 import { Hero } from "@/components/sections/hero"
+import { Profile } from "@/components/sections/profile"
 import { Stack } from "@/components/sections/stack"
 import { Work } from "@/components/sections/work"
 import { Writing } from "@/components/sections/writing"
@@ -33,20 +33,18 @@ const jsonLd = {
 export default function HomePage() {
   return (
     <>
-      <SiteHeader />
-      <main id="main">
-        <Hero />
-        <About />
-        <Work />
-        <Stack />
-        <Experience />
-        <Writing />
-        <Contact />
-      </main>
-      <SiteFooter />
+      <Hero />
+      <Profile />
+      <Capabilities />
+      <Work />
+      <Stack />
+      <Experience />
+      <Writing />
+      <Contact />
+      <SectionRail />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
     </>
   )

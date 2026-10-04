@@ -22,6 +22,10 @@ export const profile = {
       href: "https://medium.com/@pasindulanka",
     },
   ],
+  about: {
+    lead: "Three years of building real-time, multi-tenant systems on AWS taught me what actually breaks in production: latency, retries, cost and failure modes. I now point that instinct at AI, building LLM applications and agents that are bounded, measured and recoverable, not just impressive in a demo.",
+    note: "Software engineer at Metarune Labs. Frontend team lead. B.Sc. Software Engineering at SLIIT.",
+  },
   stats: [
     { value: "100K+", label: "users on systems I've built" },
     { value: "$10M+", label: "revenue impact of the platform" },
@@ -29,6 +33,16 @@ export const profile = {
     { value: "3+", label: "years in production" },
   ],
 } as const
+
+export const sections = [
+  { id: "profile", label: "Profile" },
+  { id: "capabilities", label: "Capabilities" },
+  { id: "work", label: "Selected work" },
+  { id: "stack", label: "Expertise" },
+  { id: "experience", label: "Experience" },
+  { id: "writing", label: "Writing" },
+  { id: "contact", label: "Contact" },
+] as const
 
 export const capabilities = [
   {
