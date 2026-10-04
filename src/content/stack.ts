@@ -1,0 +1,48 @@
+export const stack = [
+  {
+    id: "ai",
+    label: "AI",
+    note: "What I design",
+    items: [
+      "LLM applications",
+      "RAG",
+      "AI agents",
+      "Agentic workflows",
+      "Structured outputs",
+      "Tool calling",
+      "Evaluation",
+      "LLMOps",
+    ],
+  },
+  {
+    id: "engineering",
+    label: "Engineering",
+    note: "What I build it with",
+    items: [
+      "Python",
+      "TypeScript",
+      "Node.js",
+      "Next.js",
+      "NestJS",
+      "FastAPI",
+      "PostgreSQL",
+      "Redis",
+      "Kafka",
+      "Docker",
+    ],
+  },
+  {
+    id: "platforms",
+    label: "Frameworks & platforms",
+    note: "What it runs on",
+    items: [
+      "LangChain",
+      "LangGraph",
+      "LangSmith",
+      "OpenAI",
+      "Anthropic",
+      "AWS",
+      "Azure AI",
+    ],
+  },
+] as const
