@@ -1,50 +1,60 @@
-import { LocalTime } from "@/components/local-time"
-import { Section } from "@/components/ui/section"
+import { CopyEmail } from "@/components/ui/copy-email"
+import { ArrowUpRight } from "@/components/ui/icons"
+import { SectionHead } from "@/components/ui/section-head"
+import { vars } from "@/components/ui/text"
 import { profile } from "@/content/profile"
 
 export function Contact() {
   return (
-    <Section id="contact" index="07" label="Contact" inverted className="!pb-16">
-      <p data-reveal className="eyebrow mb-6 text-ink-2">
-        Hiring for AI engineering, or have an AI system to ship?
-      </p>
-      <h2
-        data-reveal
-        className="font-display-tight text-[3.6rem] sm:text-8xl lg:text-[10.5rem]"
-      >
-        Let&rsquo;s build it
-        <span className="text-signal">.</span>
-      </h2>
+    <section id="contact" data-tone="graphite" className="relative section-y">
+      <div className="shell">
+        <SectionHead index="07" label="Contact" lines={["Let's", "talk"]} />
 
-      <a
-        data-reveal
-        style={{ "--d": 2 } as React.CSSProperties}
-        href={`mailto:${profile.email}`}
-        className="ulink mt-12 inline-block break-all font-display text-[1.7rem] sm:text-5xl md:mt-16"
-      >
-        {profile.email}
-      </a>
+        <div className="grid gap-10 lg:grid-cols-12">
+          <p className="f-head text-[clamp(1.75rem,3.6vw,3.25rem)] lg:col-span-7" data-reveal>
+            Building something where the AI part has to work in production? I am glad to talk about
+            roles, projects and hard systems problems.
+          </p>
+        </div>
 
-      <div className="mt-24 grid grid-cols-1 gap-10 border-t border-rule pt-8 md:grid-cols-12 md:gap-10">
-        <ul className="grid grid-cols-2 gap-x-8 gap-y-5 md:col-span-8 md:grid-cols-4">
-          {profile.links.map((l) => (
-            <li key={l.label}>
+        <div className="mt-14 md:mt-20" data-reveal style={vars({ "--d": 1 })}>
+          <a
+            href={`mailto:${profile.email}`}
+            className="mark-link f-display inline-block text-[clamp(2.1rem,8.4vw,9rem)] normal-case leading-[1] [overflow-wrap:anywhere]"
+          >
+            {profile.email}
+          </a>
+          <div className="mt-8">
+            <CopyEmail email={profile.email} />
+          </div>
+        </div>
+
+        <ul className="mt-20 grid border-t border-line-strong sm:grid-cols-2 lg:grid-cols-4">
+          {profile.links.map((l, i) => (
+            <li
+              key={l.href}
+              data-reveal
+              style={vars({ "--d": i })}
+              className="border-b border-line-strong lg:border-b-0"
+            >
               <a
                 href={l.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group block"
+                className="group flex items-start justify-between gap-4 py-6 pr-6"
               >
-                <span className="eyebrow block text-ink-2">{l.label}</span>
-                <span className="ulink mt-1 inline-block">{l.handle} ↗</span>
+                <span>
+                  <span className="mono-label block text-mute">{l.label}</span>
+                  <span className="f-title mt-1 block text-xl transition-transform duration-500 [transition-timing-function:var(--ease)] group-hover:translate-x-1">
+                    {l.handle}
+                  </span>
+                </span>
+                <ArrowUpRight className="mt-1 size-4 transition-transform duration-500 [transition-timing-function:var(--ease)] group-hover:-translate-y-1 group-hover:translate-x-1" />
               </a>
             </li>
           ))}
         </ul>
-        <p className="eyebrow text-ink-2 md:col-span-4 md:text-right">
-          {profile.location} · <LocalTime timeZone={profile.timeZone} />
-        </p>
       </div>
-    </Section>
+    </section>
   )
 }

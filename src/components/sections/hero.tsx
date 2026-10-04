@@ -1,71 +1,92 @@
-import { AgentTrace } from "@/components/ui/agent-trace"
+import { AgentGraph } from "@/components/figures/agent-graph"
+import { CountUp } from "@/components/motion/count-up"
+import { ArrowRight } from "@/components/ui/icons"
+import { vars } from "@/components/ui/text"
 import { profile } from "@/content/profile"
+
+/** Splits a word into individually masked characters that rise on load. */
+function Word({ text, offset }: { text: string; offset: number }) {
+  return (
+    <span className="hero-word" aria-hidden>
+      {text.split("").map((c, i) => (
+        <span key={i} className="hero-mask">
+          <span className="hero-ch" style={vars({ "--i": i + offset })}>
+            {c}
+          </span>
+        </span>
+      ))}
+    </span>
+  )
+}
 
 export function Hero() {
   return (
-    <section id="top" className="relative pb-20 pt-28 md:pb-28 md:pt-36">
+    <section
+      id="top"
+      data-tone="graphite"
+      className="relative flex min-h-svh flex-col justify-between gap-12 pb-8 pt-24 md:pt-28"
+    >
       <div className="shell">
-        <p className="eyebrow fade-in mb-8 flex flex-wrap items-center gap-x-6 gap-y-1 text-ink-2 md:mb-12">
-          <span className="text-ink">{profile.name}</span>
-          <span>{profile.location}</span>
-          <span className="hidden sm:inline">Open to AI engineering roles &amp; select projects</span>
+        <p
+          className="hero-in mono-label flex justify-between gap-6 text-mute"
+          style={vars({ "--d": 0 })}
+        >
+          <span>
+            <span className="text-fg">Portfolio</span> <span className="mx-2">/</span> AI
+            engineering, {new Date().getFullYear()}
+          </span>
+          <span className="hidden sm:block tabular">6.9271° N, 79.8612° E</span>
         </p>
+      </div>
 
-        <h1 className="font-display-tight text-[clamp(5.4rem,24vw,8rem)] leading-[0.82]! sm:text-[clamp(7rem,17.5vw,17rem)]">
-          <span className="mask-line">
-            <span style={{ "--d": 0 } as React.CSSProperties}>
-              AI
-              <span className="eyebrow ml-6 hidden align-top font-mono tracking-[0.09em] text-ink-2 lg:inline-block lg:max-w-[22ch] lg:pt-[1.6rem] lg:leading-relaxed">
-                (agents · LLM apps · agentic workflows · production systems)
-              </span>
-            </span>
-          </span>
-          <span className="mask-line">
-            <span style={{ "--d": 1 } as React.CSSProperties}>
-              Engineer<span className="text-signal">.</span>
-            </span>
-          </span>
+      <div className="shell hero-wrap px-up">
+        <h1
+          className="f-display hero-h"
+          aria-label={`${profile.role} — ${profile.name}`}
+        >
+          <Word text="AI" offset={0} />
+          <Word text="ENGINEER" offset={2} />
+
         </h1>
+      </div>
 
-        <div className="mt-14 grid grid-cols-1 gap-12 md:mt-20 lg:grid-cols-12 lg:gap-10">
-          <div className="fade-in lg:col-span-5" style={{ "--d": 4 } as React.CSSProperties}>
-            <p className="font-display text-[1.7rem] leading-[1.15] sm:text-4xl">
-              I build AI-powered software that holds up in production — LLM
-              applications, agents and the distributed systems underneath them.
-            </p>
-            <p className="mt-6 max-w-[48ch] text-ink-2">
-              Three years running real-time, event-driven platforms at 100K+
-              users taught me what actually breaks: latency, retries, cost and
-              bad inputs. I now apply that discipline to AI.
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3">
-              <a
-                href="#work"
-                className="eyebrow inline-flex h-12 items-center gap-3 bg-ink px-6 text-paper transition-colors hover:bg-signal"
-              >
-                See the work <span aria-hidden>↓</span>
-              </a>
-              <a href="#contact" className="eyebrow ulink py-2">
-                Get in touch
-              </a>
-            </div>
-          </div>
-
-          <div className="fade-in lg:col-span-6 lg:col-start-7" style={{ "--d": 5 } as React.CSSProperties}>
-            <AgentTrace />
+      <div className="shell grid gap-12 lg:grid-cols-12 lg:items-end">
+        <div className="hero-in lg:col-span-5" style={vars({ "--d": 3 })}>
+          <p className="max-w-[34ch] text-xl leading-snug sm:text-2xl">
+            I build AI-powered software and the production systems underneath it: LLM applications,
+            agents and agentic workflows that stay fast, measurable and recoverable under real load.
+          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
+            <a href="#work" className="btn btn-right">
+              Selected work
+              <ArrowRight className="rotate-90" />
+            </a>
+            <a href="#contact" className="mark-link mono-label py-2">
+              Get in touch
+            </a>
           </div>
         </div>
+        <div className="px-down lg:col-span-7">
+          <div className="hero-in" style={vars({ "--d": 5 })}>
+            <AgentGraph />
+          </div>
+        </div>
+      </div>
 
-        <dl className="mt-20 grid grid-cols-2 border-t border-rule md:mt-28 md:grid-cols-4">
+      <div className="shell">
+        <dl
+          className="hero-in grid grid-cols-2 border-t border-line-strong md:grid-cols-4"
+          style={vars({ "--d": 7 })}
+        >
           {profile.stats.map((s, i) => (
             <div
               key={s.label}
-              data-reveal
-              style={{ "--d": i } as React.CSSProperties}
-              className="border-b border-rule py-6 pr-4 md:border-b-0 md:border-r md:pl-6 md:first:pl-0 md:last:border-r-0 odd:max-md:border-r odd:max-md:pr-4 even:max-md:pl-4"
+              className={`py-5 pr-4 ${i % 2 === 1 ? "pl-4 md:pl-0" : ""} ${i > 1 ? "border-t border-line md:border-t-0" : ""}`}
             >
-              <dt className="font-display-tight text-5xl md:text-6xl">{s.value}</dt>
-              <dd className="eyebrow mt-3 max-w-[22ch] text-ink-2">{s.label}</dd>
+              <dd className="f-head text-4xl sm:text-5xl">
+                <CountUp value={s.value} />
+              </dd>
+              <dt className="mono-label mt-2 max-w-[22ch] text-mute">{s.label}</dt>
             </div>
           ))}
         </dl>
