@@ -25,7 +25,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: project.title,
     description: project.problem,
     alternates: { canonical: `/work/${slug}` },
-    openGraph: { title: project.title, description: project.problem, type: "article" },
+    openGraph: {
+      title: project.title,
+      description: project.problem,
+      type: "article",
+      url: `/work/${slug}`,
+      siteName: profile.name,
+      authors: [profile.name],
+    },
+    twitter: { card: "summary_large_image", title: project.title, description: project.problem },
   }
 }
 
@@ -54,7 +62,26 @@ export default async function CaseStudyPage({ params }: PageProps) {
     headline: project.title,
     description: project.problem,
     author: { "@type": "Person", name: profile.name, url: profile.url },
+    publisher: { "@type": "Person", name: profile.name, url: profile.url },
     url: `${profile.url}/work/${project.slug}`,
+    mainEntityOfPage: `${profile.url}/work/${project.slug}`,
+    keywords: project.stack.join(", "),
+    inLanguage: "en",
+  }
+
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: profile.url },
+      { "@type": "ListItem", position: 2, name: "Work", item: `${profile.url}/#work` },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: project.title,
+        item: `${profile.url}/work/${project.slug}`,
+      },
+    ],
   }
 
   return (
@@ -240,7 +267,9 @@ export default async function CaseStudyPage({ params }: PageProps) {
 
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([jsonLd, breadcrumbLd]).replace(/</g, "\\u003c"),
+        }}
       />
     </article>
   )
