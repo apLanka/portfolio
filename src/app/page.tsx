@@ -9,10 +9,23 @@ import { Work } from "@/components/sections/work"
 import { Writing } from "@/components/sections/writing"
 import { profile } from "@/content/profile"
 
-const jsonLd = {
-  "@context": "https://schema.org",
+const websiteLd = {
+  "@type": "WebSite",
+  "@id": `${profile.url}/#website`,
+  url: profile.url,
+  name: `${profile.name} — AI Engineer`,
+  description: profile.description,
+  inLanguage: "en",
+  publisher: { "@id": `${profile.url}/#person` },
+}
+
+const personLd = {
   "@type": "Person",
+  "@id": `${profile.url}/#person`,
   name: profile.name,
+  description: profile.description,
+  image: `${profile.url}/opengraph-image`,
+  mainEntityOfPage: { "@id": `${profile.url}/#website` },
   jobTitle: "AI Engineer",
   url: profile.url,
   email: `mailto:${profile.email}`,
@@ -29,6 +42,8 @@ const jsonLd = {
   ],
   sameAs: profile.links.map((l) => l.href),
 }
+
+const jsonLd = { "@context": "https://schema.org", "@graph": [websiteLd, personLd] }
 
 export default function HomePage() {
   return (
