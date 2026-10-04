@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 
 export function LocalTime({ timeZone }: { timeZone: string }) {
-  const [now, setNow] = useState<string>("")
+  const [now, setNow] = useState("")
 
   useEffect(() => {
     const fmt = new Intl.DateTimeFormat("en-GB", {
@@ -19,7 +19,7 @@ export function LocalTime({ timeZone }: { timeZone: string }) {
   }, [timeZone])
 
   return (
-    <time suppressHydrationWarning aria-label="Local time in Colombo">
+    <time className="tabular" aria-label="Local time in Colombo">
       {now || "--:--"} IST
     </time>
   )

@@ -1,14 +1,13 @@
 import type { Metadata } from "next"
-import Link from "next/link"
 import { notFound } from "next/navigation"
 
-import { SiteFooter } from "@/components/site-footer"
-import { SiteHeader } from "@/components/site-header"
-import { Arrow } from "@/components/ui/arrow"
-import { ImpactList, Label } from "@/components/ui/case-body"
-import { Pipeline } from "@/components/ui/pipeline"
-import { TagList } from "@/components/ui/tag-list"
+import { Flow } from "@/components/figures/flow"
+import { CountUp } from "@/components/motion/count-up"
+import { TLink } from "@/components/motion/page-transition"
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "@/components/ui/icons"
+import { RiseWords, ScrollWords, vars } from "@/components/ui/text"
 import { getProject, projects } from "@/content/projects"
+import { profile } from "@/content/profile"
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -30,6 +29,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 }
 
+function Label({ children, n }: { children: React.ReactNode; n: string }) {
+  return (
+    <p className="mono-label flex items-center gap-3 text-mute">
+      <span className="text-fg tabular">{n}</span>
+      <span aria-hidden>/</span>
+      {children}
+    </p>
+  )
+}
+
 export default async function CaseStudyPage({ params }: PageProps) {
   const { slug } = await params
   const project = getProject(slug)
@@ -37,148 +46,202 @@ export default async function CaseStudyPage({ params }: PageProps) {
 
   const index = projects.findIndex((p) => p.slug === slug)
   const next = projects[(index + 1) % projects.length]
+  const nextN = String(((index + 1) % projects.length) + 1).padStart(2, "0")
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    headline: project.title,
+    description: project.problem,
+    author: { "@type": "Person", name: profile.name, url: profile.url },
+    url: `${profile.url}/work/${project.slug}`,
+  }
 
   return (
-    <>
-      <SiteHeader home={false} />
-      <main id="main">
-        <article className="pb-24 pt-32 md:pt-44">
-          <header className="shell">
-            <Link
-              href="/#work"
-              className="eyebrow ulink mb-10 inline-flex items-center gap-2 py-1 text-ink-2 md:mb-16"
-            >
-              <Arrow className="rotate-180" /> All work
-            </Link>
-            <p className="eyebrow mb-6 text-ink-2">
-              <span className="text-signal-ink">{String(index + 1).padStart(2, "0")}</span>
-              <span className="mx-3">/</span>
-              {project.kicker}
-            </p>
-            <h1 className="font-display-tight max-w-[16ch] text-[3.2rem] sm:text-7xl lg:text-[8.5rem]">
-              {project.title}
-            </h1>
-            <dl className="eyebrow mt-12 grid grid-cols-2 gap-6 border-t border-rule pt-6 text-ink-2 md:grid-cols-4">
-              {[
-                ["Role", project.role],
-                ["Context", project.context],
-                ["When", project.year],
-              ].map(([k, v]) => (
-                <div key={k}>
-                  <dt>{k}</dt>
-                  <dd className="mt-1 normal-case tracking-normal text-ink">{v}</dd>
-                </div>
-              ))}
-              {project.links.length > 0 && (
-                <div>
-                  <dt>Links</dt>
-                  <dd className="mt-1">
-                    {project.links.map((l) => (
-                      <a
-                        key={l.href}
-                        href={l.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="ulink text-ink"
-                      >
-                        {l.label} ↗
-                      </a>
-                    ))}
-                  </dd>
-                </div>
-              )}
-            </dl>
-          </header>
-
-          <div className="shell mt-20 grid grid-cols-1 gap-20 md:mt-32">
-            <section className="grid grid-cols-1 gap-8 lg:grid-cols-12" data-reveal>
-              <div className="lg:col-span-3">
-                <Label>Problem</Label>
-              </div>
-              <p className="font-display text-3xl leading-[1.12] md:text-5xl lg:col-span-9">
-                {project.problem}
-              </p>
-            </section>
-
-            <section className="grid grid-cols-1 gap-8 lg:grid-cols-12" data-reveal>
-              <div className="lg:col-span-3">
-                <Label>What I built</Label>
-              </div>
-              <p className="max-w-[56ch] text-xl lg:col-span-9">{project.built}</p>
-            </section>
-
-            <section className="grid grid-cols-1 gap-8 lg:grid-cols-12">
-              <div className="lg:col-span-3">
-                <Label>Architecture</Label>
-              </div>
-              <div className="lg:col-span-9">
-                <Pipeline stages={project.pipeline} label={`${project.title} architecture`} />
-              </div>
-            </section>
-
-            <section className="grid grid-cols-1 gap-8 lg:grid-cols-12">
-              <div className="lg:col-span-3">
-                <Label>Technical decisions</Label>
-              </div>
-              <ol className="border-t border-rule lg:col-span-9">
-                {project.decisions.map((d, i) => (
-                  <li
-                    key={d.title}
-                    data-reveal
-                    className="grid grid-cols-1 gap-4 border-b border-rule py-9 md:grid-cols-[3rem_1fr]"
-                  >
-                    <span className="eyebrow pt-2 text-signal-ink">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <div>
-                      <h2 className="font-display-tight text-3xl md:text-5xl">{d.title}</h2>
-                      <p className="mt-4 max-w-[60ch]">{d.body}</p>
-                      {d.rejected && (
-                        <p className="mt-4 max-w-[60ch] text-ink-2">
-                          <span className="eyebrow mr-2 text-ink">Rejected</span>
-                          {d.rejected}
-                        </p>
-                      )}
-                    </div>
-                  </li>
-                ))}
-              </ol>
-            </section>
-
-            <section className="grid grid-cols-1 gap-8 lg:grid-cols-12" data-reveal>
-              <div className="lg:col-span-3">
-                <Label>Impact</Label>
-              </div>
-              <div className="lg:col-span-9">
-                <ImpactList items={project.impact} />
-              </div>
-            </section>
-
-            <section className="grid grid-cols-1 gap-8 lg:grid-cols-12" data-reveal>
-              <div className="lg:col-span-3">
-                <Label>Stack</Label>
-              </div>
-              <div className="lg:col-span-9">
-                <TagList items={project.stack} />
-              </div>
-            </section>
-          </div>
-        </article>
-
-        <nav aria-label="Next case study" className="bg-inv-bg text-inv-fg">
-          <Link
-            href={`/work/${next.slug}`}
-            className="shell group block py-16 md:py-24 [--ink-2:var(--inv-2)]"
+    <article>
+      <section id="top" data-tone="graphite" className="relative pb-16 pt-28 md:pb-24 md:pt-36">
+        <div className="shell">
+          <TLink
+            href="/#work"
+            label="Work"
+            className="mono-label hero-in group mb-10 inline-flex items-center gap-2 py-2 text-mute transition-colors hover:text-fg md:mb-16"
           >
-            <span className="eyebrow text-inv-2">Next case study</span>
-            <span className="font-display-tight mt-4 flex items-end justify-between gap-6 text-4xl md:text-7xl">
-              <span className="max-w-[20ch]">{next.title}</span>
-              <Arrow className="row-arrow mb-2 size-8 shrink-0 md:size-14" />
+            <ArrowLeft className="transition-transform duration-500 group-hover:-translate-x-1" />
+            All case studies
+          </TLink>
+
+          <p className="mono-label hero-in mb-6 text-mute" style={vars({ "--d": 1 })}>
+            <span className="text-fg tabular">{String(index + 1).padStart(2, "0")}</span>
+            <span className="mx-2">/</span>
+            <span className="tabular">{String(projects.length).padStart(2, "0")}</span>
+            <span className="mx-3">—</span>
+            {project.kicker}
+          </p>
+
+          <h1>
+            <RiseWords
+              text={project.title}
+              className="f-display block text-[clamp(3.1rem,10.5vw,9.5rem)]"
+              start={2}
+            />
+          </h1>
+
+          <dl
+            className="hero-in mono-label mt-14 grid grid-cols-2 gap-x-6 gap-y-8 border-t border-line-strong pt-5 md:mt-20 md:grid-cols-4"
+            style={vars({ "--d": 8 })}
+          >
+            {[
+              ["Role", project.role],
+              ["Context", project.context],
+              ["When", project.year],
+            ].map(([k, v]) => (
+              <div key={k}>
+                <dt className="text-mute">{k}</dt>
+                <dd className="mt-1 normal-case tracking-normal text-fg [font-family:var(--font-sans)] text-base">
+                  {v}
+                </dd>
+              </div>
+            ))}
+            {project.links.length > 0 ? (
+              <div>
+                <dt className="text-mute">Links</dt>
+                <dd className="mt-1 flex flex-col gap-1">
+                  {project.links.map((l) => (
+                    <a
+                      key={l.href}
+                      href={l.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mark-link inline-flex w-fit items-center gap-1 py-0.5"
+                    >
+                      {l.label} <ArrowUpRight />
+                    </a>
+                  ))}
+                </dd>
+              </div>
+            ) : null}
+          </dl>
+        </div>
+      </section>
+
+      <section data-tone="graphite" className="relative section-y pt-8 md:pt-16">
+        <div className="shell grid gap-16 md:gap-24">
+          <div className="grid gap-6 lg:grid-cols-12 lg:gap-8">
+            <div className="lg:col-span-3">
+              <Label n="01">Problem</Label>
+            </div>
+            <ScrollWords
+              text={project.problem}
+              className="f-head text-[clamp(1.9rem,4vw,3.75rem)] lg:col-span-9"
+            />
+          </div>
+          <div className="grid gap-6 lg:grid-cols-12 lg:gap-8" data-reveal>
+            <div className="lg:col-span-3">
+              <Label n="02">What I built</Label>
+            </div>
+            <p className="max-w-[56ch] text-xl lg:col-span-6 lg:col-start-4 lg:text-2xl">
+              {project.built}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section data-tone="bone" className="relative bg-base py-[clamp(4rem,9vw,8rem)] text-fg">
+        <div className="shell">
+          <div className="mb-10 flex items-end justify-between gap-6 md:mb-14">
+            <Label n="03">Architecture</Label>
+            <p className="mono-label hidden text-mute md:block">Hover a stage to inspect</p>
+          </div>
+          <Flow stages={project.pipeline} label={`${project.title}: architecture`} large />
+        </div>
+      </section>
+
+      <section data-tone="graphite" className="relative section-y">
+        <div className="shell">
+          <div className="mb-10 md:mb-16">
+            <Label n="04">Technical decisions</Label>
+          </div>
+          <ol className="border-t border-line-strong">
+            {project.decisions.map((d, i) => (
+              <li
+                key={d.title}
+                data-reveal
+                className="grid gap-6 border-b border-line-strong py-10 md:py-16 lg:grid-cols-12 lg:gap-10"
+              >
+                <div className="lg:col-span-6">
+                  <span className="f-display block text-6xl text-mute md:text-8xl">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h2 className="f-head mt-4 text-[clamp(1.9rem,3.8vw,3.5rem)]">{d.title}</h2>
+                </div>
+                <div className="lg:col-span-5 lg:col-start-8 lg:pt-4">
+                  <p className="text-lg">{d.body}</p>
+                  {d.rejected ? (
+                    <div className="mt-6 border-l-2 border-hi pl-4">
+                      <p className="mono-label text-hi">Rejected</p>
+                      <p className="mt-1 text-mute">{d.rejected}</p>
+                    </div>
+                  ) : null}
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section data-tone="hi" className="relative bg-base py-[clamp(4rem,9vw,8rem)] text-fg">
+        <div className="shell">
+          <div className="mb-10 md:mb-14">
+            <Label n="05">Impact</Label>
+          </div>
+          <ul className="grid gap-px border-t border-line-strong sm:grid-cols-2 lg:grid-cols-3">
+            {project.impact.map((m, i) => (
+              <li key={i} data-reveal style={vars({ "--d": i })} className="py-6 pr-6 md:py-8">
+                {m.value ? (
+                  <p className="f-display text-[clamp(4.5rem,11vw,9rem)]">
+                    <CountUp value={m.value} />
+                  </p>
+                ) : null}
+                <p className={`${m.value ? "mt-2" : "f-title text-2xl md:text-3xl"} max-w-[32ch]`}>
+                  {m.text}
+                </p>
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-14 border-t border-line-strong pt-5 md:mt-20">
+            <p className="mono-label text-mute">Stack</p>
+            <p className="f-head mt-3 text-[clamp(1.6rem,3.2vw,2.75rem)]">
+              {project.stack.join(" / ")}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <nav aria-label="Next case study" data-tone="bone" className="relative bg-base text-fg">
+        <TLink
+          href={`/work/${next.slug}`}
+          label={`Case ${nextN}`}
+          className="shell group block py-16 md:py-28"
+        >
+          <span className="mono-label text-mute">
+            Next case study <span className="mx-2">/</span> {nextN}
+          </span>
+          <span className="mt-6 flex items-end justify-between gap-8">
+            <span className="f-display max-w-[24ch] text-[clamp(2.25rem,6.6vw,6.25rem)] transition-transform duration-700 [transition-timing-function:var(--ease)] group-hover:translate-x-3">
+              {next.title}
             </span>
-          </Link>
-        </nav>
-      </main>
-      <SiteFooter />
-    </>
+            <span className="mb-2 grid size-14 shrink-0 place-items-center rounded-full bg-hi text-hi-ink transition-transform duration-500 [transition-timing-function:var(--ease)] group-hover:scale-110 md:size-24">
+              <ArrowRight className="size-6 md:size-8" />
+            </span>
+          </span>
+        </TLink>
+      </nav>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+      />
+    </article>
   )
 }

@@ -11,22 +11,43 @@ export default function OpengraphImage() {
         style={{
           width: "100%",
           height: "100%",
-          background: "#ecebe4",
-          color: "#151410",
+          background: "#0a0b0a",
+          color: "#e9e7df",
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          padding: 72,
+          padding: 64,
         }}
       >
-        <div style={{ display: "flex", fontSize: 26, letterSpacing: 2, color: "#4a483f" }}>
-          PASINDU LANKA — COLOMBO, LK
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            fontSize: 24,
+            letterSpacing: 3,
+            color: "#8f928a",
+          }}
+        >
+          <span>PASINDU LANKA</span>
+          <span>COLOMBO, LK / 6.9271° N 79.8612° E</span>
         </div>
-        <div style={{ display: "flex", fontSize: 250, fontFamily: "serif", lineHeight: 0.9, letterSpacing: -8 }}>
-          AI Engineer<span style={{ color: "#e2420f" }}>.</span>
+        <div
+          style={{
+            display: "flex",
+            fontSize: 250,
+            fontWeight: 900,
+            lineHeight: 0.85,
+            letterSpacing: -10,
+            textTransform: "uppercase",
+          }}
+        >
+          AI ENGINEER
         </div>
-        <div style={{ display: "flex", fontSize: 32, color: "#4a483f" }}>
-          LLM applications · agents · production systems on AWS
+        <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+          <div style={{ display: "flex", background: "#d9f24c", color: "#0a0b0a", padding: "10px 18px", fontSize: 26 }}>
+            LLM APPS / AGENTS / SYSTEMS
+          </div>
+          <div style={{ display: "flex", fontSize: 26, color: "#8f928a" }}>Production AI on AWS</div>
         </div>
       </div>
     ),

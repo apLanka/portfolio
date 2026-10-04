@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Pasindu Lanka — AI Engineer portfolio
 
-## Getting Started
-
-First, run the development server:
+Next.js 16 (App Router) · React 19 · Tailwind CSS 4 · TypeScript. No animation libraries.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev          # http://localhost:3000
+npm run build        # production build (fetches Archivo + JetBrains Mono at build time)
+npm run lint
+npm run check-types
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Design system — "Spec Sheet"
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Layer | Decision |
+| --- | --- |
+| Surfaces | Three tones switched with `data-tone`: graphite (default), bone, citron. Components read semantic tokens (`--base`, `--fg`, `--mute`, `--line`, `--hi`), so they work on every surface with no overrides. |
+| Marker colour | One flat citron (`#d9f24c`), used as a highlighter: fills, selection, active state. No gradients, glows or shadows. |
+| Type | Archivo on its **width** axis: `.f-display` (ultra-condensed black caps), `.f-head` (condensed bold), `.f-title` (semi-condensed). JetBrains Mono (`.mono-label`) for metadata. |
+| Layout | 12-column hairline grid, full-screen Index menu, desktop section rail. |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+All tokens and motion live in `src/app/globals.css`.
 
-## Learn More
+## Motion
 
-To learn more about Next.js, take a look at the following resources:
+- **Page transitions**: `components/motion/page-transition.tsx`. A curtain wipes over, the route changes underneath, the curtain exits. Use `TLink` instead of `next/link` for in-site navigation between pages.
+- **Enter animations**: `RevealObserver` toggles `data-in` on `[data-reveal]`, `[data-lines]`, `[data-draw]` and `.flow`; CSS does the rest.
+- **Scroll-driven**: parallax and the word-by-word paragraph reveal use CSS `animation-timeline` (progressive enhancement; static where unsupported).
+- **Hero figure**: `components/figures/agent-graph.tsx`, an agent loop that pauses off-screen.
+- Everything respects `prefers-reduced-motion` and works without JavaScript (content is server-rendered).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Content
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Edit content in `src/content/*` — never in components:
 
-## Deploy on Vercel
+- `profile.ts` — identity, about copy, stats, capabilities, section list
+- `projects.ts` — case studies (problem, build, pipeline, decisions, impact, stack, links)
+- `experience.ts`, `stack.ts`, `writing.ts`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Adding a project to `projects.ts` automatically creates its sheet on the home page, its `/work/[slug]` page, and its sitemap entry.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Structure
+
+```
+src/app/                 routes, metadata, OG image, icon, sitemap, robots
+src/components/sections  home page sections
+src/components/figures   agent graph, architecture flow
+src/components/motion    reveal observer, count-up, page transitions
+src/components/nav       header + menu, section rail, footer
+src/components/ui        text composition, icons, small primitives
+src/lib                  hooks
+```
