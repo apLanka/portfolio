@@ -1,6 +1,6 @@
 # Pasindu Lanka — AI Engineer portfolio
 
-Next.js 16 (App Router) · React 19 · Tailwind CSS 4 · TypeScript. No animation libraries.
+Next.js 16 (App Router) · React 19 · Tailwind CSS 4 · TypeScript. No animation libraries. Requires Node.js 24.x.
 
 ```bash
 npm run dev          # http://localhost:3000

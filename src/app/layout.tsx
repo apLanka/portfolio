@@ -46,6 +46,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: profile.name,
+    locale: "en_US",
     title: `${profile.name} — AI Engineer`,
     description: profile.description,
     url: profile.url,
@@ -56,7 +57,21 @@ export const metadata: Metadata = {
     title: `${profile.name} — AI Engineer`,
     description: profile.description,
   },
-  robots: { index: true, follow: true },
+  creator: profile.name,
+  publisher: profile.name,
+  category: "technology",
+  formatDetection: { email: false, address: false, telephone: false },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
 }
 
 export const viewport: Viewport = {
