@@ -1,57 +1,150 @@
-import dynamic from "next/dynamic"
+"use client"
+
 import Link from "next/link"
+import { useEffect, useState } from "react"
 
-import { NavDesktop } from "@/components/nav-desktop"
-import { SiteHeaderMark } from "@/components/site-header-mark"
-import { ThemeToggle } from "@/components/theme-toggle"
-import { MAIN_NAV, MOBILE_NAV } from "@/config/site"
-import { cn } from "@/lib/utils"
+const NAV = [
+  { id: "about", label: "About" },
+  { id: "work", label: "Work" },
+  { id: "stack", label: "Stack" },
+  { id: "experience", label: "Experience" },
+  { id: "writing", label: "Writing" },
+  { id: "contact", label: "Contact" },
+] as const
 
-const BrandContextMenu = dynamic(() =>
-  import("@/components/brand-context-menu").then((mod) => mod.BrandContextMenu)
-)
+export function SiteHeader({ home = true }: { home?: boolean }) {
+  const [active, setActive] = useState<string>("")
+  const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
 
-const NavMobile = dynamic(() =>
-  import("@/components/nav-mobile").then((mod) => mod.NavMobile)
-)
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24)
+    onScroll()
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => window.removeEventListener("scroll", onScroll)
+  }, [])
 
-export function SiteHeader() {
+  useEffect(() => {
+    if (!home) return
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) if (e.isIntersecting) setActive(e.target.id)
+      },
+      { rootMargin: "-45% 0px -50% 0px" },
+    )
+    NAV.forEach(({ id }) => {
+      const el = document.getElementById(id)
+      if (el) io.observe(el)
+    })
+    return () => io.disconnect()
+  }, [home])
+
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : ""
+    if (!open) return
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false)
+    window.addEventListener("keydown", onKey)
+    return () => {
+      window.removeEventListener("keydown", onKey)
+      document.body.style.overflow = ""
+    }
+  }, [open])
+
+  const href = (id: string) => (home ? `#${id}` : `/#${id}`)
+
   return (
-    <>
-      <header className="sticky top-0 z-50 max-w-screen overflow-x-hidden bg-background px-2 pt-2">
-        <div className="screen-line-top screen-line-bottom mx-auto flex h-12 items-center justify-between gap-2 border-x border-line px-2 group-has-data-[slot=layout-wide]/layout:container after:z-1 after:transition-[background-color] sm:gap-4 md:max-w-3xl">
-          <BrandContextMenu>
-            <Link
-              className="transition-[scale] ease-out active:scale-[0.98] has-data-[visible=false]:pointer-events-none [&_img]:h-5 [&_img]:w-auto [&_img]:max-w-none [&_img]:shrink-0 [&_img]:sm:h-6 [&_svg]:h-5 [&_svg]:w-auto [&_svg]:shrink-0 [&_svg]:sm:h-6"
-              href="/"
-              aria-label="Home"
-            >
-              <SiteHeaderMark />
-            </Link>
-          </BrandContextMenu>
+    <header
+      className={`fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300 ${
+        scrolled || open
+          ? "border-rule bg-paper"
+          : "border-transparent bg-transparent"
+      }`}
+    >
+      <div className="shell flex h-16 items-center justify-between">
+        <Link
+          href="/"
+          onClick={() => setOpen(false)}
+          className="eyebrow flex items-center gap-2 text-ink"
+          aria-label="Pasindu Lanka — home"
+        >
+          <span aria-hidden className="size-2 bg-signal" />
+          pasindu.lanka
+        </Link>
 
-          <div className="flex-1" />
+        <nav aria-label="Primary" className="hidden md:block">
+          <ul className="flex items-center gap-8">
+            {NAV.map(({ id, label }) => (
+              <li key={id}>
+                <Link
+                  href={href(id)}
+                  aria-current={active === id ? "true" : undefined}
+                  className={`eyebrow relative py-2 transition-colors hover:text-ink ${
+                    active === id ? "text-ink" : "text-ink-2"
+                  }`}
+                >
+                  {label}
+                  <span
+                    aria-hidden
+                    className={`absolute inset-x-0 -bottom-px h-px origin-left bg-signal transition-transform duration-500 ${
+                      active === id ? "scale-x-100" : "scale-x-0"
+                    }`}
+                  />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-          <NavDesktop items={MAIN_NAV} />
-
-          <div className="flex items-center">
-            <ThemeToggle />
-          </div>
-
-          <div className="absolute top-[-3.5px] left-[-4.5px] z-2 flex size-2 border border-line bg-background" />
-          <div className="absolute top-[-3.5px] right-[-4.5px] z-2 flex size-2 border border-line bg-background" />
-        </div>
-      </header>
-
-      {/* Nav Mobile */}
-      <div className="pointer-events-none fixed inset-x-0 bottom-0 z-50 h-[calc(--spacing(24)+env(safe-area-inset-bottom,0px))] bg-linear-to-b from-transparent from-[calc(env(safe-area-inset-bottom,0%))] to-background mask-linear-[to_top,var(--background)_25%,transparent] backdrop-blur-[1px] sm:hidden" />
-      <div
-        className={cn(
-          "fixed bottom-[calc(--spacing(2)+env(safe-area-inset-bottom,0px))] left-1/2 z-50 flex w-fit -translate-x-1/2 items-center rounded-xl bg-popover py-1 pr-1 pl-2.5 shadow-md ring ring-foreground/10 sm:hidden dark:ring-foreground/20"
-        )}
-      >
-        <NavMobile items={MOBILE_NAV} />
+        <button
+          type="button"
+          className="eyebrow -mr-2 flex h-11 items-center gap-3 px-2 md:hidden"
+          aria-expanded={open}
+          aria-controls="mobile-menu"
+          onClick={() => setOpen((v) => !v)}
+        >
+          {open ? "Close" : "Menu"}
+          <span aria-hidden className="relative block h-2.5 w-5">
+            <span
+              className={`absolute left-0 h-px w-full bg-current transition-all duration-300 ${
+                open ? "top-1 rotate-45" : "top-0"
+              }`}
+            />
+            <span
+              className={`absolute left-0 h-px w-full bg-current transition-all duration-300 ${
+                open ? "top-1 -rotate-45" : "top-2.5"
+              }`}
+            />
+          </span>
+        </button>
       </div>
-    </>
+
+      <div
+        id="mobile-menu"
+        hidden={!open}
+        className="fixed inset-x-0 top-16 h-[calc(100dvh-4rem)] overflow-y-auto bg-paper md:hidden"
+      >
+        <nav aria-label="Mobile" className="shell flex h-full flex-col pb-10 pt-6">
+          <ul>
+            {NAV.map(({ id, label }, i) => (
+              <li key={id} className="border-b border-rule">
+                <Link
+                  href={href(id)}
+                  onClick={() => setOpen(false)}
+                  className="flex items-baseline gap-4 py-4"
+                >
+                  <span className="eyebrow w-6 text-signal-ink">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="font-display-tight text-[2.6rem]">{label}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <p className="eyebrow mt-auto pt-10 text-ink-2">
+            AI Engineer · Colombo, LK
+          </p>
+        </nav>
+      </div>
+    </header>
   )
 }

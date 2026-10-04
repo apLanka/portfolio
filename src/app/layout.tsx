@@ -1,148 +1,81 @@
-import "@/styles/globals.css"
+import "./globals.css"
 
-import { GoogleTagManager } from "@next/third-parties/google"
 import type { Metadata, Viewport } from "next"
-import Script from "next/script"
-import { NuqsAdapter } from "nuqs/adapters/next/app"
-import type { WebSite, WithContext } from "schema-dts"
+import { GeistMono } from "geist/font/mono"
+import { GeistSans } from "geist/font/sans"
+import { Instrument_Serif } from "next/font/google"
 
-import { DuckFollower } from "@/components/duck-follower"
-import { Providers } from "@/components/providers"
-import { META_THEME_COLORS, SITE_INFO, X_HANDLE } from "@/config/site"
-import { USER } from "@/features/portfolio/data/user"
-import { fontVariables } from "@/lib/fonts"
+import { RevealObserver } from "@/components/ui/reveal-observer"
+import { profile } from "@/content/profile"
 
-function getWebSiteJsonLd(): WithContext<WebSite> {
-  return {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: SITE_INFO.name,
-    url: SITE_INFO.url,
-    alternateName: [USER.username],
-  }
-}
-
-// Thanks @shadcn-ui, @tailwindcss
-const darkModeScript = String.raw`
-  try {
-    if (localStorage.theme === 'dark' || ((!('theme' in localStorage) || localStorage.theme === 'system') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      document.querySelector('meta[name="theme-color"]').setAttribute('content', '${META_THEME_COLORS.dark}')
-    }
-  } catch (_) {}
-
-  try {
-    if (/(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)) {
-      document.documentElement.classList.add('os-macos')
-    }
-  } catch (_) {}
-`
+const instrument = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-instrument",
+  display: "swap",
+})
 
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE_INFO.url),
+  metadataBase: new URL(profile.url),
   title: {
-    template: `%s – ${SITE_INFO.name}`,
-    default: `${USER.displayName} – ${USER.jobTitle}`,
+    default: `${profile.name} — AI Engineer`,
+    template: `%s — ${profile.name}`,
   },
-  description: SITE_INFO.description,
-  keywords: SITE_INFO.keywords,
-  authors: [
-    {
-      name: USER.displayName,
-      url: SITE_INFO.url,
-    },
+  description: profile.description,
+  keywords: [
+    "AI engineer",
+    "generative AI",
+    "LLM applications",
+    "AI agents",
+    "agentic systems",
+    "RAG",
+    "LangGraph",
+    "distributed systems",
+    "AWS",
+    "Pasindu Lanka",
   ],
-  creator: USER.username,
+  authors: [{ name: profile.name, url: profile.url }],
+  alternates: { canonical: "/" },
   openGraph: {
-    siteName: SITE_INFO.name,
-    url: "/",
-    type: "profile",
-    locale: "en_US",
-    firstName: USER.firstName,
-    lastName: USER.lastName,
-    username: USER.username,
-    gender: USER.gender,
-    images: [
-      {
-        url: SITE_INFO.ogImage,
-        width: 1200,
-        height: 630,
-        alt: SITE_INFO.name,
-      },
-    ],
+    type: "website",
+    siteName: profile.name,
+    title: `${profile.name} — AI Engineer`,
+    description: profile.description,
+    url: profile.url,
   },
   twitter: {
     card: "summary_large_image",
-    site: X_HANDLE,
-    creator: X_HANDLE,
-    images: [SITE_INFO.ogImage],
+    creator: "@lankaaDev",
+    title: `${profile.name} — AI Engineer`,
+    description: profile.description,
   },
-  icons: {
-    icon: [
-      { url: "/favicon/favicon.ico", sizes: "any" },
-      {
-        url: "/favicon/favicon-16x16.png",
-        sizes: "16x16",
-        type: "image/png",
-      },
-      {
-        url: "/favicon/favicon-32x32.png",
-        sizes: "32x32",
-        type: "image/png",
-      },
-    ],
-    apple: [
-      {
-        url: "/favicon/apple-touch-icon.png",
-        sizes: "180x180",
-        type: "image/png",
-      },
-    ],
-  },
+  robots: { index: true, follow: true },
 }
 
 export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  viewportFit: "cover",
-  themeColor: META_THEME_COLORS.light,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ecebe4" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f0f0d" },
+  ],
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={fontVariables} suppressHydrationWarning>
-      <head>
-        <script
-          type="text/javascript"
-          dangerouslySetInnerHTML={{ __html: darkModeScript }}
-        />
-        {/*
-          Thanks @tailwindcss. We inject the script via the `<Script/>` tag again,
-          since we found the regular `<script>` tag to not execute when rendering a not-found page.
-         */}
-        <Script src={`data:text/javascript;base64,${btoa(darkModeScript)}`} />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(getWebSiteJsonLd()).replace(/</g, "\\u003c"),
-          }}
-        />
-      </head>
-
-      {process.env.NEXT_PUBLIC_GTM_ID && (
-        <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID} />
-      )}
-
-      <body>
-        <Providers>
-          <NuqsAdapter>
-            {children}
-            <DuckFollower />
-          </NuqsAdapter>
-        </Providers>
+    <html
+      lang="en"
+      className={`${GeistSans.variable} ${GeistMono.variable} ${instrument.variable}`}
+    >
+      <body className="grain">
+        <a
+          href="#main"
+          className="eyebrow fixed left-4 top-4 z-[70] -translate-y-24 bg-ink px-3 py-2 text-paper focus:translate-y-0"
+        >
+          Skip to content
+        </a>
+        <div className="progress" aria-hidden />
+        {children}
+        <RevealObserver />
       </body>
     </html>
   )

@@ -1,0 +1,6 @@
+# Pasindu Lanka
+> AI Engineer building LLM applications, AI agents and agentic workflows, with 3+ years of production distributed-systems experience on AWS (100K+ users).
+
+- [Home](https://www.pasindulanka.me/): positioning, selected work, stack, experience, contact
+- [Case studies](https://www.pasindulanka.me/work/llm-without-lock-in): LLM integration, AI cost control, human-in-the-loop review, Wallflox, real-time platform, Reliable Queue
+- Contact: pasindulankaa@gmail.com
