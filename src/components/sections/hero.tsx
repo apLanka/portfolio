@@ -1,5 +1,4 @@
 import { AgentGraph } from "@/components/figures/agent-graph"
-import { CountUp } from "@/components/motion/count-up"
 import { ArrowRight } from "@/components/ui/icons"
 import { vars } from "@/components/ui/text"
 import { profile } from "@/content/profile"
@@ -71,25 +70,6 @@ export function Hero() {
             <AgentGraph />
           </div>
         </div>
-      </div>
-
-      <div className="shell">
-        <dl
-          className="hero-in grid grid-cols-2 border-t border-line-strong md:grid-cols-4"
-          style={vars({ "--d": 7 })}
-        >
-          {profile.stats.map((s, i) => (
-            <div
-              key={s.label}
-              className={`py-5 pr-4 ${i % 2 === 1 ? "pl-4 md:pl-0" : ""} ${i > 1 ? "border-t border-line md:border-t-0" : ""}`}
-            >
-              <dd className="f-head text-4xl sm:text-5xl">
-                <CountUp value={s.value} />
-              </dd>
-              <dt className="mono-label mt-2 max-w-[22ch] text-mute">{s.label}</dt>
-            </div>
-          ))}
-        </dl>
       </div>
     </section>
   )
