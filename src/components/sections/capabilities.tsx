@@ -22,7 +22,7 @@ export function Capabilities() {
               className="cap border-b border-line-strong"
             >
               <span className="cap-fill" aria-hidden />
-              <div className="cap-inner grid gap-x-8 gap-y-4 py-8 md:grid-cols-12 md:py-10">
+              <div className="cap-inner grid grid-cols-1 gap-x-8 gap-y-4 py-8 md:grid-cols-12 md:py-10">
                 <span className="mono-label tabular text-mute md:col-span-1 md:pt-3">
                   {String(i + 1).padStart(2, "0")}
                 </span>

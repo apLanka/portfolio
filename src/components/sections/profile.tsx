@@ -10,7 +10,7 @@ export function Profile() {
       <div className="shell">
         <SectionHead index="01" label="Profile" lines={["Who is", "behind it"]} />
 
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-8">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8">
           <figure className="lg:col-span-3" data-reveal>
             <div className="group relative aspect-[4/5] w-full max-w-[18rem] overflow-hidden bg-raised lg:max-w-none">
               <Image

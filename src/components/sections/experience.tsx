@@ -9,21 +9,21 @@ function Rule({ strong = false }: { strong?: boolean }) {
 function Tags({ tags }: { tags?: string[] }) {
   if (!tags?.length) return null
   return (
-    <p className="mono-label mt-6 text-mute">
+    <ul className="mono-label mt-6 flex flex-wrap gap-x-2 text-mute">
       {tags.map((t, i) => (
-        <span key={t}>
-          {i > 0 ? <span className="mx-2">/</span> : null}
+        <li key={t}>
+          {i > 0 ? <span className="mr-2">/</span> : null}
           {t}
-        </span>
+        </li>
       ))}
-    </p>
+    </ul>
   )
 }
 
 function Focus({ entry }: { entry: TimelineEntry }) {
   return (
     <article data-reveal className="mb-6 bg-base p-6 text-fg md:mb-10 md:p-10" data-tone="hi">
-      <div className="grid gap-6 md:grid-cols-12 md:gap-8">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-8">
         <p className="mono-label flex items-center gap-3 md:col-span-3">
           <span className="pulse relative block size-2 bg-fg" aria-hidden />
           {entry.period} — Current focus
@@ -42,7 +42,7 @@ function Role({ entry, delay }: { entry: TimelineEntry; delay: number }) {
   return (
     <article className="relative" style={vars({ "--d": delay })}>
       <Rule />
-      <div className="grid gap-5 py-8 md:grid-cols-12 md:gap-8 md:py-12">
+      <div className="grid grid-cols-1 gap-5 py-8 md:grid-cols-12 md:gap-8 md:py-12">
         <p className="mono-label tabular text-mute md:col-span-3">{entry.period}</p>
         <div className="md:col-span-9">
           <h3 className="f-head text-[clamp(2rem,4.4vw,4rem)]">{entry.title}</h3>
@@ -51,7 +51,7 @@ function Role({ entry, delay }: { entry: TimelineEntry; delay: number }) {
           {entry.points ? (
             <ul className="mt-8 max-w-[62ch] space-y-4 text-mute">
               {entry.points.map((p) => (
-                <li key={p} className="grid grid-cols-[1.5rem_1fr]" data-reveal>
+                <li key={p} className="grid grid-cols-[1.5rem_minmax(0,1fr)]" data-reveal>
                   <span className="mono-label pt-1 text-fg" aria-hidden>
                     →
                   </span>
@@ -83,7 +83,7 @@ export function Experience() {
         ))}
 
         <Rule />
-        <div className="grid gap-px md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-px md:grid-cols-2">
           {other.map((o) => (
             <article key={o.id} data-reveal className="py-8 md:py-12 md:pr-10">
               <p className="mono-label tabular text-mute">
@@ -92,6 +92,16 @@ export function Experience() {
               <h3 className="f-title mt-4 text-2xl md:text-3xl">{o.title}</h3>
               <p className="mono-label mt-2 text-mute">{o.org}</p>
               <p className="mt-4 max-w-[46ch] text-mute">{o.summary}</p>
+              {o.verifyUrl ? (
+                <a
+                  href={o.verifyUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mono-label mt-6 inline-block underline underline-offset-4"
+                >
+                  Verify credential ↗
+                </a>
+              ) : null}
             </article>
           ))}
         </div>

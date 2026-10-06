@@ -11,7 +11,7 @@ export function SiteFooter() {
         <p>
           {profile.location} <span className="mx-2">/</span> <LocalTime timeZone={profile.timeZone} />
         </p>
-        <a href="#top" className="mark-link w-fit py-1 text-fg">
+        <a href="#top" className="mark-link w-fit py-3 text-fg">
           Back to top ↑
         </a>
       </div>

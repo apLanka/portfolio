@@ -1,5 +1,4 @@
-import { AgentGraph } from "@/components/figures/agent-graph"
-import { CountUp } from "@/components/motion/count-up"
+import { TokenSampler } from "@/components/figures/token-sampler"
 import { ArrowRight } from "@/components/ui/icons"
 import { vars } from "@/components/ui/text"
 import { profile } from "@/content/profile"
@@ -50,7 +49,7 @@ export function Hero() {
         </h1>
       </div>
 
-      <div className="shell grid gap-12 lg:grid-cols-12 lg:items-end">
+      <div className="shell grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-end">
         <div className="hero-in lg:col-span-5" style={vars({ "--d": 3 })}>
           <p className="max-w-[34ch] text-xl leading-snug sm:text-2xl">
             I build AI-powered software and the production systems underneath it: LLM applications,
@@ -61,35 +60,16 @@ export function Hero() {
               Selected work
               <ArrowRight className="rotate-90" />
             </a>
-            <a href="#contact" className="mark-link mono-label py-2">
+            <a href="#contact" className="mark-link mono-label py-3">
               Get in touch
             </a>
           </div>
         </div>
         <div className="px-down lg:col-span-7">
           <div className="hero-in" style={vars({ "--d": 5 })}>
-            <AgentGraph />
+            <TokenSampler />
           </div>
         </div>
-      </div>
-
-      <div className="shell">
-        <dl
-          className="hero-in grid grid-cols-2 border-t border-line-strong md:grid-cols-4"
-          style={vars({ "--d": 7 })}
-        >
-          {profile.stats.map((s, i) => (
-            <div
-              key={s.label}
-              className={`py-5 pr-4 ${i % 2 === 1 ? "pl-4 md:pl-0" : ""} ${i > 1 ? "border-t border-line md:border-t-0" : ""}`}
-            >
-              <dd className="f-head text-4xl sm:text-5xl">
-                <CountUp value={s.value} />
-              </dd>
-              <dt className="mono-label mt-2 max-w-[22ch] text-mute">{s.label}</dt>
-            </div>
-          ))}
-        </dl>
       </div>
     </section>
   )

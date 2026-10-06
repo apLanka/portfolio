@@ -94,7 +94,7 @@ export function SiteHeader() {
             aria-expanded={open}
             aria-controls="site-menu"
             onClick={() => setOpen((o) => !o)}
-            className="group -mr-2 flex items-center gap-3 px-2 py-2 text-fg"
+            className="group -mr-2 flex min-h-11 items-center gap-3 px-2 py-2 text-fg"
           >
             <span className="relative block h-3 w-5" aria-hidden>
               <span
@@ -132,14 +132,14 @@ export function SiteHeader() {
                     href={`/#${s.id}`}
                     label={s.label}
                     onClick={close}
-                    className="menu-link flex items-center gap-5 py-[0.5vh] md:gap-10"
+                    className="menu-link flex items-center gap-5 py-[0.5svh] md:gap-10"
                   >
                     <span className="mono-label w-8 shrink-0 tabular">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <span className="ln">
                       <span style={vars({ "--i": i })}>
-                        <span className="menu-name f-display block text-[clamp(2.4rem,8.2vh,6.5rem)]">
+                        <span className="menu-name f-display block text-[clamp(2.4rem,8.2svh,6.5rem)]">
                           {s.label}
                         </span>
                       </span>
@@ -153,7 +153,7 @@ export function SiteHeader() {
           <div className="mono-label grid grid-cols-2 gap-x-6 gap-y-6 md:grid-cols-4">
             <div className="col-span-2">
               <p className="text-mute">Write to me</p>
-              <a href={`mailto:${profile.email}`} className="mark-link mt-1 inline-block py-1">
+              <a href={`mailto:${profile.email}`} className="mark-link mt-1 inline-block py-2">
                 {profile.email}
               </a>
             </div>
@@ -164,7 +164,7 @@ export function SiteHeader() {
                   href={l.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mark-link mt-1 inline-block py-1"
+                  className="mark-link mt-1 inline-block py-2"
                 >
                   {l.handle}
                 </a>
