@@ -132,14 +132,14 @@ export function SiteHeader() {
                     href={`/#${s.id}`}
                     label={s.label}
                     onClick={close}
-                    className="menu-link flex items-center gap-5 py-[0.5vh] md:gap-10"
+                    className="menu-link flex items-center gap-5 py-[0.5svh] md:gap-10"
                   >
                     <span className="mono-label w-8 shrink-0 tabular">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <span className="ln">
                       <span style={vars({ "--i": i })}>
-                        <span className="menu-name f-display block text-[clamp(2.4rem,8.2vh,6.5rem)]">
+                        <span className="menu-name f-display block text-[clamp(2.4rem,8.2svh,6.5rem)]">
                           {s.label}
                         </span>
                       </span>
