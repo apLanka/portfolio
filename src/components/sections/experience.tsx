@@ -92,6 +92,16 @@ export function Experience() {
               <h3 className="f-title mt-4 text-2xl md:text-3xl">{o.title}</h3>
               <p className="mono-label mt-2 text-mute">{o.org}</p>
               <p className="mt-4 max-w-[46ch] text-mute">{o.summary}</p>
+              {o.verifyUrl ? (
+                <a
+                  href={o.verifyUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mono-label mt-6 inline-block underline underline-offset-4"
+                >
+                  Verify credential ↗
+                </a>
+              ) : null}
             </article>
           ))}
         </div>

@@ -20,9 +20,10 @@ export function Contact() {
         <div className="mt-14 md:mt-20" data-reveal style={vars({ "--d": 1 })}>
           <a
             href={`mailto:${profile.email}`}
-            className="mark-link f-display inline-block text-[clamp(2.1rem,8.4vw,9rem)] normal-case leading-[1] [overflow-wrap:anywhere]"
+            className="mark-link f-display inline-block text-[clamp(2rem,7vw,7.5rem)] normal-case leading-[1]"
           >
-            {profile.email}
+            {profile.email.split("@")[0]}
+            <wbr />@{profile.email.split("@")[1]}
           </a>
           <div className="mt-8">
             <CopyEmail email={profile.email} />

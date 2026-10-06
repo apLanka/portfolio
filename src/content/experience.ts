@@ -7,6 +7,7 @@ export interface TimelineEntry {
   summary: string
   points?: string[]
   tags?: string[]
+  verifyUrl?: string
 }
 
 export const timeline: TimelineEntry[] = [
@@ -55,11 +56,12 @@ export const timeline: TimelineEntry[] = [
       "Distributed Systems, Software Architecture, Application Frameworks, Data Structures & Algorithms.",
   },
   {
-    id: "aws",
-    period: "In progress",
-    title: "AWS Solutions Architect — Associate",
-    org: "Amazon Web Services",
+    id: "azure-ai",
+    period: "Certified",
+    title: "Azure AI Apps and Agents Developer Associate",
+    org: "Microsoft",
     kind: "credential",
-    summary: "Certification underway.",
+    summary: "Building AI applications and agents on Azure.",
+    verifyUrl: "https://learn.microsoft.com/en-gb/users/aplanka/credentials/8fb730fde6244178",
   },
 ]
