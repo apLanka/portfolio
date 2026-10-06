@@ -1,4 +1,4 @@
-import { AgentGraph } from "@/components/figures/agent-graph"
+import { TokenSampler } from "@/components/figures/token-sampler"
 import { ArrowRight } from "@/components/ui/icons"
 import { vars } from "@/components/ui/text"
 import { profile } from "@/content/profile"
@@ -67,7 +67,7 @@ export function Hero() {
         </div>
         <div className="px-down lg:col-span-7">
           <div className="hero-in" style={vars({ "--d": 5 })}>
-            <AgentGraph />
+            <TokenSampler />
           </div>
         </div>
       </div>
