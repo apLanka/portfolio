@@ -9,14 +9,14 @@ function Rule({ strong = false }: { strong?: boolean }) {
 function Tags({ tags }: { tags?: string[] }) {
   if (!tags?.length) return null
   return (
-    <p className="mono-label mt-6 text-mute">
+    <ul className="mono-label mt-6 flex flex-wrap gap-x-2 text-mute">
       {tags.map((t, i) => (
-        <span key={t}>
-          {i > 0 ? <span className="mx-2">/</span> : null}
+        <li key={t}>
+          {i > 0 ? <span className="mr-2">/</span> : null}
           {t}
-        </span>
+        </li>
       ))}
-    </p>
+    </ul>
   )
 }
 
