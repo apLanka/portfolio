@@ -799,3 +799,68 @@
     opacity: 0;
   }
 }
+
+/* ── Custom cursor (fine pointers only; enabled by JS) ──────── */
+/* The system pointer stays visible; this follower trails it. */
+.cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 200;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.cursor[data-shown] {
+  opacity: 1;
+}
+.cursor[data-mode="hidden"],
+.cursor[data-mode="dot"] {
+  opacity: 0;
+}
+.cursor-body {
+  display: grid;
+  place-items: center;
+  width: 0.9rem;
+  height: 0.9rem;
+  margin: -0.45rem 0 0 -0.45rem;
+  border-radius: 9999px;
+  background: #fff;
+  mix-blend-mode: difference;
+  transition:
+    width 0.35s var(--ease),
+    height 0.35s var(--ease),
+    margin 0.35s var(--ease),
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    scale 0.2s ease;
+}
+.cursor[data-mode="ring"] .cursor-body {
+  width: 2.75rem;
+  height: 2.75rem;
+  margin: -1.375rem 0 0 -1.375rem;
+  background: transparent;
+  border: 1px solid #fff;
+}
+.cursor[data-mode="label"] .cursor-body {
+  width: 4.75rem;
+  height: 4.75rem;
+  margin: -2.375rem 0 0 -2.375rem;
+  background: var(--hi);
+  mix-blend-mode: normal;
+}
+.cursor[data-down] .cursor-body {
+  scale: 0.8;
+}
+.cursor-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--hi-ink);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.cursor[data-mode="label"] .cursor-label {
+  opacity: 1;
+}

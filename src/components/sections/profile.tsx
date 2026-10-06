@@ -12,7 +12,7 @@ export function Profile() {
 
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8">
           <figure className="lg:col-span-3" data-reveal>
-            <div className="group relative aspect-[4/5] w-full max-w-[18rem] overflow-hidden bg-raised lg:max-w-none">
+            <div data-cursor="Hi" className="group relative aspect-[4/5] w-full max-w-[18rem] overflow-hidden bg-raised lg:max-w-none">
               <Image
                 src="/brand/avatar.png"
                 alt="Portrait of Pasindu Lanka"

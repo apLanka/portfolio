@@ -93,6 +93,7 @@ export function SiteHeader() {
             type="button"
             aria-expanded={open}
             aria-controls="site-menu"
+            data-cursor={open ? "Close" : "Menu"}
             onClick={() => setOpen((o) => !o)}
             className="group -mr-2 flex min-h-11 items-center gap-3 px-2 py-2 text-fg"
           >

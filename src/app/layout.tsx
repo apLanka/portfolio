@@ -3,6 +3,7 @@ import "./globals.css"
 import type { Metadata, Viewport } from "next"
 import { Archivo, JetBrains_Mono } from "next/font/google"
 
+import { Cursor } from "@/components/ui/cursor"
 import { RevealObserver } from "@/components/motion/reveal-observer"
 import { PageTransitionProvider } from "@/components/motion/page-transition"
 import { SiteFooter } from "@/components/nav/site-footer"
@@ -102,6 +103,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </PageTransitionProvider>
         <RevealObserver />
+        <Cursor />
       </body>
     </html>
   )
