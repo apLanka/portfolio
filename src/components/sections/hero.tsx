@@ -61,7 +61,7 @@ export function Hero() {
               Selected work
               <ArrowRight className="rotate-90" />
             </a>
-            <a href="#contact" className="mark-link mono-label py-2">
+            <a href="#contact" className="mark-link mono-label py-3">
               Get in touch
             </a>
           </div>
