@@ -502,15 +502,16 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   pointer-events: none;
-  transform: translate3d(var(--x, 0px), var(--y, 0px), 0) scale(0);
-  transition: transform 0.28s var(--ease-io);
+  will-change: transform;
+  scale: 0;
+  transition: scale 0.3s var(--ease);
 }
 @media (hover: hover) and (pointer: fine) {
   .follow-dot {
     display: grid;
   }
   .follow:hover .follow-dot {
-    transform: translate3d(var(--x, 0px), var(--y, 0px), 0) scale(1);
+    scale: 1;
   }
 }
 .sheet-title a::after {
