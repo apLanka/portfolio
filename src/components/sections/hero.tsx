@@ -50,7 +50,7 @@ export function Hero() {
         </h1>
       </div>
 
-      <div className="shell grid gap-12 lg:grid-cols-12 lg:items-end">
+      <div className="shell grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-end">
         <div className="hero-in lg:col-span-5" style={vars({ "--d": 3 })}>
           <p className="max-w-[34ch] text-xl leading-snug sm:text-2xl">
             I build AI-powered software and the production systems underneath it: LLM applications,

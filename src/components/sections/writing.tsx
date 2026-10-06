@@ -25,7 +25,7 @@ export function Writing() {
                 href={p.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="grid gap-x-8 gap-y-3 py-7 md:grid-cols-12 md:py-9"
+                className="grid grid-cols-1 gap-x-8 gap-y-3 py-7 md:grid-cols-12 md:py-9"
               >
                 <span className="mono-label tabular text-mute md:col-span-2 md:pt-2">{p.date}</span>
                 <span className="md:col-span-9">

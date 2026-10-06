@@ -152,8 +152,8 @@ export default async function CaseStudyPage({ params }: PageProps) {
       </section>
 
       <section data-tone="graphite" className="relative section-y pt-8 md:pt-16">
-        <div className="shell grid gap-16 md:gap-24">
-          <div className="grid gap-6 lg:grid-cols-12 lg:gap-8">
+        <div className="shell grid grid-cols-1 gap-16 md:gap-24">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8">
             <div className="lg:col-span-3">
               <Label n="01">Problem</Label>
             </div>
@@ -162,7 +162,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
               className="f-head text-[clamp(1.9rem,4vw,3.75rem)] lg:col-span-9"
             />
           </div>
-          <div className="grid gap-6 lg:grid-cols-12 lg:gap-8" data-reveal>
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8" data-reveal>
             <div className="lg:col-span-3">
               <Label n="02">What I built</Label>
             </div>
@@ -193,7 +193,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
               <li
                 key={d.title}
                 data-reveal
-                className="grid gap-6 border-b border-line-strong py-10 md:py-16 lg:grid-cols-12 lg:gap-10"
+                className="grid grid-cols-1 gap-6 border-b border-line-strong py-10 md:py-16 lg:grid-cols-12 lg:gap-10"
               >
                 <div className="lg:col-span-6">
                   <span className="f-display block text-6xl text-mute md:text-8xl">
@@ -221,7 +221,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
           <div className="mb-10 md:mb-14">
             <Label n="05">Impact</Label>
           </div>
-          <ul className="grid gap-px border-t border-line-strong sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="grid grid-cols-1 gap-px border-t border-line-strong sm:grid-cols-2 lg:grid-cols-3">
             {project.impact.map((m, i) => (
               <li key={i} data-reveal style={vars({ "--d": i })} className="py-6 pr-6 md:py-8">
                 {m.value ? (

@@ -29,7 +29,7 @@ function Sheet({ project, index, total }: { project: Project; index: number; tot
           </span>
         </div>
 
-        <div className="mt-6 grid gap-8 lg:mt-7 lg:grid-cols-12 lg:gap-10">
+        <div className="mt-6 grid grid-cols-1 gap-8 lg:mt-7 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-8">
             <h3 className="sheet-title f-head text-[clamp(2.25rem,5vw,4.75rem)]">
               <TLink href={`/work/${project.slug}`} label={`Case ${n}`}>

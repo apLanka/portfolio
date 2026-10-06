@@ -14,7 +14,7 @@ export function Stack() {
           {stack.map((g, gi) => (
             <div
               key={g.id}
-              className="grid gap-4 border-t border-line-strong py-8 md:grid-cols-12 md:gap-8 md:py-12"
+              className="grid grid-cols-1 gap-4 border-t border-line-strong py-8 md:grid-cols-12 md:gap-8 md:py-12"
             >
               <div className="md:col-span-3">
                 <p className="mono-label tabular">

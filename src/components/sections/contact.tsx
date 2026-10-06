@@ -10,7 +10,7 @@ export function Contact() {
       <div className="shell">
         <SectionHead index="07" label="Contact" lines={["Let's", "talk"]} />
 
-        <div className="grid gap-10 lg:grid-cols-12">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
           <p className="f-head text-[clamp(1.75rem,3.6vw,3.25rem)] lg:col-span-7" data-reveal>
             Building something where the AI part has to work in production? I am glad to talk about
             roles, projects and hard systems problems.
